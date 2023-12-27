@@ -9,5 +9,13 @@
 
 .dark .fi-sidebar {
     background: #18181B;
-    border-right: 1px solid #2F2F31;
+    border-right: 1px solid #ff6d2c;
+}
+
+.dark .fi-topbar {
+    border-bottom: 1px solid #ff6d2c;
+}
+
+.dark .fi-sidebar-nav {
+    border-top: 1px solid #ff6d2c !important;
 }
