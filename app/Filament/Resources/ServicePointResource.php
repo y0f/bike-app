@@ -24,6 +24,8 @@ class ServicePointResource extends Resource
 
     protected static ?string $navigationLabel = 'Servicepunt';
 
+    protected static ?string $label = 'Servicepunt';
+
     protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form
