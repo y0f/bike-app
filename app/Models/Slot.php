@@ -36,7 +36,7 @@ class Slot extends Model
     public function formattedTime(): Attribute
     {
         return Attribute::make(
-            get: fn ($value, array $attributes) => 
+            get: fn ($value, array $attributes) =>
                 Carbon::parse($attributes['start'])->format('H:i') . ' - ' .
                 Carbon::parse($attributes['end'])->format('H:i')
         );

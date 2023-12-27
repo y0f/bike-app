@@ -11,16 +11,13 @@ use Filament\Tables\Table;
 use App\Enums\LoanBikeStatus;
 use Filament\Resources\Resource;
 use Illuminate\Database\QueryException;
-use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\LoanBikeResource\Pages;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\BikeResource\RelationManagers;
 
 class LoanBikeResource extends Resource
 {
     protected static ?string $model = LoanBike::class;
 
-    protected static ?string $navigationIcon = 'icon-loan-bike';
+    protected static ?string $navigationIcon = 'icon-bike';
 
     protected static ?string $navigationLabel = 'Fietsen';
 

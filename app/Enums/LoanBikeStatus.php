@@ -23,6 +23,6 @@ enum LoanBikeStatus: string implements HasLabel, HasColor
         return match ($this) {
             self::Available    => 'success',
             self::RentedOut    => 'danger',
-        };  
+        };
     }
 }

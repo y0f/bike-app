@@ -11,10 +11,7 @@ use App\Models\CustomerBike;
 use Filament\Resources\Resource;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\CustomerBikeResource\Pages;
-use App\Filament\Resources\CustomerBikeResource\RelationManagers;
 
 class CustomerBikeResource extends Resource
 {
@@ -124,7 +121,7 @@ class CustomerBikeResource extends Resource
                 ->columns(2)
             ]);
     }
-    
+
 
     public static function table(Table $table): Table
     {

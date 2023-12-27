@@ -30,7 +30,7 @@ class ScheduleResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-clock';
 
-    protected static ?string $navigationGroup = 'Bedrijven';
+    protected static ?string $navigationGroup = 'Bedrijf';
 
     protected static ?int $navigationSort = 4;
 

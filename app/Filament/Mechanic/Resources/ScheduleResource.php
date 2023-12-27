@@ -3,9 +3,7 @@
 namespace App\Filament\Mechanic\Resources;
 
 use Filament\Forms;
-use App\Models\Role;
 use App\Models\Slot;
-use App\Models\User;
 use Filament\Tables;
 use App\Models\Schedule;
 use Filament\Forms\Form;
@@ -13,10 +11,7 @@ use Filament\Tables\Table;
 use Filament\Facades\Filament;
 use Filament\Resources\Resource;
 use Illuminate\Database\QueryException;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Mechanic\Resources\ScheduleResource\Pages;
-use App\Filament\Mechanic\Resources\ScheduleResource\RelationManagers;
 
 class ScheduleResource extends Resource
 {
@@ -37,7 +32,7 @@ class ScheduleResource extends Resource
     public static function form(Form $form): Form
     {
         $mechanic = Filament::auth()->user();
-       
+
         return $form
             ->schema([
                 Forms\Components\Section::make('Monteursrooster')

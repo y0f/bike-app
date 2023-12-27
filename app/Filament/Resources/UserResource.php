@@ -9,7 +9,6 @@ use App\Enums\UserRoles;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
-use Illuminate\Support\HtmlString;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\QueryException;
 use App\Filament\Resources\UserResource\Pages;
@@ -55,6 +54,7 @@ class UserResource extends Resource
                     ->maxLength(255),
                 Forms\Components\Select::make('service_point_id')
                     ->relationship('servicePoints', 'name')
+                    ->label('Servicepunten')
                     ->native(false)
                     ->multiple()
                     ->searchable()
@@ -103,7 +103,8 @@ class UserResource extends Resource
 
                         return $role ? $role->getLabel() : $state;
                     }),
-                Tables\Columns\TextColumn::make('garages.name')
+                Tables\Columns\TextColumn::make('servicePoints.name')
+                    ->label('Servicepunten')
                     ->badge()
                     ->color('undefined'),
                     // Note: need to fix bugs in this.

@@ -2,8 +2,6 @@
 
 namespace App\Policies;
 
-use App\Models\Garage;
-
 class GaragePolicy
 {
     /**

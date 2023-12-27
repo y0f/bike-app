@@ -37,14 +37,14 @@ class AppointmentResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-calendar-days';
 
-    protected static ?string $navigationGroup = 'Bedrijven';
-    
+    protected static ?string $navigationGroup = 'Bedrijf';
+
     protected static ?int $navigationSort = 5;
 
     public static function form(Form $form): Form
     {
         $mechanic = Role::whereName('mechanic')->first();
-        
+
         return $form
             ->schema([
                 Forms\Components\Section::make([

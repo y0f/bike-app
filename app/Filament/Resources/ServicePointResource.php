@@ -9,22 +9,21 @@ use Filament\Tables\Table;
 use App\Models\ServicePoint;
 use Filament\Resources\Resource;
 use Illuminate\Database\QueryException;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\ServicePointResource\Pages;
-use App\Filament\Resources\ServicePointResource\RelationManagers;
 
 class ServicePointResource extends Resource
 {
     protected static ?string $model = ServicePoint::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-wrench-screwdriver';
-    
-    protected static ?string $navigationGroup = 'Bedrijven';
 
-    protected static ?string $navigationLabel = 'Servicepunt';
+    protected static ?string $navigationGroup = 'Bedrijf';
+
+    protected static ?string $navigationLabel = 'Servicepunten';
 
     protected static ?string $label = 'Servicepunt';
+
+    protected static ?string $pluralModelLabel = 'Servicepunten';
 
     protected static ?int $navigationSort = 3;
 
@@ -74,7 +73,7 @@ class ServicePointResource extends Resource
                 ])
 
                     ->icon('heroicon-o-wrench-screwdriver')
-                    ->description('Hier kunt de garage locaties binnen uw bedrijf toevoegen.')
+                    ->description('Hier kunt de servicepunten binnen uw bedrijf toevoegen.')
                     ->iconColor('primary')
                     ->columns(2)
             ]);

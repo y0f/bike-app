@@ -1,14 +1,12 @@
 <?php
 
-use App\Models\Garage;
 use App\Models\CustomerBike;
 use App\Models\ServicePoint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-return new class extends Migration
-{
+return new class () extends Migration {
     /**
      * Run the migrations.
      */

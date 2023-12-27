@@ -30,7 +30,7 @@ class EditAppointment extends EditRecord
 
     protected function mutateFormDataBeforeFill(array $data): array
     {
-        $data['date'] = $this->record->date; 
+        $data['date'] = $this->record->date;
         $data['mechanic'] = $this->record->slot->schedule->owner_id;
         return $data;
     }
