@@ -25,16 +25,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Field::macro('tooltip', function (string $tooltip) {
-            return $this->hintAction(
-                Action::make('help')
-                    ->icon('heroicon-o-question-mark-circle')
-                    ->extraAttributes(['class' => 'text-gray-500'])
-                    ->label('')
-                    ->tooltip($tooltip),
-            );
-        });
-
         FilamentAsset::register([
             Css::make('test', __DIR__ . '/../../resources/css/filament/admin/theme.css'),
         ]);
