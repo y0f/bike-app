@@ -12,11 +12,12 @@ use Filament\Forms\Set;
 use App\Models\Schedule;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
+use App\Enums\DaysOfTheWeek;
 use App\Models\ServicePoint;
 use Filament\Resources\Resource;
+use Illuminate\Support\Collection;
 use Illuminate\Database\QueryException;
 use App\Filament\Resources\ScheduleResource\Pages;
-use Illuminate\Support\Collection;
 
 class ScheduleResource extends Resource
 {
@@ -34,9 +35,9 @@ class ScheduleResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-clock';
 
-    protected static ?string $navigationGroup = 'Bedrijf';
+    protected static ?string $navigationGroup = 'Planning';
 
-    protected static ?int $navigationSort = 4;
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
@@ -59,6 +60,7 @@ class ScheduleResource extends Resource
                             ->relationship('servicePoint', 'name')
                             ->label('Servicepunten')
                             ->native(false)
+                            ->preload()
                             ->searchable()
                             ->live()
                             ->afterStateUpdated(fn (Set $set) => $set('owner_id', null)),
@@ -76,6 +78,10 @@ class ScheduleResource extends Resource
                             })
                             ->required()
                             ->live(),
+                        Forms\Components\Select::make('day_of_the_week')
+                            ->label('Dag van de week')
+                            ->options(DaysOfTheWeek::class)
+                            ->native(false),
                         Forms\Components\Repeater::make('slots')
                             ->label('Tijdvakken')
                             ->relationship()
@@ -115,6 +121,10 @@ class ScheduleResource extends Resource
                     ->date()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('servicePoint.name')
+                    ->label('Servicepunt')
+                    ->badge()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('owner.name')
                     ->label('Monteur')
                     ->numeric()

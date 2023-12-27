@@ -19,7 +19,7 @@ class CustomerBikeResource extends Resource
 
     protected static ?string $navigationIcon = 'icon-bike';
 
-    protected static ?string $navigationLabel = 'Klantfietsen';
+    protected static ?string $navigationLabel = 'Voertuigen van klanten';
 
     protected static ?string $title = 'fietsen';
 
@@ -29,9 +29,9 @@ class CustomerBikeResource extends Resource
 
     protected static ?string $pluralModelLabel = 'fietsen';
 
-    protected static ?string $navigationGroup = 'Klanten';
+    protected static ?string $navigationGroup = 'Servicebeheer';
 
-    protected static ?int $navigationSort = 5;
+    protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form
     {
@@ -135,7 +135,7 @@ class CustomerBikeResource extends Resource
                 ->defaultImageUrl(url('/images/logo.png'))
                 ->toggleable(isToggledHiddenByDefault: true),
             Tables\Columns\TextColumn::make('servicePoints.name')
-                ->label('Servicepunten')
+                ->label('Servicepunt')
                 ->badge()
                 ->color('undefined'),
             Tables\Columns\TextColumn::make('owner.name')

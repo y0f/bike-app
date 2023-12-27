@@ -17,9 +17,9 @@ class LoanBikeResource extends Resource
 {
     protected static ?string $model = LoanBike::class;
 
-    protected static ?string $navigationIcon = 'icon-bike';
+    protected static ?string $navigationIcon = 'icon-loan-bike';
 
-    protected static ?string $navigationLabel = 'Fietsen';
+    protected static ?string $navigationLabel = 'Leenmiddelen';
 
     protected static ?string $title = 'Leenmiddelen';
 
@@ -29,9 +29,9 @@ class LoanBikeResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Leenmiddelen';
 
-    protected static ?string $navigationGroup = 'Leenmiddelen';
+    protected static ?string $navigationGroup = 'Servicebeheer';
 
-    protected static ?int $navigationSort = 6;
+    protected static ?int $navigationSort = 4;
 
     public static function form(Form $form): Form
     {
@@ -75,7 +75,7 @@ class LoanBikeResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('garage.name')
+                Tables\Columns\TextColumn::make('servicePoint.name')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('identifier')
@@ -90,8 +90,6 @@ class LoanBikeResource extends Resource
                     ->badge()
                     ->color('primary')
                     ->searchable(),
-                Tables\Columns\ImageColumn::make('image')
-                ->label('Afbeelding'),
                 Tables\Columns\TextColumn::make('color')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('status')

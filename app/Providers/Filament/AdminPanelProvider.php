@@ -33,9 +33,9 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->colors([
                 'primary' => Color::Orange,
-                'danger' => Color::Red,
-                'gray' => Color::Zinc,
-                'info' => Color::Blue,
+                'danger'  => Color::Red,
+                'gray'    => Color::Zinc,
+                'info'    => Color::Blue,
                 'success' => Color::Green,
                 'warning' => Color::Yellow,
             ])

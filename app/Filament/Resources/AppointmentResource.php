@@ -9,9 +9,11 @@ use App\Models\User;
 use Filament\Tables;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
+use App\Models\LoanBike;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use App\Models\Appointment;
+use App\Enums\LoanBikeStatus;
 use App\Enums\AppointmentStatus;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
@@ -37,9 +39,9 @@ class AppointmentResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-calendar-days';
 
-    protected static ?string $navigationGroup = 'Bedrijf';
+    protected static ?string $navigationGroup = 'Planning';
 
-    protected static ?int $navigationSort = 5;
+    protected static ?int $navigationSort = 0;
 
     public static function form(Form $form): Form
     {
@@ -92,6 +94,24 @@ class AppointmentResource extends Resource
                         ->getOptionLabelFromRecordUsing(fn (Slot $record) => $record->start->format('H:i'))
                         ->live()
                         ->required(),
+
+                        // need to fix this later on maybe with an observer.
+                    Forms\Components\Checkbox::make('has_loan_bike')
+                        ->live(),
+                    Forms\Components\Select::make('loan_bike_id')
+                        ->label('Loan Bike')
+                        ->label('Leenmiddel naar keuze')
+                        ->options(
+                            LoanBike::where('status', LoanBikeStatus::Available)->pluck('identifier', 'id')
+                        )
+                        ->native(false)
+                        ->preload()
+                        ->live()
+                        ->visible(fn (Get $get) => $get('has_loan_bike') == true),
+                    Forms\Components\Select::make('status')
+                        ->options(AppointmentStatus::class)
+                        ->required()
+                        ->hidden(fn ($livewire) => $livewire instanceof CreateAppointment),
                     Forms\Components\RichEditor::make('description')
                         ->label('Omschrijving')
                         ->hintIcon('heroicon-o-question-mark-circle')
@@ -99,10 +119,6 @@ class AppointmentResource extends Resource
                         ->hintIconTooltip('Wat is het probleem met uw voertuig?')
                         ->required()
                         ->columnSpanFull(),
-                    Forms\Components\Select::make('status')
-                        ->options(AppointmentStatus::class)
-                        ->required()
-                        ->hidden(fn ($livewire) => $livewire instanceof CreateAppointment),
                 ])
                     ->icon('heroicon-o-calendar-days')
                     ->columns(2)
@@ -115,10 +131,11 @@ class AppointmentResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('status')
                     ->badge(),
-                Tables\Columns\TextColumn::make('vehicle.identifier')
+                Tables\Columns\TextColumn::make('customerBike.identifier')
                     ->label('Voertuig')
                     ->numeric()
                     ->searchable()
+                    ->limit(12)
                     ->sortable(),
                 Tables\Columns\TextColumn::make('slot.schedule.owner.name')
                     ->label('Monteur')
@@ -134,6 +151,8 @@ class AppointmentResource extends Resource
                     ->badge()
                     ->searchable()
                     ->sortable(),
+                Tables\Columns\IconColumn::make('has_loan_bike')
+                    ->label('Leenmiddel'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

@@ -17,7 +17,7 @@ class ServicePointResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-wrench-screwdriver';
 
-    protected static ?string $navigationGroup = 'Bedrijf';
+    protected static ?string $navigationGroup = 'Servicebeheer';
 
     protected static ?string $navigationLabel = 'Servicepunten';
 
@@ -25,7 +25,7 @@ class ServicePointResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Servicepunten';
 
-    protected static ?int $navigationSort = 3;
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {

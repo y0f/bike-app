@@ -19,7 +19,6 @@ class LoanBike extends Model
         'model',
         'type',
         'image',
-        'year_build',
         'color',
         'specifications',
         'service_point_id',

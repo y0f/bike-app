@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Enums\DaysOfTheWeek;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Schedule extends Model
 {
@@ -14,10 +15,13 @@ class Schedule extends Model
     protected $fillable = [
         'date',
         'owner_id',
+        'service_point_id',
+        'day_of_the_week',
     ];
 
     protected $casts = [
-       // 'date' => 'datetime',
+        'date' => 'datetime',
+        'day_of_week' => DaysOfTheWeek::class,
     ];
 
     public function owner(): BelongsTo
