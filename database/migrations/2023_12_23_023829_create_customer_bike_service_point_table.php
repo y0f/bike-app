@@ -13,10 +13,10 @@ return new class () extends Migration {
     public function up(): void
     {
         // these need to be in alphabetical order
-        Schema::create('customerbike_service_point', function (Blueprint $table) {
+        Schema::create('customer_bike_service_point', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(ServicePoint::class);
             $table->foreignIdFor(CustomerBike::class);
+            $table->foreignIdFor(ServicePoint::class);
             $table->timestamps();
         });
     }

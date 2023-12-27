@@ -60,7 +60,7 @@ class User extends Authenticatable implements HasTenants, FilamentUser
         return $this->belongsTo(Role::class);
     }
 
-    public function customerBike(): HasMany
+    public function customerBikes(): HasMany
     {
         return $this->hasMany(CustomerBike::class, 'owner_id');
     }

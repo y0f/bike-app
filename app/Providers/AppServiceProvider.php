@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use Filament\Support\Assets\Css;
 use Filament\Forms\Components\Field;
+use Illuminate\Support\ServiceProvider;
+use Filament\Support\Facades\FilamentAsset;
 use Filament\Forms\Components\Actions\Action;
 
 class AppServiceProvider extends ServiceProvider
@@ -32,5 +34,9 @@ class AppServiceProvider extends ServiceProvider
                     ->tooltip($tooltip),
             );
         });
+
+        FilamentAsset::register([
+            Css::make('test', __DIR__ . '/../../resources/css/filament/admin/theme.css'),
+        ]);
     }
 }

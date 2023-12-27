@@ -7,6 +7,7 @@ use App\Models\Role;
 use App\Models\Slot;
 use App\Models\User;
 use Filament\Tables;
+use Filament\Forms\Set;
 use App\Models\Schedule;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
@@ -51,6 +52,14 @@ class ScheduleResource extends Resource
                             ->closeOnDateSelection()
                             ->label('Datum')
                             ->required(),
+                        Forms\Components\Select::make('service_point_id')
+                            ->relationship('servicePoints', 'name')
+                            ->label('Servicepunten')
+                            ->native(false)
+                            ->multiple()
+                            ->searchable()
+                            ->live()
+                            ->afterStateUpdated(fn (Set $set) => $set('owner_id', null)),
                         Forms\Components\Select::make('owner_id')
                             ->prefixIcon('heroicon-o-cog')
                             ->prefixIconColor('primary')

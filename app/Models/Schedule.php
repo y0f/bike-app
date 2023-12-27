@@ -25,6 +25,11 @@ class Schedule extends Model
         return $this->belongsTo(User::class, 'owner_id');
     }
 
+    public function servicePoint(): BelongsTo
+    {
+        return $this->belongsTo(ServicePoint::class);
+    }
+
     public function slots(): HasMany
     {
         return $this->hasMany(Slot::class);

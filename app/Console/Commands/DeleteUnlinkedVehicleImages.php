@@ -2,18 +2,18 @@
 
 namespace App\Console\Commands;
 
+use App\Models\CustomerBike;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
-use App\Models\Vehicle;
 
 class DeleteUnlinkedVehicleImages extends Command
 {
     protected $signature = 'images:delete';
-    protected $description = 'Delete images that don\'t belong to any vehicle';
+    protected $description = 'Delete images that don\'t belong to any customer bike';
 
     public function handle()
     {
-        $vehicleImages = Vehicle::whereNotNull('image')->pluck('image')->toArray();
+        $vehicleImages = CustomerBike::whereNotNull('image')->pluck('image')->toArray();
 
         $vehicleImagesFlipped = array_flip($vehicleImages);
 

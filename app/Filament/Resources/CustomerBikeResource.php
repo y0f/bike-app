@@ -79,6 +79,13 @@ class CustomerBikeResource extends Resource
                                 ->label('Postcode')
                                 ->maxLength(255),
                         ]),
+                    Forms\Components\Select::make('service_point_id')
+                        ->relationship('servicePoints', 'name')
+                        ->label('Servicepunten')
+                        ->native(false)
+                        ->multiple()
+                        ->searchable()
+                        ->preload(),
                     Forms\Components\TextInput::make('identifier')
                         ->required()
                         ->maxLength(255)
@@ -97,11 +104,6 @@ class CustomerBikeResource extends Resource
                         ->required()
                         ->searchable()
                         ->label('Type voertuig'),
-                    Forms\Components\DatePicker::make('year_build')
-                        ->native(false)
-                        ->required()
-                        ->closeOnDateSelection()
-                        ->label('Bouwjaar'),
                     Forms\Components\TextInput::make('color')
                         ->required()
                         ->maxLength(255)
@@ -117,7 +119,7 @@ class CustomerBikeResource extends Resource
                         ->maxLength(65535)
                         ->columnSpanFull(),
                 ])
-                ->icon('heroicon-o-cog') // Change the icon to a motorcycle or any other suitable icon
+                ->icon('icon-bike')
                 ->columns(2)
             ]);
     }
@@ -132,6 +134,10 @@ class CustomerBikeResource extends Resource
                 ->label('Afbeelding')
                 ->defaultImageUrl(url('/images/logo.png'))
                 ->toggleable(isToggledHiddenByDefault: true),
+            Tables\Columns\TextColumn::make('servicePoints.name')
+                ->label('Servicepunten')
+                ->badge()
+                ->color('undefined'),
             Tables\Columns\TextColumn::make('owner.name')
                 ->label('Eigenaar')
                 ->searchable()
@@ -143,16 +149,12 @@ class CustomerBikeResource extends Resource
                 ->label('Merk')
                 ->searchable(),
             Tables\Columns\TextColumn::make('model')
-                ->label('Model') // Update the label for the 'model' column
+                ->label('Model')
                 ->searchable(),
             Tables\Columns\TextColumn::make('type')
                 ->label('Type voertuig')
                 ->badge()
                 ->searchable(),
-            Tables\Columns\TextColumn::make('year_build')
-                ->label('Bouwjaar')
-                ->date('Y')
-                ->sortable(),
             Tables\Columns\TextColumn::make('color')
                 ->label('Kleur')
                 ->searchable(),

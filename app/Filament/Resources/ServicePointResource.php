@@ -109,6 +109,13 @@ class ServicePointResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make()
+                ->before(function (ServicePoint $record) {
+                    $record->users()->detach();
+                    $record->customerBikes()->detach();
+                    $record->appointments()->delete();
+                    $record->schedules()->delete();
+                }),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

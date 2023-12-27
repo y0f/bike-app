@@ -1,0 +1,13 @@
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+
+@config './tailwind.config.js';
+
+.fi-sidebar {
+    background: white;
+    border-right: 1px solid #E4E4E5;
+}
+
+.dark .fi-sidebar {
+    background: #18181B;
+    border-right: 1px solid #2F2F31;
+}

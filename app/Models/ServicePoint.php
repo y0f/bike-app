@@ -33,11 +33,6 @@ class ServicePoint extends Model
         return $this->belongsToMany(CustomerBike::class);
     }
 
-    public function loanBikes(): HasMany
-    {
-        return $this->hasMany(LoanBike::class);
-    }
-
     public function schedules(): HasMany
     {
         return $this->hasMany(Schedule::class);
@@ -46,5 +41,10 @@ class ServicePoint extends Model
     public function appointments(): HasMany
     {
         return $this->hasMany(Appointment::class);
+    }
+
+    public function loanBikes(): HasMany
+    {
+        return $this->hasMany(LoanBike::class);
     }
 }

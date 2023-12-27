@@ -62,8 +62,6 @@ class LoanBikeResource extends Resource
                     ->label('Type voertuig'),
                 Forms\Components\FileUpload::make('image')
                     ->image(),
-                Forms\Components\DatePicker::make('year_build')
-                    ->required(),
                 Forms\Components\TextInput::make('color')
                     ->required()
                     ->maxLength(255),
