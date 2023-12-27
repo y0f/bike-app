@@ -7,13 +7,16 @@ use App\Models\Role;
 use App\Models\Slot;
 use App\Models\User;
 use Filament\Tables;
+use Filament\Forms\Get;
 use Filament\Forms\Set;
 use App\Models\Schedule;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
+use App\Models\ServicePoint;
 use Filament\Resources\Resource;
 use Illuminate\Database\QueryException;
 use App\Filament\Resources\ScheduleResource\Pages;
+use Illuminate\Support\Collection;
 
 class ScheduleResource extends Resource
 {
@@ -53,10 +56,9 @@ class ScheduleResource extends Resource
                             ->label('Datum')
                             ->required(),
                         Forms\Components\Select::make('service_point_id')
-                            ->relationship('servicePoints', 'name')
+                            ->relationship('servicePoint', 'name')
                             ->label('Servicepunten')
                             ->native(false)
-                            ->multiple()
                             ->searchable()
                             ->live()
                             ->afterStateUpdated(fn (Set $set) => $set('owner_id', null)),
@@ -65,12 +67,15 @@ class ScheduleResource extends Resource
                             ->prefixIconColor('primary')
                             ->native(false)
                             ->label('Monteur')
-                            ->options(
-                                User::whereBelongsTo($mechanic)
+                            ->options(function (Get $get) use ($mechanic): array|Collection {
+                                return ServicePoint::find($get('service_point_id'))
+                                    ?->users()
+                                    ->whereBelongsTo($mechanic)
                                     ->get()
-                                    ->pluck('name', 'id')
-                            )
-                            ->required(),
+                                    ->pluck('name', 'id') ?? [];
+                            })
+                            ->required()
+                            ->live(),
                         Forms\Components\Repeater::make('slots')
                             ->label('Tijdvakken')
                             ->relationship()
