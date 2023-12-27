@@ -95,7 +95,7 @@ class AppointmentResource extends Resource
                         ->live()
                         ->required(),
 
-                        // need to fix this later on maybe with an observer.
+                    // need to fix this later on.
                     Forms\Components\Checkbox::make('has_loan_bike')
                         ->live(),
                     Forms\Components\Select::make('loan_bike_id')
@@ -108,6 +108,16 @@ class AppointmentResource extends Resource
                         ->preload()
                         ->live()
                         ->visible(fn (Get $get) => $get('has_loan_bike') == true),
+
+                    // maybe something like this?
+                    Forms\Components\Select::make('loanBike.status')
+                    ->options(
+                        function(Get $get) {
+                          LoanBike::where('loan_bike_id' == $get('loan_bike_id'))->pluck('status');
+                        }
+                    ),
+
+
                     Forms\Components\Select::make('status')
                         ->options(AppointmentStatus::class)
                         ->required()
