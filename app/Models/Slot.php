@@ -33,7 +33,7 @@ class Slot extends Model
         return $this->belongsTo(Schedule::class);
     }
 
-    public function formattedTime(): Attribute
+    protected function formattedTime(): Attribute
     {
         return Attribute::make(
             get: fn ($value, array $attributes) =>

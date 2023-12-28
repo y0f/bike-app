@@ -21,8 +21,6 @@ class ServicePoint extends Model
     protected $casts = [
     ];
 
-    // Relationships
-
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class);

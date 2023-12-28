@@ -14,6 +14,7 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use App\Models\Appointment;
 use App\Enums\LoanBikeStatus;
+use Illuminate\Support\Carbon;
 use App\Enums\AppointmentStatus;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
@@ -50,6 +51,13 @@ class AppointmentResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Section::make([
+                    Forms\Components\Select::make('service_point_id')
+                        ->relationship('servicePoint', 'name')
+                        ->label('Servicepunten')
+                        ->native(false)
+                        ->preload()
+                        ->searchable()
+                        ->live(),
                     Forms\Components\Select::make('customer_bike_id')
                         ->label('Voertuig')
                         ->native(false)
@@ -68,7 +76,8 @@ class AppointmentResource extends Resource
                         ->options(function (Get $get) use ($mechanic) {
                             return User::whereBelongsTo($mechanic)
                                 ->whereHas('schedules', function (Builder $query) use ($get) {
-                                    $query->where('date', $get('date'));
+                                    $dayOfTheWeek = Carbon::parse($get('date'))->dayOfWeek;
+                                    $query->where('day_of_the_week', $dayOfTheWeek);
                                 })
                                 ->pluck('name', 'id');
                         })
@@ -136,6 +145,8 @@ class AppointmentResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('status')
+                    ->sortable()
+                    ->searchable()
                     ->badge(),
                 Tables\Columns\TextColumn::make('customerBike.identifier')
                     ->label('Voertuig')

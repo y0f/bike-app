@@ -52,7 +52,7 @@ class User extends Authenticatable implements HasTenants, FilamentUser
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
+        'password'          => 'hashed',
     ];
 
     public function role(): BelongsTo
@@ -75,28 +75,46 @@ class User extends Authenticatable implements HasTenants, FilamentUser
         return $this->belongsToMany(ServicePoint::class);
     }
 
-    // Filament User Contracts
-
+    /**
+     * Get the tenants associated with the user.
+     *
+     * @param \Filament\Panel $panel
+     *
+     * @return \Illuminate\Support\Collection|array
+     */
     public function getTenants(Panel $panel): array|Collection
     {
         return $this->servicePoints;
     }
 
+    /**
+     * Determine if the user can access the given tenant.
+     *
+     * @param \Illuminate\Database\Eloquent\Model $tenant
+     *
+     * @return bool
+     */
     public function canAccessTenant(Model $tenant): bool
     {
         return $this->servicePoints->contains($tenant);
     }
 
+    /**
+     * Determine if the user can access the given panel.
+     *
+     * @param \Filament\Panel $panel
+     *
+     * @return bool
+     */
     public function canAccessPanel(Panel $panel): bool
     {
         $role = auth()->user()->role->name;
 
-        // NOTE: We still need a 'staff' panel.
         return match($panel->getId()) {
             'admin'          => $role === 'admin',
             'mechanic'       => $role === 'mechanic',
             'vehicleowner'   => $role === 'owner',
-            default => false,
+            default          => false,
         };
     }
 }
