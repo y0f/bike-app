@@ -13,7 +13,7 @@ BikeHub is designed for bike repair shops. It boasts user-friendly interfaces ta
 The language used in the application is dutch, I will make it multi-language eventually.
 
 **Admin panel preview:**
-![image](https://github.com/minuut/BikeHub/assets/70378641/a0bfd712-03dc-4d46-8368-3b0b133d795f)
+
 
 ![image](https://github.com/minuut/BikeHub/assets/70378641/3a56e651-fe30-4930-ba37-d09c0d589ef8)
 
