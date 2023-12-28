@@ -178,7 +178,7 @@ class AppointmentResource extends Resource
                 Tables\Actions\Action::make('Voltooien')
                     ->action(function (Appointment $record) {
                         $record->status = AppointmentStatus::Completed;
-                        $record->loan_bike_id = NULL;
+                        $record->loan_bike_id = null;
                         $record->save();
 
                         // Update LoanBike status to available
@@ -196,7 +196,7 @@ class AppointmentResource extends Resource
                 Tables\Actions\Action::make('Annuleren')
                     ->action(function (Appointment $record) {
                         $record->status = AppointmentStatus::Cancelled;
-                        $record->loan_bike_id = NULL;
+                        $record->loan_bike_id = null;
                         $record->save();
 
                         // Update LoanBike status to available

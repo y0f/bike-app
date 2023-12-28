@@ -106,25 +106,21 @@ class ScheduleResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->groups([
-                Tables\Grouping\Group::make('date')
-                    ->label('Datum')
-                    ->date()
-                    ->collapsible()
-            ])
-            ->defaultGroup('date')
-            ->defaultSort('created_at', 'desc')
-            // ->groupingSettingsInDropdownOnDesktop()
+            ->defaultGroup(
+                Tables\Grouping\Group::make('servicePoint.name')
+                ->collapsible()
+                ->titlePrefixedWithLabel(false)
+            )
             ->columns([
                 Tables\Columns\TextColumn::make('date')
                     ->label('Datum')
                     ->date()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('servicePoint.name')
-                    ->label('Servicepunt')
-                    ->badge()
-                    ->sortable(),
+                // Tables\Columns\TextColumn::make('servicePoint.name')
+                //     ->label('Servicepunt')
+                //     ->badge()
+                //     ->sortable(),
                 Tables\Columns\TextColumn::make('owner.name')
                     ->label('Monteur')
                     ->numeric()
