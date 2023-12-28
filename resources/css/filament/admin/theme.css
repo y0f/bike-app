@@ -4,12 +4,10 @@
 
 .fi-sidebar {
     background: white;
-    border-right: 1px solid #E4E4E5;
 }
 
 .dark .fi-sidebar {
-    background: #18181B;
-    border-right: 1px solid #ff6d2c;
+    background: #131316;
 }
 
 .dark .fi-topbar {
