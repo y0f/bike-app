@@ -19,7 +19,8 @@ class CreateAppointment extends CreateRecord
     {
         if ($data['loan_bike_id']) {
             // Updating the status of the selected LoanBike to 'rented_out'
-            LoanBike::where('id', $data['loan_bike_id'])->update(['status' => 'rented_out']);
+            LoanBike::where('id', $data['loan_bike_id'])
+            ->update(['status' => 'rented_out']);
         }
 
         return $data;

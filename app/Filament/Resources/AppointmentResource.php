@@ -70,7 +70,6 @@ class AppointmentResource extends Resource
                                 ->whereHas('schedules', function (Builder $query) use ($get) {
                                     $query->where('date', $get('date'));
                                 })
-                                ->get()
                                 ->pluck('name', 'id');
                         })
                         ->native(false)
@@ -239,9 +238,9 @@ class AppointmentResource extends Resource
     public static function getNavigationBadge(): ?string
     {
         try {
-            return static::getModel()::count();
+            return (string) static::getModel()::count();
         } catch (QueryException $e) {
-            return 0;
+            return '0';
         }
     }
 

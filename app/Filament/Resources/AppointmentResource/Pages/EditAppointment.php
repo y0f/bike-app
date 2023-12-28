@@ -2,9 +2,11 @@
 
 namespace App\Filament\Resources\AppointmentResource\Pages;
 
-use App\Filament\Resources\AppointmentResource;
 use Filament\Actions;
+use App\Models\LoanBike;
+use App\Models\Appointment;
 use Filament\Resources\Pages\EditRecord;
+use App\Filament\Resources\AppointmentResource;
 
 class EditAppointment extends EditRecord
 {
@@ -30,9 +32,12 @@ class EditAppointment extends EditRecord
 
     protected function mutateFormDataBeforeFill(array $data): array
     {
-        $data['date'] = $this->record->date;
-        $data['mechanic'] = $this->record->slot->schedule->owner_id;
-        $data['loan_bike_id'] = $this->record->loanBike->id;
+        if ($this->record instanceof Appointment) {
+            $data['date'] = $this->record->date;
+            $data['mechanic'] = $this->record->slot->schedule->owner_id;
+            $data['loan_bike_id'] = $this->record->loan_bike_id;
+        }
+
         return $data;
     }
 }

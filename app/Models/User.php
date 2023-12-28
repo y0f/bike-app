@@ -79,12 +79,12 @@ class User extends Authenticatable implements HasTenants, FilamentUser
 
     public function getTenants(Panel $panel): array|Collection
     {
-        return $this->garages;
+        return $this->servicePoints;
     }
 
     public function canAccessTenant(Model $tenant): bool
     {
-        return $this->garages->contains($tenant);
+        return $this->servicePoints->contains($tenant);
     }
 
     public function canAccessPanel(Panel $panel): bool

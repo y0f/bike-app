@@ -101,7 +101,7 @@ class UserResource extends Resource
                     ->formatStateUsing(function (string $state): string {
                         $role = UserRoles::from($state);
 
-                        return $role ? $role->getLabel() : $state;
+                        return $role->getLabel() ?? $state;
                     }),
                 Tables\Columns\TextColumn::make('servicePoints.name')
                     ->label('Servicepunten')
@@ -145,9 +145,9 @@ class UserResource extends Resource
     public static function getNavigationBadge(): ?string
     {
         try {
-            return static::getModel()::count();
+            return (string) static::getModel()::count();
         } catch (QueryException $e) {
-            return 0;
+            return '0';
         }
     }
 

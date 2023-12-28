@@ -123,11 +123,12 @@ class ScheduleResource extends Resource
     public static function getNavigationBadge(): ?string
     {
         try {
-            return static::getModel()::count();
+            return (string) static::getModel()::count();
         } catch (QueryException $e) {
-            return 0;
+            return '0';
         }
     }
+
 
     public static function getPages(): array
     {

@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-class GaragePolicy
+class ServicePointPolicy
 {
     /**
      * Determine whether the user can view any models.
