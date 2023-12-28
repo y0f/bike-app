@@ -19,15 +19,15 @@ class CustomerBikeResource extends Resource
 
     protected static ?string $navigationIcon = 'icon-bike';
 
-    protected static ?string $navigationLabel = 'Voertuigen van klanten';
+    protected static ?string $navigationLabel = 'Tweewielers van klanten';
 
-    protected static ?string $title = 'fietsen';
+    protected static ?string $title = 'Tweewielers';
 
-    protected static ?string $slug = 'fietsen';
+    protected static ?string $slug = 'tweewielers-van-klanten';
 
-    protected static ?string $label = 'fiets';
+    protected static ?string $label = 'Tweewieler';
 
-    protected static ?string $pluralModelLabel = 'fietsen';
+    protected static ?string $pluralModelLabel = 'Tweewielers van klanten';
 
     protected static ?string $navigationGroup = 'Servicebeheer';
 

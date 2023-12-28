@@ -61,6 +61,7 @@ class AppointmentResource extends Resource
                         ->live()
                         ->required()
                         ->afterStateUpdated(fn (Set $set) => $set('mechanic_id', null)),
+
                     // We only want to show the mechanics that are available on the day of selection
                     Forms\Components\Select::make('mechanic_id')
                         ->label('Monteur')
@@ -77,6 +78,7 @@ class AppointmentResource extends Resource
                         ->live()
                         ->required()
                         ->afterStateUpdated(fn (Set $set) => $set('slot_id', null)),
+
                     // We only want slots from the selected mechanic
                     Forms\Components\Select::make('slot_id')
                         ->native(false)
@@ -100,6 +102,7 @@ class AppointmentResource extends Resource
                         ->onIcon('heroicon-o-check')
                         ->offIcon('heroicon-o-x-mark')
                         ->live(),
+
                     Forms\Components\Select::make('loan_bike_id')
                         ->label('Loan Bike')
                         ->label('Leenmiddel naar keuze')
@@ -109,8 +112,8 @@ class AppointmentResource extends Resource
                         ->native(false)
                         ->preload()
                         ->live()
-                        ->visible(fn (Get $get) => $get('has_loan_bike') == true)
-                        ,
+                        ->visible(fn (Get $get) => $get('has_loan_bike') == true),
+
                     Forms\Components\Select::make('status')
                         ->options(AppointmentStatus::class)
                         ->required()
@@ -173,7 +176,14 @@ class AppointmentResource extends Resource
                 Tables\Actions\Action::make('Voltooien')
                     ->action(function (Appointment $record) {
                         $record->status = AppointmentStatus::Completed;
+                        $record->loan_bike_id = NULL;
                         $record->save();
+
+                        // Update LoanBike status to available
+                        if ($record->loanBike) {
+                            $record->loanBike->status = LoanBikeStatus::Available;
+                            $record->loanBike->save();
+                        }
                     })
                     ->visible(fn (Appointment $record)
                     => $record->status !== AppointmentStatus::Completed
@@ -184,12 +194,18 @@ class AppointmentResource extends Resource
                 Tables\Actions\Action::make('Annuleren')
                     ->action(function (Appointment $record) {
                         $record->status = AppointmentStatus::Cancelled;
+                        $record->loan_bike_id = NULL;
                         $record->save();
+
+                        // Update LoanBike status to available
+                        if ($record->loanBike) {
+                            $record->loanBike->status = LoanBikeStatus::Available;
+                            $record->loanBike->save();
+                        }
                     })
                     ->visible(fn (Appointment $record)
                     => $record->status !== AppointmentStatus::Cancelled
                         && $record->status !== AppointmentStatus::Completed)
-
                     ->color('danger')
                     ->icon('heroicon-o-x-mark'),
 
