@@ -38,7 +38,7 @@ class EditAppointment extends EditRecord
             $data['mechanic'] = $this->record->slot->schedule->owner_id;
             $data['loan_bike_id'] = $this->record->loan_bike_id;
         }
-
+        
         return $data;
     }
 

@@ -104,8 +104,8 @@ class AppointmentResource extends Resource
                         ->columnSpanFull(),
 
                     Forms\Components\Select::make('loan_bike_id')
-                        ->label('Loan Bike')
                         ->label('Leenmiddel naar keuze')
+                        ->relationship('loanBike', 'identifier')
                         ->options(
                             LoanBike::where('status', LoanBikeStatus::Available)->pluck('identifier', 'id')
                         )
