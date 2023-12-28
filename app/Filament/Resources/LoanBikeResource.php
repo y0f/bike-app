@@ -78,6 +78,9 @@ class LoanBikeResource extends Resource
                 Tables\Columns\TextColumn::make('servicePoint.name')
                     ->numeric()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('status')
+                    ->badge()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('identifier')
                     ->label('Kenteken / Serienummer')
                     ->searchable(),
@@ -91,10 +94,7 @@ class LoanBikeResource extends Resource
                     ->color('primary')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('color')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('status')
-                    ->badge()
-                    ->color('primary')
+                    ->label('Kleur')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

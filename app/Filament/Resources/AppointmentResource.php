@@ -158,6 +158,7 @@ class AppointmentResource extends Resource
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('loanBike.identifier')
+                    ->placeholder('N.V.T.')
                     ->label('Leenmiddel'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
