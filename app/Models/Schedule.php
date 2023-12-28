@@ -21,7 +21,7 @@ class Schedule extends Model
 
     protected $casts = [
         'date' => 'datetime',
-        'day_of_week' => DaysOfTheWeek::class,
+        'day_of_the_week' => DaysOfTheWeek::class,
     ];
 
     public function owner(): BelongsTo

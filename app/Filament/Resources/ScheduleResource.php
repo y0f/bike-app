@@ -109,6 +109,7 @@ class ScheduleResource extends Resource
             ->groups([
                 Tables\Grouping\Group::make('date')
                     ->label('Datum')
+                    ->date()
                     ->collapsible()
             ])
             ->defaultGroup('date')
@@ -132,6 +133,9 @@ class ScheduleResource extends Resource
                     ->label('Tijdvakken')
                     ->badge()
                     ->formatStateUsing(fn (Slot $state) => $state->start->format('H:i') . ' - ' . $state->end->format('H:i')),
+                Tables\Columns\TextColumn::make('day_of_the_week')
+                    ->label('Werkdag')
+                    ->badge(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
