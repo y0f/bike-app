@@ -10,7 +10,7 @@ BikeHub is designed for bike repair shops. It boasts user-friendly interfaces ta
 - **Progress:** Deep dive into Filament V3
 - **Timeframe:** I would say about 30% done.
 
-The language used in the application is dutch.
+The language used in the application is dutch, I will make it multi-language eventually.
 
 **Admin panel preview:**
 ![image](https://github.com/minuut/BikeHub/assets/70378641/a0bfd712-03dc-4d46-8368-3b0b133d795f)
