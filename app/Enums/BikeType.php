@@ -19,15 +19,15 @@ enum BikeType: string implements HasLabel
     public function getLabel(): ?string
     {
         return match ($this) {
-            self::Sport      => 'Sport Bike',
+            self::Sport      => 'Sportfiets',
             self::Cruiser    => 'Cruiser',
-            self::Touring    => 'Touring Bike',
-            self::DirtBike   => 'Dirt Bike',
+            self::Touring    => 'Toerfiets',
+            self::DirtBike   => 'Mountainbike',
             self::Scooter    => 'Scooter',
             self::Naked      => 'Naked Bike',
-            self::Electric   => 'Electric Bike',
-            self::Hybrid     => 'Hybrid Bike',
-            self::Other      => 'Other',
+            self::Electric   => 'Elektrische Fiets',
+            self::Hybrid     => 'Hybride Fiets',
+            self::Other      => 'Overig',
         };
     }
 }

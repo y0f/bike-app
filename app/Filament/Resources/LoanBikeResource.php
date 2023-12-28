@@ -76,7 +76,7 @@ class LoanBikeResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('servicePoint.name')
-                    ->numeric()
+                    ->label('Servicepunt')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('status')
                     ->badge()
