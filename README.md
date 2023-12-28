@@ -8,7 +8,7 @@ BikeHub is designed for bike repair shops. It boasts user-friendly interfaces ta
 
 - **Phase:** Active Exploration
 - **Progress:** Deep dive into Filament V3
-- **Timeframe:** Evolving during free time, I didn't realize how gigantic this would become, so it will take a while before it's finished.
+- **Timeframe:** I would say about 30% done.
 
 ## Key Dependencies
 
