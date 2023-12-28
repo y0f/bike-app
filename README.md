@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-BikeHub is designed for bike repair shops. It boasts user-friendly interfaces tailored for Admins, Mechanics, and Customers. Users can conveniently schedule a time for their bike repairs. Mechanics have control over their schedules and appointments specific to each service point. The mechanic panel supports multi-tenancy, enabling mechanics to work seamlessly across different servicepoints. For instance, if a bike repair shop has 3 service points, multi-tenancy ensures efficient management.
+BikeHub is designed for bike repair shops. It boasts user-friendly interfaces tailored for Admins, Mechanics, and Customers. Users can conveniently schedule a time for their bike repairs. Mechanics have control over their schedules and appointments specific to each service point. The mechanic panel supports multi-tenancy, enabling mechanics to work seamlessly across different servicepoints. For instance, if a bike repair shop has 3 servicepoints, multi-tenancy ensures efficient management.
 
 ## Current Status
 
