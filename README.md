@@ -2,13 +2,23 @@
 
 ## Project Overview
 
-BikeHub is designed for bike repair shops. It boasts user-friendly interfaces tailored for Admins, Mechanics, and Customers. Users can conveniently schedule a time for their bike repairs. Mechanics have control over their schedules and appointments specific to each service point. The mechanic panel supports multi-tenancy, enabling mechanics to work seamlessly across different service points. For instance, if a bike repair shop has 3 service points, multi-tenancy ensures efficient management.
+BikeHub is designed for bike repair shops. It boasts user-friendly interfaces tailored for Admins, Mechanics, and Customers. Users can conveniently schedule a time for their bike repairs. Mechanics have control over their schedules and appointments specific to each service point. The mechanic panel supports multi-tenancy, enabling mechanics to work seamlessly across different servicepoints. For instance, if a bike repair shop has 3 service points, multi-tenancy ensures efficient management.
 
 ## Current Status
 
 - **Phase:** Active Exploration
 - **Progress:** Deep dive into Filament V3
 - **Timeframe:** I would say about 30% done.
+
+The language used in the application is dutch.
+
+**Admin panel preview:**
+![image](https://github.com/minuut/BikeHub/assets/70378641/a0bfd712-03dc-4d46-8368-3b0b133d795f)
+
+![image](https://github.com/minuut/BikeHub/assets/70378641/3a56e651-fe30-4930-ba37-d09c0d589ef8)
+
+
+
 
 ## Key Dependencies
 
