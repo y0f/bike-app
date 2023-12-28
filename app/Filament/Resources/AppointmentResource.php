@@ -62,17 +62,24 @@ class AppointmentResource extends Resource
                         ->afterStateUpdated(function (Set $set) {
                             $set('date', null);
                             $set('mechanic_id', null);
+                            $set('has_loan_bike', null);
+                            $set('loan_bike_id', null);
                         }),
+
                     Forms\Components\Select::make('customer_bike_id')
                         ->label('Voertuig')
                         ->native(false)
                         ->relationship('customerBike', 'identifier')
                         ->required(),
+
                     Forms\Components\DatePicker::make('date')
                         ->label('Datum')
                         ->native(false)
+                        ->displayFormat('d/m/Y')
+                        ->closeOnDateSelection()
                         ->live()
                         ->required()
+                        ->hidden(fn (Get $get) => blank($get('service_point_id')))
                         ->afterStateUpdated(fn (Set $set) => $set('mechanic_id', null)),
 
                     // We only want to show the mechanics that are available on the day of selection and within the selected service point.
@@ -96,7 +103,7 @@ class AppointmentResource extends Resource
                         ->helperText(function ($component) {
                             if (!$component->getOptions()) {
                                 return new HtmlString(
-                                    '<span class="text-sm text-danger-600 dark:text-primary-400">Geen monteurs beschikbaar, selecteer een andere datum.</span>'
+                                    '<span class="text-sm text-danger-600 dark:text-primary-400">Geen monteurs beschikbaar, selecteer een andere datum of servicepunt</span>'
                                 );
                             }
 
@@ -123,6 +130,7 @@ class AppointmentResource extends Resource
                         ->onIcon('heroicon-o-check')
                         ->offIcon('heroicon-o-x-mark')
                         ->live()
+                        ->hidden(fn (Get $get) => blank($get('service_point_id')))
                         ->columnSpanFull(),
 
                     Forms\Components\Select::make('loan_bike_id')
@@ -134,12 +142,14 @@ class AppointmentResource extends Resource
                         ->native(false)
                         ->preload()
                         ->live()
+                        ->hidden(fn (Get $get) => blank($get('service_point_id')))
                         ->visible(fn (Get $get) => $get('has_loan_bike') == true),
 
                     Forms\Components\Select::make('status')
                         ->options(AppointmentStatus::class)
                         ->required()
                         ->hidden(fn ($livewire) => $livewire instanceof CreateAppointment),
+
                     Forms\Components\RichEditor::make('description')
                         ->label('Omschrijving')
                         ->hintIcon('heroicon-o-question-mark-circle')

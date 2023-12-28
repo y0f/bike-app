@@ -17,12 +17,12 @@ class EditAppointment extends EditRecord
     {
         return [
             Actions\DeleteAction::make()
-            ->outlined()
-            ->icon('heroicon-o-trash'),
+                ->outlined()
+                ->icon('heroicon-o-trash'),
             Actions\Action::make('Resetten')
-            ->outlined()
-            ->icon('heroicon-o-arrow-path')
-            ->action(fn () => $this->fillForm())
+                ->outlined()
+                ->icon('heroicon-o-arrow-path')
+                ->action(fn () => $this->fillForm())
         ];
     }
 
@@ -34,33 +34,37 @@ class EditAppointment extends EditRecord
     protected function mutateFormDataBeforeFill(array $data): array
     {
         if ($this->record instanceof Appointment) {
-            $data['date'] = $this->record->date;
-            $data['mechanic_id'] = $this->record->slot->schedule->owner_id;
-            $data['loan_bike_id'] = $this->record->loan_bike_id;
+            $data['date']             = $this->record->date;
+            $data['mechanic_id']      = $this->record->slot->schedule->owner_id;
+            $data['loan_bike_id']     = $this->record->loan_bike_id;
+            $data['service_point_id'] = $this->record->service_point_id;
         }
-        
+
         return $data;
     }
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
-        // Check if the loan_bike_id is being updated
-        if ($this->record instanceof Appointment && isset($data['loan_bike_id']) && $data['loan_bike_id'] !== $this->record->loan_bike_id) {
-            if ($this->record->loan_bike_id) {
-                $previousLoanBike = LoanBike::find($this->record->loan_bike_id);
-                if ($previousLoanBike) {
-                    $previousLoanBike->status = LoanBikeStatus::Available;
-                    $previousLoanBike->save();
-                }
-            }
+        // original model data to get the old loan_bike_id
+        $oldLoanBikeId = $this->record->getOriginal('loan_bike_id');
 
-            // Updating the status of the newly selected LoanBike to 'rented_out'
-            if ($data['loan_bike_id']) {
-                $newLoanBike = LoanBike::find($data['loan_bike_id']);
-                if ($newLoanBike) {
-                    $newLoanBike->status = LoanBikeStatus::RentedOut;
-                    $newLoanBike->save();
-                }
+        // Check if the loan_bike_id is being updated
+        if ($data['loan_bike_id'] && $data['loan_bike_id'] !== $oldLoanBikeId) {
+            // Find the previous LoanBike and update its status to Available
+            $previousLoanBike = LoanBike::find($oldLoanBikeId);
+
+            if ($previousLoanBike) {
+                $previousLoanBike->status = LoanBikeStatus::Available;
+                $previousLoanBike->save();
+            }
+        }
+
+        // Find the new LoanBike and update its status to RentedOut
+        if ($data['loan_bike_id']) {
+            $newLoanBike = LoanBike::find($data['loan_bike_id']);
+            if ($newLoanBike) {
+                $newLoanBike->status = LoanBikeStatus::RentedOut;
+                $newLoanBike->save();
             }
         }
 

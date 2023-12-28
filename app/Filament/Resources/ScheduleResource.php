@@ -80,7 +80,8 @@ class ScheduleResource extends Resource
                         Forms\Components\Select::make('day_of_the_week')
                             ->label('Dag van de week')
                             ->options(DaysOfTheWeek::class)
-                            ->native(false),
+                            ->native(false)
+                            ->required(),
                         Forms\Components\Repeater::make('slots')
                             ->label('Tijdvakken')
                             ->relationship()
