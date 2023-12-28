@@ -22,6 +22,7 @@ class LoanBike extends Model
         'color',
         'specifications',
         'service_point_id',
+        'status',
     ];
 
     protected $casts = [

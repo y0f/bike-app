@@ -15,4 +15,14 @@ class CreateAppointment extends CreateRecord
     {
         return $this->getResource()::getUrl('index');
     }
+
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        if ($data['loan_bike_id']) {
+            // Updating the status of the selected LoanBike to 'rented_out'
+            LoanBike::where('id', $data['loan_bike_id'])->update(['status' => 'rented_out']);
+        }
+
+        return $data;
+    }
 }
