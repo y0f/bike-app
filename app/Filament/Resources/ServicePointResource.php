@@ -15,7 +15,7 @@ class ServicePointResource extends Resource
 {
     protected static ?string $model = ServicePoint::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-wrench-screwdriver';
+    protected static ?string $navigationIcon = 'icon-service-point';
 
     protected static ?string $navigationGroup = 'Servicebeheer';
 

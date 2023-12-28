@@ -48,9 +48,7 @@ class EditAppointment extends EditRecord
         // original model data to get the old loan_bike_id
         $oldLoanBikeId = $this->record->getOriginal('loan_bike_id');
 
-        // Check if the loan_bike_id is being updated
         if ($data['loan_bike_id'] && $data['loan_bike_id'] !== $oldLoanBikeId) {
-            // Find the previous LoanBike and update its status to Available
             $previousLoanBike = LoanBike::find($oldLoanBikeId);
 
             if ($previousLoanBike) {

@@ -13,7 +13,6 @@ class Schedule extends Model
     use HasFactory;
 
     protected $fillable = [
-        'date',
         'owner_id',
         'service_point_id',
         'day_of_the_week',

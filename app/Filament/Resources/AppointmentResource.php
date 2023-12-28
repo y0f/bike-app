@@ -103,7 +103,7 @@ class AppointmentResource extends Resource
                         ->helperText(function ($component) {
                             if (!$component->getOptions()) {
                                 return new HtmlString(
-                                    '<span class="text-sm text-danger-600 dark:text-primary-400">Geen monteurs beschikbaar, selecteer een andere datum of servicepunt</span>'
+                                    "<span class='text-sm text-danger-600 dark:text-primary-400'>Geen monteurs beschikbaar, selecteer een andere datum of servicepunt. :(</span>"
                                 );
                             }
 
@@ -181,9 +181,9 @@ class AppointmentResource extends Resource
                     ->label('Monteur')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('slot.schedule.date')
-                    ->label('Datum')
-                    ->date('d-m-Y')
+                Tables\Columns\TextColumn::make('slot.schedule.day_of_the_week')
+                    ->label('Dag')
+                    ->badge()
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('slot.formatted_time')

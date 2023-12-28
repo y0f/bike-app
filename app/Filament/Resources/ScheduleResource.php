@@ -47,15 +47,9 @@ class ScheduleResource extends Resource
                 Forms\Components\Section::make('Monteursrooster')
                     ->description('De tijdsloten van de monteur per dag.')
                     ->schema([
-                        Forms\Components\DatePicker::make('date')
-                            ->prefixIcon('heroicon-o-calendar-days')
-                            ->prefixIconColor('primary')
-                            ->native(false)
-                            ->displayFormat('d/m/Y')
-                            ->closeOnDateSelection()
-                            ->label('Datum')
-                            ->required(),
                         Forms\Components\Select::make('service_point_id')
+                            ->prefixIcon('icon-service-point')
+                            ->prefixIconColor('primary')
                             ->relationship('servicePoint', 'name')
                             ->label('Servicepunten')
                             ->native(false)
@@ -78,6 +72,8 @@ class ScheduleResource extends Resource
                             ->required()
                             ->live(),
                         Forms\Components\Select::make('day_of_the_week')
+                            ->prefixIcon('icon-day')
+                            ->prefixIconColor('primary')
                             ->label('Dag van de week')
                             ->options(DaysOfTheWeek::class)
                             ->native(false)
@@ -127,7 +123,7 @@ class ScheduleResource extends Resource
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('slots')
-                    ->label('Tijdvakken')
+                    ->label('Tijdsloten')
                     ->badge()
                     ->formatStateUsing(fn (Slot $state) => $state->start->format('H:i') . ' - ' . $state->end->format('H:i')),
                 Tables\Columns\TextColumn::make('day_of_the_week')
