@@ -35,7 +35,7 @@ class EditAppointment extends EditRecord
     {
         if ($this->record instanceof Appointment) {
             $data['date'] = $this->record->date;
-            $data['mechanic'] = $this->record->slot->schedule->owner_id;
+            $data['mechanic_id'] = $this->record->slot->schedule->owner_id;
             $data['loan_bike_id'] = $this->record->loan_bike_id;
         }
         

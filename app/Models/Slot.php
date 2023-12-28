@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -31,6 +32,16 @@ class Slot extends Model
     public function schedule(): BelongsTo
     {
         return $this->belongsTo(Schedule::class);
+    }
+
+    public function scopeAvailableFor(Builder $query, User $mechanic, int $dayOfTheWeek, int $servicePointId): void
+    {
+        $query->whereHas('schedule', function (Builder $query) use ($mechanic, $dayOfTheWeek, $servicePointId) {
+            $query
+                ->where('service_point_id', $servicePointId)
+                ->where('day_of_the_week', $dayOfTheWeek)
+                ->whereBelongsTo($mechanic, 'owner');
+        });
     }
 
     protected function formattedTime(): Attribute

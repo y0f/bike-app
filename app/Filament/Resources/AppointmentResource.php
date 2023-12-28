@@ -18,6 +18,7 @@ use Illuminate\Support\Carbon;
 use App\Enums\AppointmentStatus;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
+use Illuminate\Support\HtmlString;
 use Illuminate\Database\QueryException;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Infolists\Components\TextEntry;
@@ -57,7 +58,11 @@ class AppointmentResource extends Resource
                         ->native(false)
                         ->preload()
                         ->searchable()
-                        ->live(),
+                        ->live()
+                        ->afterStateUpdated(function (Set $set) {
+                            $set('date', null);
+                            $set('mechanic_id', null);
+                        }),
                     Forms\Components\Select::make('customer_bike_id')
                         ->label('Voertuig')
                         ->native(false)
@@ -70,14 +75,16 @@ class AppointmentResource extends Resource
                         ->required()
                         ->afterStateUpdated(fn (Set $set) => $set('mechanic_id', null)),
 
-                    // We only want to show the mechanics that are available on the day of selection
+                    // We only want to show the mechanics that are available on the day of selection and within the selected service point.
                     Forms\Components\Select::make('mechanic_id')
                         ->label('Monteur')
                         ->options(function (Get $get) use ($mechanic) {
                             return User::whereBelongsTo($mechanic)
                                 ->whereHas('schedules', function (Builder $query) use ($get) {
                                     $dayOfTheWeek = Carbon::parse($get('date'))->dayOfWeek;
-                                    $query->where('day_of_the_week', $dayOfTheWeek);
+                                    $query
+                                        ->where('day_of_the_week', $dayOfTheWeek)
+                                        ->where('service_point_id', $get('service_point_id'));
                                 })
                                 ->pluck('name', 'id');
                         })
@@ -85,21 +92,27 @@ class AppointmentResource extends Resource
                         ->hidden(fn (Get $get) => blank($get('date')))
                         ->live()
                         ->required()
-                        ->afterStateUpdated(fn (Set $set) => $set('slot_id', null)),
+                        ->afterStateUpdated(fn (Set $set) => $set('slot_id', null))
+                        ->helperText(function ($component) {
+                            if (!$component->getOptions()) {
+                                return new HtmlString(
+                                    '<span class="text-sm text-danger-600 dark:text-primary-400">Geen monteurs beschikbaar, selecteer een andere datum.</span>'
+                                );
+                            }
 
-                    // We only want slots from the selected mechanic
+                            return '';
+                        }),
+
+                    // We only want slots from the selected mechanic within the selected servicepoint.
                     Forms\Components\Select::make('slot_id')
                         ->native(false)
-                        ->relationship(
-                            name: 'slot',
-                            titleAttribute: 'start',
-                            modifyQueryUsing: function (Builder $query, Get $get) {
-                                $mechanicToRetrieveSlotsFrom = User::find($get('mechanic_id'));
-                                $query->whereHas('schedule', function (Builder $query) use ($mechanicToRetrieveSlotsFrom) {
-                                    $query->whereBelongsTo($mechanicToRetrieveSlotsFrom, 'owner');
-                                });
-                            }
-                        )
+                        ->options(function (Get $get) {
+                            $mechanic = User::find($get('mechanic_id'));
+                            $dayOfTheWeek = Carbon::parse($get('date'))->dayOfWeek;
+                            $servicePointId = $get('service_point_id');
+
+                            return $servicePointId ? Slot::availableFor($mechanic, $dayOfTheWeek, $servicePointId)->get()->pluck('formatted_time', 'id') : [];
+                        })
                         ->hidden(fn (Get $get) => blank($get('mechanic_id')))
                         ->getOptionLabelFromRecordUsing(fn (Slot $record) => $record->start->format('H:i'))
                         ->live()
@@ -235,7 +248,7 @@ class AppointmentResource extends Resource
     {
         return $infolist
             ->schema([
-              //  TextEntry::make('description')
+                //  TextEntry::make('description')
             ]);
     }
 
