@@ -9,7 +9,6 @@ use App\Enums\UserRoles;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
-use Illuminate\Support\HtmlString;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\QueryException;
 use App\Filament\Resources\UserResource\Pages;

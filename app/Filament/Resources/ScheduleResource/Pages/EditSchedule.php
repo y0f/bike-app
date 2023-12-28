@@ -22,7 +22,7 @@ class EditSchedule extends EditRecord
             ->action(fn () => $this->fillForm())
         ];
     }
-    
+
     protected function getRedirectUrl(): string
     {
         return $this->getResource()::getUrl('index');

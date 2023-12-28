@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Appointment extends Model
 {
@@ -47,8 +48,6 @@ class Appointment extends Model
         });
     }
 
-    
-
     public function customerBike(): BelongsTo
     {
         return $this->belongsTo(CustomerBike::class);
@@ -59,9 +58,9 @@ class Appointment extends Model
         return $this->belongsTo(Slot::class);
     }
 
-    public function loanBike(): BelongsTo
+    public function loanBike(): HasOne
     {
-        return $this->belongsTo(LoanBike::class, 'loan_bike_id');
+        return $this->hasOne(LoanBike::class, 'id', 'loan_bike_id');
     }
 
     public function mechanic(): BelongsTo

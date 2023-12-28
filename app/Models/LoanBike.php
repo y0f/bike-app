@@ -33,4 +33,9 @@ class LoanBike extends Model
     {
         return $this->belongsTo(ServicePoint::class);
     }
+
+    public function appointment(): BelongsTo
+    {
+        return $this->belongsTo(Appointment::class, 'loan_bike_id', 'id');
+    }
 }

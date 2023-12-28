@@ -95,7 +95,10 @@ class AppointmentResource extends Resource
                         ->live()
                         ->required(),
 
-                    Forms\Components\Checkbox::make('has_loan_bike')
+                    Forms\Components\Toggle::make('has_loan_bike')
+                        ->label('Is er een leenmiddel van toepassing?')
+                        ->onIcon('heroicon-o-check')
+                        ->offIcon('heroicon-o-x-mark')
                         ->live(),
                     Forms\Components\Select::make('loan_bike_id')
                         ->label('Loan Bike')
@@ -151,7 +154,7 @@ class AppointmentResource extends Resource
                     ->badge()
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\IconColumn::make('has_loan_bike')
+                Tables\Columns\TextColumn::make('loanBike.identifier')
                     ->label('Leenmiddel'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

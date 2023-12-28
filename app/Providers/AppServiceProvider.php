@@ -2,13 +2,9 @@
 
 namespace App\Providers;
 
-use App\Models\Appointment;
 use Filament\Support\Assets\Css;
-use Filament\Forms\Components\Field;
-use App\Observers\AppointmentObserver;
 use Illuminate\Support\ServiceProvider;
 use Filament\Support\Facades\FilamentAsset;
-use Filament\Forms\Components\Actions\Action;
 
 class AppServiceProvider extends ServiceProvider
 {

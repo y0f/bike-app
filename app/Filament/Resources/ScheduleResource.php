@@ -5,7 +5,6 @@ namespace App\Filament\Resources;
 use Filament\Forms;
 use App\Models\Role;
 use App\Models\Slot;
-use App\Models\User;
 use Filament\Tables;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
