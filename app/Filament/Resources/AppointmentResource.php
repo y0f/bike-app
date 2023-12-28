@@ -101,7 +101,8 @@ class AppointmentResource extends Resource
                         ->label('Is er een leenmiddel van toepassing?')
                         ->onIcon('heroicon-o-check')
                         ->offIcon('heroicon-o-x-mark')
-                        ->live(),
+                        ->live()
+                        ->columnSpanFull(),
 
                     Forms\Components\Select::make('loan_bike_id')
                         ->label('Loan Bike')
@@ -224,7 +225,7 @@ class AppointmentResource extends Resource
     {
         return $infolist
             ->schema([
-                TextEntry::make('description')
+              //  TextEntry::make('description')
             ]);
     }
 
