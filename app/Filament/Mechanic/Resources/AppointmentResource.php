@@ -5,10 +5,8 @@ namespace App\Filament\Mechanic\Resources;
 use Filament\Forms;
 use App\Models\Role;
 use App\Models\Slot;
-use App\Models\User;
 use Filament\Tables;
 use Filament\Forms\Get;
-use Filament\Forms\Set;
 use App\Models\LoanBike;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
@@ -20,9 +18,7 @@ use App\Enums\AppointmentStatus;
 use Filament\Resources\Resource;
 use Illuminate\Support\HtmlString;
 use Illuminate\Database\QueryException;
-use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Mechanic\Resources\AppointmentResource\Pages;
-use App\Filament\Mechanic\Resources\AppointmentResource\Pages\CreateAppointment;
 
 class AppointmentResource extends Resource
 {
@@ -63,22 +59,31 @@ class AppointmentResource extends Resource
                         ->displayFormat('d/m/Y')
                         ->closeOnDateSelection()
                         ->live()
-                        ->required()
-                        ->afterStateUpdated(fn (Set $set) => $set('mechanic_id', null)),
+                        ->required(),
 
-                    // We only want slots from the selected mechanic within the selected servicepoint.
+                    // We only want slots from the logged in mechanic's tenant.
                     Forms\Components\Select::make('slot_id')
+                        ->label('Tijdslot')
                         ->native(false)
                         ->options(function (Get $get) {
-                            $mechanic = User::find($get('mechanic_id'));
+                            $mechanic     = Filament::auth()->user();
                             $dayOfTheWeek = Carbon::parse($get('date'))->dayOfWeek;
-                            $servicePointId = $get('service_point_id');
+                            $servicePoint = Filament::getTenant();
 
-                            return $servicePointId ? Slot::availableFor($mechanic, $dayOfTheWeek, $servicePointId)->get()->pluck('formatted_time', 'id') : [];
+                           /* @phpstan-ignore-next-line */
+                            return $servicePoint ? Slot::availableFor($mechanic, $dayOfTheWeek, $servicePoint->id)->get()->pluck('formatted_time', 'id') : [];
                         })
-                        ->hidden(fn (Get $get) => blank($get('mechanic_id')))
-                        ->getOptionLabelFromRecordUsing(fn (Slot $record) => $record->start->format('H:i'))
+                        ->hidden(fn (Get $get) => blank($get('date')))
                         ->live()
+                        ->helperText(function ($component) {
+                            if (!$component->getOptions()) {
+                                return new HtmlString(
+                                    '<span class="text-sm text-danger-600 dark:text-danger-400">Geen beschikbare tijdsloten. Selecteer alstublieft een andere datum.</span>'
+                                );
+                            }
+
+                            return '';
+                        })
                         ->required(),
 
                     Forms\Components\Toggle::make('has_loan_bike')
@@ -86,7 +91,6 @@ class AppointmentResource extends Resource
                         ->onIcon('heroicon-o-check')
                         ->offIcon('heroicon-o-x-mark')
                         ->live()
-                        ->hidden(fn (Get $get) => blank($get('service_point_id')))
                         ->columnSpanFull(),
 
                     Forms\Components\Select::make('loan_bike_id')
@@ -98,13 +102,12 @@ class AppointmentResource extends Resource
                         ->native(false)
                         ->preload()
                         ->live()
-                        ->hidden(fn (Get $get) => blank($get('service_point_id')))
                         ->visible(fn (Get $get) => $get('has_loan_bike') == true),
 
                     Forms\Components\Select::make('status')
                         ->options(AppointmentStatus::class)
                         ->required()
-                        ->hidden(fn ($livewire) => $livewire instanceof CreateAppointment),
+                        ->visibleOn(Pages\EditAppointment::class),
 
                     Forms\Components\RichEditor::make('description')
                         ->label('Omschrijving')

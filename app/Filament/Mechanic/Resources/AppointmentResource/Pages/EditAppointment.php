@@ -4,10 +4,10 @@ namespace App\Filament\Mechanic\Resources\AppointmentResource\Pages;
 
 use Filament\Actions;
 use App\Models\LoanBike;
+use App\Models\Appointment;
 use App\Enums\LoanBikeStatus;
 use Filament\Resources\Pages\EditRecord;
 use App\Filament\Mechanic\Resources\AppointmentResource;
-use App\Models\Appointment;
 
 class EditAppointment extends EditRecord
 {
@@ -23,18 +23,6 @@ class EditAppointment extends EditRecord
     protected function getRedirectUrl(): string
     {
         return $this->getResource()::getUrl('index');
-    }
-
-    protected function mutateFormDataBeforeFill(array $data): array
-    {
-        if ($this->record instanceof Appointment) {
-            $data['date']             = $this->record->date;
-            $data['mechanic_id']      = $this->record->slot->schedule->owner_id;
-            $data['loan_bike_id']     = $this->record->loan_bike_id;
-            $data['service_point_id'] = $this->record->service_point_id;
-        }
-
-        return $data;
     }
 
     protected function mutateFormDataBeforeSave(array $data): array
