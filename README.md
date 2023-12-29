@@ -37,5 +37,11 @@ This README is a work in progress and will be updated as the project evolves.
 
 **Admin panel preview:**
 
-![image](https://github.com/minuut/BikeHub/assets/70378641/3a56e651-fe30-4930-ba37-d09c0d589ef8)
+![image](https://github.com/minuut/BikeHub/assets/70378641/43d374c4-6519-42ca-93be-fcce303ff99d)
+
+**Mechanic panel preview: (While logged in as demo mechanic 'Harrie Fietsers')**
+
+![image](https://github.com/minuut/BikeHub/assets/70378641/606a5207-9ef9-4df2-96e6-e6ef8f959680)
+
+
 
