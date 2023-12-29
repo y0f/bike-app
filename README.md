@@ -8,7 +8,7 @@ BikeHub is a Laravel Filament web app tailored for bike repair shops. It feature
 
 - **Phase:** Active Exploration
 - **Progress:** Deep dive into Filament V3
-- **Timeframe:** I would say about 30% done.
+- **Timeframe:** I would say about 75% done with what I had in mind, but it will grow larger overtime.
 
 The application currently uses Dutch language, with plans to implement multi-language support.
 
@@ -31,10 +31,6 @@ The application currently uses Dutch language, with plans to implement multi-lan
 
 This project is licensed under the MIT License.
 
-## Disclaimer
-
-This README is a work in progress and will be updated as the project evolves.
-
 **Admin panel preview:**
 
 ![image](https://github.com/minuut/BikeHub/assets/70378641/43d374c4-6519-42ca-93be-fcce303ff99d)
@@ -42,6 +38,10 @@ This README is a work in progress and will be updated as the project evolves.
 **Mechanic panel preview: (While logged in as demo mechanic 'Harrie Fietsers')**
 
 ![image](https://github.com/minuut/BikeHub/assets/70378641/606a5207-9ef9-4df2-96e6-e6ef8f959680)
+
+## Disclaimer
+
+This README is a work in progress and will be updated as the project evolves.
 
 
 
