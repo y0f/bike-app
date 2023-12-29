@@ -4,7 +4,6 @@ namespace App\Filament\Mechanic\Resources\AppointmentResource\Pages;
 
 use Filament\Actions;
 use App\Models\LoanBike;
-use App\Models\Appointment;
 use App\Enums\LoanBikeStatus;
 use Filament\Resources\Pages\EditRecord;
 use App\Filament\Mechanic\Resources\AppointmentResource;
@@ -16,7 +15,13 @@ class EditAppointment extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            Actions\DeleteAction::make()
+            ->outlined()
+            ->icon('heroicon-o-trash'),
+            Actions\Action::make('Resetten')
+            ->outlined()
+            ->icon('heroicon-o-arrow-path')
+            ->action(fn () => $this->fillForm())
         ];
     }
 

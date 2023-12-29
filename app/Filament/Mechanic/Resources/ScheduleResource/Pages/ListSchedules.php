@@ -55,6 +55,6 @@ class ListSchedules extends ListRecords
             }
         }
 
-        return 'Maandag';
+        return 'Alle roosters';
     }
 }

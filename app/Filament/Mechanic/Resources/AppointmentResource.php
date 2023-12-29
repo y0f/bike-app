@@ -70,7 +70,7 @@ class AppointmentResource extends Resource
                             $dayOfTheWeek = Carbon::parse($get('date'))->dayOfWeek;
                             $servicePoint = Filament::getTenant();
 
-                           /* @phpstan-ignore-next-line */
+                            /* @phpstan-ignore-next-line */
                             return $servicePoint ? Slot::availableFor($mechanic, $dayOfTheWeek, $servicePoint->id)->get()->pluck('formatted_time', 'id') : [];
                         })
                         ->hidden(fn (Get $get) => blank($get('date')))
@@ -136,13 +136,11 @@ class AppointmentResource extends Resource
                     ->searchable()
                     ->limit(12)
                     ->sortable(),
-
                 // I'm leaving this here for testing purposes for now, needs to be removed eventually.
-                Tables\Columns\TextColumn::make('mechanic.name')
-                    ->label('Monteur')
-                    ->searchable()
-                    ->sortable(),
-
+                // Tables\Columns\TextColumn::make('mechanic.name')
+                //     ->label('Monteur')
+                //     ->searchable()
+                //     ->sortable(),
 
                 Tables\Columns\TextColumn::make('date')
                     ->label('Datum')

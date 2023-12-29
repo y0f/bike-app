@@ -8,6 +8,7 @@ use Filament\Widgets;
 use Filament\PanelProvider;
 use App\Models\ServicePoint;
 use Filament\Support\Colors\Color;
+use App\Http\Middleware\ApplyTenantScopes;
 use Filament\Http\Middleware\Authenticate;
 use App\Http\Middleware\AssignGlobalScopes;
 use Filament\SpatieLaravelTranslatablePlugin;
@@ -61,8 +62,9 @@ class MechanicPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
             ])
             ->tenantMiddleware([
+                ApplyTenantScopes::class, 
                 AssignGlobalScopes::class,
-            ], isPersistent: true)  // This makes sure the scope is always applied.
+            ], isPersistent: true)
             ->authMiddleware([
                 Authenticate::class,
             ])

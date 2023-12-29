@@ -40,12 +40,15 @@ class Slot extends Model
         app(SlotService::class)->availableFor($query, $mechanic, $dayOfTheWeek, $servicePointId);
     }
 
+    /**
+     * @return Attribute<string, never>
+     */
     protected function formattedTime(): Attribute
     {
         return Attribute::make(
             get: fn ($value, array $attributes) =>
-                Carbon::parse($attributes['start'])->format('H:i') . ' - ' .
-                Carbon::parse($attributes['end'])->format('H:i')
+                Carbon::parse($attributes['start'])->format('h:i') . ' - ' .
+                Carbon::parse($attributes['end'])->format('h:i')
         );
     }
 }
