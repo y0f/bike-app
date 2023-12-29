@@ -3,7 +3,6 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Models\LoanBike;
 use App\Models\Schedule;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
@@ -26,11 +25,6 @@ class AssignGlobalScopes
 
         Appointment::addGlobalScope(function (Builder $query) {
             $query->whereBelongsTo(Filament::auth()->user(), 'mechanic');
-        });
-
-        // Filament::getTenant() is how to get the service_point_id.
-        LoanBike::addGlobalScope(function (Builder $query) {
-            $query->whereBelongsTo(Filament::getTenant());
         });
 
         return $next($request);

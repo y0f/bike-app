@@ -2,11 +2,12 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\CustomerBike;
 use Closure;
+use App\Models\LoanBike;
+use App\Models\CustomerBike;
+use Illuminate\Http\Request;
 use Filament\Facades\Filament;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
 
 class ApplyTenantScopes
 {
@@ -18,14 +19,20 @@ class ApplyTenantScopes
     public function handle(Request $request, Closure $next)
     {
         /**
-         * @var \App\Models\Clinic $clinic The current clinic
+         * @var \App\Models\ServicePoint $servicePoint The current ServicePoint
          */
-        $servicePoints = Filament::getTenant();
         CustomerBike::addGlobalScope(
-            fn (Builder $query) =>
+            function (Builder $query) {
+                $servicePoint = Filament::getTenant();
                 $query->whereHas('servicePoints', fn (Builder $query) =>
-                    $query->where('service_point_id', $servicePoints->id))
+                $query->where('service_point_id', $servicePoint->id));
+            }
         );
+
+        // Filament::getTenant() is how to get the service_point_id.
+        LoanBike::addGlobalScope(function (Builder $query) {
+            $query->whereBelongsTo(Filament::getTenant());
+        });
 
         return $next($request);
     }
