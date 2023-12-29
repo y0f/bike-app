@@ -48,7 +48,7 @@ class EditAppointment extends EditRecord
         // original model data to get the old loan_bike_id
         $oldLoanBikeId = $this->record->getOriginal('loan_bike_id');
 
-        if ($data['loan_bike_id'] && $data['loan_bike_id'] !== $oldLoanBikeId) {
+        if ($data['loan_bike_id'] !== $oldLoanBikeId) {
             $previousLoanBike = LoanBike::find($oldLoanBikeId);
 
             if ($previousLoanBike) {
