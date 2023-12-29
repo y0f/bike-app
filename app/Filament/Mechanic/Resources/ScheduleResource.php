@@ -30,9 +30,10 @@ class ScheduleResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-clock';
 
+    protected static ?string $navigationGroup = 'Planning';
+
     public static function form(Form $form): Form
     {
-        $mechanic = Filament::auth()->user();
 
         return $form
             ->schema([
@@ -124,7 +125,6 @@ class ScheduleResource extends Resource
         ];
     }
 
-    // NOTE: needs to be filtered
     public static function getNavigationBadge(): ?string
     {
         try {

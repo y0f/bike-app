@@ -182,7 +182,7 @@ class AppointmentResource extends Resource
                     ->searchable()
                     ->limit(12)
                     ->sortable(),
-                Tables\Columns\TextColumn::make('slot.schedule.owner.name')
+                Tables\Columns\TextColumn::make('mechanic.name')
                     ->label('Monteur')
                     ->searchable()
                     ->sortable(),
