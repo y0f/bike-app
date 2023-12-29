@@ -39,6 +39,8 @@ This project is licensed under the MIT License.
 
 ![image](https://github.com/minuut/BikeHub/assets/70378641/606a5207-9ef9-4df2-96e6-e6ef8f959680)
 
+Eventually when the customer selects a timeslot the slot will not be available for other customers to pick. There are duplicates in the screenshots, because it's still in development.
+
 ## Disclaimer
 
 This README is a work in progress and will be updated as the project evolves.
