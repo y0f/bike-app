@@ -8,6 +8,7 @@ use Filament\Tables;
 use App\Models\Schedule;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
+use App\Enums\DaysOfTheWeek;
 use Filament\Facades\Filament;
 use Filament\Resources\Resource;
 use Illuminate\Database\QueryException;
@@ -27,7 +28,7 @@ class ScheduleResource extends Resource
 
     protected static ?string $label = 'Monteursrooster';
 
-    protected static ?string $navigationIcon = 'heroicon-o-calendar';
+    protected static ?string $navigationIcon = 'heroicon-o-clock';
 
     public static function form(Form $form): Form
     {
@@ -38,13 +39,12 @@ class ScheduleResource extends Resource
                 Forms\Components\Section::make('Monteursrooster')
                     ->description('Uw planning voor de dag')
                     ->schema([
-                        Forms\Components\DatePicker::make('date')
-                            ->prefixIcon('heroicon-o-calendar-days')
+                        Forms\Components\Select::make('day_of_the_week')
+                            ->prefixIcon('icon-day')
                             ->prefixIconColor('primary')
+                            ->label('Dag van de week')
+                            ->options(DaysOfTheWeek::class)
                             ->native(false)
-                            ->displayFormat('d/m/Y')
-                            ->closeOnDateSelection()
-                            ->label('Datum')
                             ->required(),
                         Forms\Components\Repeater::make('slots')
                             ->label('Tijdvakken')
@@ -71,32 +71,37 @@ class ScheduleResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->groups([
-                Tables\Grouping\Group::make('date')
-                    ->label('Datum')
-                    ->collapsible()
-            ])
-            ->defaultGroup('date')
-            ->defaultSort('created_at', 'desc')
-            ->columns([
-                Tables\Columns\TextColumn::make('date')
-                    ->label('Datum')
-                    ->date()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('slots')
-                    ->label('Tijdvakken')
-                    ->badge()
-                    ->formatStateUsing(fn (Slot $state) => $state->start->format('H:i') . ' - ' . $state->end->format('H:i')),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-            ])
+
+        ->columns([
+            Tables\Columns\TextColumn::make('date')
+                ->label('Datum')
+                ->date()
+                ->sortable()
+                ->toggleable(isToggledHiddenByDefault: true),
+            Tables\Columns\TextColumn::make('servicePoint.name')
+                ->label('Servicepunt')
+                ->numeric()
+                ->sortable(),
+            Tables\Columns\TextColumn::make('owner.name')
+                ->label('Monteur')
+                ->numeric()
+                ->sortable(),
+            Tables\Columns\TextColumn::make('slots')
+                ->label('Tijdsloten')
+                ->badge()
+                ->formatStateUsing(fn (Slot $state) => $state->start->format('H:i') . ' - ' . $state->end->format('H:i')),
+            Tables\Columns\TextColumn::make('day_of_the_week')
+                ->label('Werkdag')
+                ->badge(),
+            Tables\Columns\TextColumn::make('created_at')
+                ->dateTime()
+                ->sortable()
+                ->toggleable(isToggledHiddenByDefault: true),
+            Tables\Columns\TextColumn::make('updated_at')
+                ->dateTime()
+                ->sortable()
+                ->toggleable(isToggledHiddenByDefault: true),
+        ])
             ->filters([
                 //
             ])

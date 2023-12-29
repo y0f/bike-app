@@ -26,8 +26,7 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->id('admin')
-            // To make it less obvious I added a unconventional name
-            ->path('shadow_realm')
+            ->path('administratie_portaal')
             ->brandLogo(asset('images/logo.png'))
             ->favicon(asset('images/logo.png'))
             ->login()

@@ -6,9 +6,10 @@ use Filament\Pages;
 use Filament\Panel;
 use Filament\Widgets;
 use Filament\PanelProvider;
+use App\Models\ServicePoint;
 use Filament\Support\Colors\Color;
-use App\Http\Middleware\ApplyGlobalScopes;
 use Filament\Http\Middleware\Authenticate;
+use App\Http\Middleware\AssignGlobalScopes;
 use Filament\SpatieLaravelTranslatablePlugin;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -27,6 +28,7 @@ class MechanicPanelProvider extends PanelProvider
         return $panel
             ->id('mechanic')
             ->path('mechanic')
+            ->tenant(ServicePoint::class)
             ->login()
             ->passwordReset()
             ->colors([
@@ -45,7 +47,7 @@ class MechanicPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Mechanic/Widgets'), for: 'App\\Filament\\Mechanic\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
+                // Widgets\FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -57,8 +59,7 @@ class MechanicPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
-                // To make sure mechanic can only select himself
-                ApplyGlobalScopes::class,
+                AssignGlobalScopes::class,
             ])
             ->authMiddleware([
                 Authenticate::class,

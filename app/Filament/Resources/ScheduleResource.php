@@ -114,13 +114,8 @@ class ScheduleResource extends Resource
                     ->date()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                // Tables\Columns\TextColumn::make('servicePoint.name')
-                //     ->label('Servicepunt')
-                //     ->badge()
-                //     ->sortable(),
                 Tables\Columns\TextColumn::make('owner.name')
                     ->label('Monteur')
-                    ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('slots')
                     ->label('Tijdsloten')

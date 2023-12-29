@@ -9,7 +9,7 @@ use Filament\Facades\Filament;
 use Illuminate\Database\Eloquent\Builder;
 use Symfony\Component\HttpFoundation\Response;
 
-class ApplyGlobalScopes
+class AssignGlobalScopes
 {
     /**
      * Handle an incoming request.

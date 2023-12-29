@@ -13,7 +13,13 @@ class EditSchedule extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            Actions\DeleteAction::make()
+            ->outlined()
+            ->icon('heroicon-o-trash'),
+            Actions\Action::make('Resetten')
+            ->outlined()
+            ->icon('heroicon-o-arrow-path')
+            ->action(fn () => $this->fillForm())
         ];
     }
 
