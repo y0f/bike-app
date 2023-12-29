@@ -10,12 +10,8 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use App\Enums\LoanBikeStatus;
 use Filament\Resources\Resource;
-use Filament\Forms\Components\Select;
 use Illuminate\Database\QueryException;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Mechanic\Resources\LoanBikeResource\Pages;
-use App\Filament\Mechanic\Resources\LoanBikeResource\RelationManagers;
 
 class LoanBikeResource extends Resource
 {

@@ -14,15 +14,14 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use App\Models\Appointment;
 use App\Enums\LoanBikeStatus;
+use Filament\Facades\Filament;
 use Illuminate\Support\Carbon;
 use App\Enums\AppointmentStatus;
 use Filament\Resources\Resource;
 use Illuminate\Support\HtmlString;
 use Illuminate\Database\QueryException;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Mechanic\Resources\AppointmentResource\Pages;
-use App\Filament\Mechanic\Resources\AppointmentResource\RelationManagers;
 use App\Filament\Mechanic\Resources\AppointmentResource\Pages\CreateAppointment;
 
 class AppointmentResource extends Resource
@@ -52,20 +51,6 @@ class AppointmentResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Section::make([
-                    Forms\Components\Select::make('service_point_id')
-                        ->relationship('servicePoint', 'name')
-                        ->label('Servicepunten')
-                        ->native(false)
-                        ->preload()
-                        ->searchable()
-                        ->live()
-                        ->afterStateUpdated(function (Set $set) {
-                            $set('date', null);
-                            $set('mechanic_id', null);
-                            $set('has_loan_bike', null);
-                            $set('loan_bike_id', null);
-                        }),
-
                     Forms\Components\Select::make('customer_bike_id')
                         ->label('Voertuig')
                         ->native(false)
@@ -79,36 +64,7 @@ class AppointmentResource extends Resource
                         ->closeOnDateSelection()
                         ->live()
                         ->required()
-                        ->hidden(fn (Get $get) => blank($get('service_point_id')))
                         ->afterStateUpdated(fn (Set $set) => $set('mechanic_id', null)),
-
-                    // We only want to show the mechanics that are available on the day of selection and within the selected service point.
-                    Forms\Components\Select::make('mechanic_id')
-                        ->label('Monteur')
-                        ->options(function (Get $get) use ($mechanic) {
-                            return User::whereBelongsTo($mechanic)
-                                ->whereHas('schedules', function (Builder $query) use ($get) {
-                                    $dayOfTheWeek = Carbon::parse($get('date'))->dayOfWeek;
-                                    $query
-                                        ->where('day_of_the_week', $dayOfTheWeek)
-                                        ->where('service_point_id', $get('service_point_id'));
-                                })
-                                ->pluck('name', 'id');
-                        })
-                        ->native(false)
-                        ->hidden(fn (Get $get) => blank($get('date')))
-                        ->live()
-                        ->required()
-                        ->afterStateUpdated(fn (Set $set) => $set('slot_id', null))
-                        ->helperText(function ($component) {
-                            if (!$component->getOptions()) {
-                                return new HtmlString(
-                                    "<span class='text-sm text-danger-600 dark:text-primary-400'>Geen monteurs beschikbaar, selecteer een andere datum of servicepunt. :(</span>"
-                                );
-                            }
-
-                            return '';
-                        }),
 
                     // We only want slots from the selected mechanic within the selected servicepoint.
                     Forms\Components\Select::make('slot_id')

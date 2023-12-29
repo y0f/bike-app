@@ -6,7 +6,6 @@ use App\Enums\BikeType;
 use App\Enums\LoanBikeStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -34,9 +33,9 @@ class LoanBike extends Model
     ];
 
     public function servicePoint(): BelongsTo
-{
-    return $this->belongsTo(ServicePoint::class, 'service_point_id');
-}
+    {
+        return $this->belongsTo(ServicePoint::class, 'service_point_id');
+    }
 
     public function appointment(): HasOne
     {

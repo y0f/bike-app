@@ -59,8 +59,10 @@ class MechanicPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
-                AssignGlobalScopes::class,
             ])
+            ->tenantMiddleware([
+                AssignGlobalScopes::class,
+            ], isPersistent: true)  // This makes sure the scope is always applied.
             ->authMiddleware([
                 Authenticate::class,
             ])

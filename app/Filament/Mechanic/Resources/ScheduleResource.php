@@ -9,7 +9,6 @@ use App\Models\Schedule;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use App\Enums\DaysOfTheWeek;
-use Filament\Facades\Filament;
 use Filament\Resources\Resource;
 use Illuminate\Database\QueryException;
 use App\Filament\Mechanic\Resources\ScheduleResource\Pages;

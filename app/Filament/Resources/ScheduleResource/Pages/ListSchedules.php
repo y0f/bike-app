@@ -27,7 +27,7 @@ class ListSchedules extends ListRecords
         $tabs = [
             'Alle roosters' => Tab::make()->badge(Schedule::query()->count()),
         ];
-    
+
         foreach (DaysOfTheWeek::cases() as $day) {
             $tabs[$day->getLabel()] = Tab::make()
                 ->label($day->getLabel())
@@ -35,7 +35,7 @@ class ListSchedules extends ListRecords
                     return $query->where('day_of_the_week', $day->value);
                 });
         }
-    
+
         return $tabs;
     }
 

@@ -28,7 +28,9 @@ class ListSchedules extends ListRecords
         // We need the auth user here to guarantee it's not leaking other tenant data, because there is an issue with the global scope on tab reload.
         $user = Filament::auth()->user();
 
-        $tabs = [];
+        $tabs = [
+            'Alle roosters' => Tab::make()->badge(Schedule::query()->count()),
+        ];
 
         foreach (DaysOfTheWeek::cases() as $day) {
             $tabs[$day->getLabel()] = Tab::make()
