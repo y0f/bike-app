@@ -166,6 +166,11 @@ class AppointmentResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->defaultGroup(
+                Tables\Grouping\Group::make('servicePoint.name')
+                    ->collapsible()
+                    ->titlePrefixedWithLabel(false)
+            )
             ->columns([
                 Tables\Columns\TextColumn::make('status')
                     ->sortable()
@@ -181,11 +186,12 @@ class AppointmentResource extends Resource
                     ->label('Monteur')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('slot.schedule.day_of_the_week')
-                    ->label('Dag')
-                    ->badge()
+                Tables\Columns\TextColumn::make('date')
+                    ->label('Datum')
+                    ->sortable()
+                    ->date('d-m-y')
                     ->searchable()
-                    ->sortable(),
+                    ->badge(),
                 Tables\Columns\TextColumn::make('slot.formatted_time')
                     ->label('Tijdslot')
                     ->badge()

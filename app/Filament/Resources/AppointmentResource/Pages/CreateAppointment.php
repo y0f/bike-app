@@ -17,7 +17,7 @@ class CreateAppointment extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        if ($data['loan_bike_id']) {
+        if (isset($data['loan_bike_id'])) {
             LoanBike::where('id', $data['loan_bike_id'])
             ->update(['status' => 'rented_out']);
         }

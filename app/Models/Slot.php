@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\SlotService;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -36,12 +37,7 @@ class Slot extends Model
 
     public function scopeAvailableFor(Builder $query, User $mechanic, int $dayOfTheWeek, int $servicePointId): void
     {
-        $query->whereHas('schedule', function (Builder $query) use ($mechanic, $dayOfTheWeek, $servicePointId) {
-            $query
-                ->where('service_point_id', $servicePointId)
-                ->where('day_of_the_week', $dayOfTheWeek)
-                ->whereBelongsTo($mechanic, 'owner');
-        });
+        app(SlotService::class)->availableFor($query, $mechanic, $dayOfTheWeek, $servicePointId);
     }
 
     protected function formattedTime(): Attribute

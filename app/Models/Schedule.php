@@ -19,7 +19,7 @@ class Schedule extends Model
     ];
 
     protected $casts = [
-        'date' => 'datetime',
+        'date'            => 'datetime',
         'day_of_the_week' => DaysOfTheWeek::class,
     ];
 
