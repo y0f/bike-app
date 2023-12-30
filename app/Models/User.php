@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasAvatar;
 use Filament\Models\Contracts\HasTenants;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,7 +16,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable implements HasTenants, FilamentUser
+class User extends Authenticatable implements HasTenants, FilamentUser, HasAvatar
 {
     use HasApiTokens;
     use HasFactory;
@@ -33,6 +34,7 @@ class User extends Authenticatable implements HasTenants, FilamentUser
         'role_id',
         'service_point_id',
         'phone',
+        'avatar_url',
     ];
 
     /**
@@ -110,11 +112,22 @@ class User extends Authenticatable implements HasTenants, FilamentUser
     {
         $role = auth()->user()->role->name;
 
-        return match($panel->getId()) {
+        return match ($panel->getId()) {
             'admin'          => $role === 'admin',
             'mechanic'       => $role === 'mechanic',
             'vehicleowner'   => $role === 'owner',
             default          => false,
         };
+    }
+
+    public function getFilamentAvatarUrl(): string
+    {
+        $avatarUrl = $this->avatar_url;
+
+        if (!empty($avatarUrl)) {
+            return "/storage/$avatarUrl";
+        } else {
+            return "/storage/logo.png";
+        }
     }
 }

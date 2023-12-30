@@ -18,16 +18,12 @@ class ApplyTenantScopes
      */
     public function handle(Request $request, Closure $next)
     {
-        /**
-         * @var \App\Models\ServicePoint $servicePoint The current ServicePoint
-         */
-        CustomerBike::addGlobalScope(
-            function (Builder $query) {
-                $servicePoint = Filament::getTenant();
-                $query->whereHas('servicePoints', fn (Builder $query) =>
-                $query->where('service_point_id', $servicePoint->id));
-            }
-        );
+        CustomerBike::addGlobalScope(function (Builder $query) {
+            $servicePoint = Filament::getTenant();
+            $query->whereHas('servicePoints', function (Builder $query) use ($servicePoint) {
+                $query->where('service_point_id', optional($servicePoint)->id);
+            });
+        });
 
         // Filament::getTenant() is how to get the service_point_id.
         LoanBike::addGlobalScope(function (Builder $query) {

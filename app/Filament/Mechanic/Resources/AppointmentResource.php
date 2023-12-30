@@ -134,7 +134,7 @@ class AppointmentResource extends Resource
                     ->label('Voertuig')
                     ->numeric()
                     ->searchable()
-                    ->limit(12)
+                    ->limit(16)
                     ->sortable(),
                 // I'm leaving this here for testing purposes for now, needs to be removed eventually.
                 // Tables\Columns\TextColumn::make('mechanic.name')

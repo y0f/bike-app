@@ -11,10 +11,7 @@ use App\Models\CustomerBike;
 use Filament\Resources\Resource;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Mechanic\Resources\CustomerBikeResource\Pages;
-use App\Filament\Mechanic\Resources\CustomerBikeResource\RelationManagers;
 
 class CustomerBikeResource extends Resource
 {

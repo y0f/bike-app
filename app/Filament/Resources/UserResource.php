@@ -39,43 +39,45 @@ class UserResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Section::make([
-                Forms\Components\TextInput::make('name')
-                    ->label('Voor & achternaam')
-                    ->required()
-                    ->maxLength(255)
-                    ->columnSpanFull(),
-                Forms\Components\TextInput::make('phone')
-                    ->label('Telefoonnummer')
-                    ->tel()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('email')
-                    ->email()
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\Select::make('service_point_id')
-                    ->relationship('servicePoints', 'name')
-                    ->label('Servicepunten')
-                    ->native(false)
-                    ->multiple()
-                    ->searchable()
-                    ->preload(),
-                Forms\Components\TextInput::make('password')
-                    ->label('Wachtwoord')
-                    ->password()
-                    ->dehydrateStateUsing(fn ($state) => Hash::make($state))
-                    ->dehydrated(fn ($state) => filled($state))
-                    ->required(fn (string $context): bool => $context === 'create')
-                    ->hidden(fn ($livewire) => $livewire instanceof ViewUser)
-                    ->maxLength(255),
-                Forms\Components\Select::make('role_id')
-                    ->label('Gebruikersrol')
-                    ->preload()
-                    ->native(false)
-                    ->options(UserRoles::class)
-                    ->required(),
+                    Forms\Components\FileUpload::make('avatar_url')
+                        ->image(),
+                    Forms\Components\TextInput::make('name')
+                        ->label('Voor & achternaam')
+                        ->required()
+                        ->maxLength(255)
+                        ->columnSpanFull(),
+                    Forms\Components\TextInput::make('phone')
+                        ->label('Telefoonnummer')
+                        ->tel()
+                        ->maxLength(255),
+                    Forms\Components\TextInput::make('email')
+                        ->email()
+                        ->required()
+                        ->maxLength(255),
+                    Forms\Components\Select::make('service_point_id')
+                        ->relationship('servicePoints', 'name')
+                        ->label('Servicepunten')
+                        ->native(false)
+                        ->multiple()
+                        ->searchable()
+                        ->preload(),
+                    Forms\Components\TextInput::make('password')
+                        ->label('Wachtwoord')
+                        ->password()
+                        ->dehydrateStateUsing(fn ($state) => Hash::make($state))
+                        ->dehydrated(fn ($state) => filled($state))
+                        ->required(fn (string $context): bool => $context === 'create')
+                        ->hidden(fn ($livewire) => $livewire instanceof ViewUser)
+                        ->maxLength(255),
+                    Forms\Components\Select::make('role_id')
+                        ->label('Gebruikersrol')
+                        ->preload()
+                        ->native(false)
+                        ->options(UserRoles::class)
+                        ->required(),
                 ])
-                ->icon('heroicon-o-users')
-                ->columns(2)
+                    ->icon('heroicon-o-users')
+                    ->columns(2)
             ]);
     }
 
@@ -83,6 +85,8 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\ImageColumn::make('avatar_url')
+                    ->circular(),
                 Tables\Columns\TextColumn::make('name')
                     ->label('Naam')
                     ->searchable()
@@ -107,9 +111,9 @@ class UserResource extends Resource
                     ->label('Servicepunten')
                     ->badge()
                     ->color('undefined'),
-                    // Note: need to fix bugs in this.
-                    // ->sortable()
-                    //->searchable(),
+                // Note: need to fix bugs in this.
+                // ->sortable()
+                //->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

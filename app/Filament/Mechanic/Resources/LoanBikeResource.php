@@ -37,9 +37,7 @@ class LoanBikeResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('service_point_id')
-                    ->relationship('servicePoint', 'name')
-                    ->required(),
+
                 Forms\Components\Select::make('status')
                     ->required()
                     ->native(false)
@@ -77,6 +75,8 @@ class LoanBikeResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('servicePoint.name')
                     ->label('Servicepunt')
+                    ->badge()
+                    ->color('undefined')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('status')
                     ->badge()

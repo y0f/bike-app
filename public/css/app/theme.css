@@ -2,18 +2,15 @@
 
 @config './tailwind.config.js';
 
-.fi-sidebar {
-    background: white;
-}
 
-.dark .fi-sidebar {
+.dark .fi-main { background: #09090b !important; }
+
+.dark .fi-sidebar-nav {
     background: #131316;
+    border-top: 1px solid #ff6d2c !important;
 }
 
 .dark .fi-topbar {
     border-bottom: 1px solid #ff6d2c;
 }
 
-.dark .fi-sidebar-nav {
-    border-top: 1px solid #ff6d2c !important;
-}
