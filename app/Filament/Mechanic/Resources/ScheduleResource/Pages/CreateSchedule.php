@@ -16,7 +16,8 @@ class CreateSchedule extends CreateRecord
 
     // we need to somehow retrieve the date here, revert the date field migration from slots
     // add it to the schedule, create a schedule with a initial date depending on the day of the week chosen
-    
+    // and we need to filter the timeslot select options by schedule dates.
+
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         $data['owner_id'] = Filament::auth()->user()->id;
