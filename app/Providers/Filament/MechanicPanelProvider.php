@@ -34,13 +34,13 @@ class MechanicPanelProvider extends PanelProvider
             ->tenant(ServicePoint::class)
             ->login()
             ->passwordReset()
-            ->profile()
+            // ->profile() //TODO: Custom profile page
             ->userMenuItems([
                 'contact' => MenuItem::make()
-                ->label('Contactgegevens')
-                ->icon('heroicon-o-phone')
-                // This line creates a menu link using the getUrl() method, ensuring the link includes the tenant's ID.
-                ->url(fn (): string => Contact::getUrl())
+                    ->label('Contactgegevens')
+                    ->icon('heroicon-o-phone')
+                    // This line creates a menu link using the getUrl() method, ensuring the link includes the tenant's ID.
+                    ->url(fn (): string => Contact::getUrl()),
             ])
             ->colors([
                 'primary' => Color::Orange,
