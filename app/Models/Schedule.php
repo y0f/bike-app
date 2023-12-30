@@ -16,6 +16,7 @@ class Schedule extends Model
         'owner_id',
         'service_point_id',
         'day_of_the_week',
+        'date',
     ];
 
     protected $casts = [

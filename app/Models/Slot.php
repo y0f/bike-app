@@ -17,7 +17,9 @@ class Slot extends Model
 
     protected $fillable = [
         'start',
-        'end'
+        'end',
+        'schedule_id',
+        'date',
     ];
 
     protected $casts = [

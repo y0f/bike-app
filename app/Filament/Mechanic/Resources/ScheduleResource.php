@@ -75,11 +75,6 @@ class ScheduleResource extends Resource
         return $table
 
         ->columns([
-            Tables\Columns\TextColumn::make('date')
-                ->label('Datum')
-                ->date()
-                ->sortable()
-                ->toggleable(isToggledHiddenByDefault: true),
             Tables\Columns\TextColumn::make('servicePoint.name')
                 ->label('Servicepunt')
                 ->numeric()
@@ -88,6 +83,8 @@ class ScheduleResource extends Resource
                 ->label('Monteur')
                 ->numeric()
                 ->sortable(),
+            Tables\Columns\TextColumn::make('date')
+                ->label('Datum'),
             Tables\Columns\TextColumn::make('slots')
                 ->label('Tijdsloten')
                 ->badge()
