@@ -27,15 +27,6 @@ class CreateAppointment extends CreateRecord
                 ->update(['status' => 'rented_out']);
         }
 
-        $slotId = $data['slot_id'];
-
-        $slot = Slot::find($slotId);
-
-        if ($slot) {
-            $slot->update(['available' => false]);
-        
-        }
-
         return $data;
     }
 }
