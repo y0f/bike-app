@@ -8,7 +8,7 @@ BikeHub is a Laravel Filament web app tailored for bike repair shops. It feature
 
 - **Phase:** Active Exploration
 - **Progress:** Deep dive into Filament V3
-- **Timeframe:** I would say about 35% done with what I had in mind. Still needs proper appointment scheduling logic.
+- **Timeframe:** I would say about 45% done.
 
 The application currently uses Dutch language, with plans to implement multi-language support.
 
@@ -40,6 +40,7 @@ This project is licensed under the MIT License.
 ![image](https://github.com/minuut/BikeHub/assets/70378641/5e3a9395-5e3c-4ff3-999f-4923878717d8)
 
 If Harrie Fietsers is in multiple servicepoints, he can simply click the servicepoint name and select a different servicepoint.
+
 ## Disclaimer
 
 This README is a work in progress and will be updated as the project evolves.
