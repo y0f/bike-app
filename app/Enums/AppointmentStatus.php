@@ -7,6 +7,8 @@ use Filament\Support\Contracts\HasColor;
 
 enum AppointmentStatus: string implements HasLabel, HasColor
 {
+    // We only use Created, Cancelled and Completed for now but the other two will eventually be used.
+
     case Created    = 'created';
     case Confirmed  = 'confirmed';
     case Cancelled  = 'cancelled';

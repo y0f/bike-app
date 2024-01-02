@@ -63,7 +63,7 @@ class CustomerBikeResource extends Resource
                         ->options(BikeType::class)
                         ->required()
                         ->searchable()
-                        ->label('Type voertuig'),
+                        ->label('Type fiets'),
                     Forms\Components\TextInput::make('color')
                         ->required()
                         ->maxLength(255)
@@ -90,10 +90,9 @@ class CustomerBikeResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\ImageColumn::make('image')
-                ->circular()
+                ->square()
                 ->label('Afbeelding')
-                ->defaultImageUrl(url('/images/logo.png'))
-                ->toggleable(isToggledHiddenByDefault: true),
+                ->defaultImageUrl(url('/images/logo.png')),
             Tables\Columns\TextColumn::make('servicePoints.name')
                 ->label('Servicepunt')
                 ->badge()

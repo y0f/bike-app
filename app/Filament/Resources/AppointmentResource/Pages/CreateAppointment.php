@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\AppointmentResource\Pages;
 
 use App\Models\LoanBike;
+use App\Enums\LoanBikeStatus;
 use Filament\Resources\Pages\CreateRecord;
 use App\Filament\Resources\AppointmentResource;
 
@@ -19,8 +20,10 @@ class CreateAppointment extends CreateRecord
     {
         if (isset($data['loan_bike_id'])) {
             LoanBike::where('id', $data['loan_bike_id'])
-            ->update(['status' => 'rented_out']);
+                ->update(['status' => LoanBikeStatus::RentedOut]);
         }
+
+        $data['has_loan_bike'] = $data['has_loan_bike'] ?? false;
 
         return $data;
     }

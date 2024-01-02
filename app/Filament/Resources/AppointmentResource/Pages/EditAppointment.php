@@ -34,10 +34,10 @@ class EditAppointment extends EditRecord
     protected function mutateFormDataBeforeFill(array $data): array
     {
         if ($this->record instanceof Appointment) {
-            $data['date']             = $this->record->date;
             $data['mechanic_id']      = $this->record->slot->schedule->owner_id;
-            $data['loan_bike_id']     = $this->record->loan_bike_id;
-            $data['service_point_id'] = $this->record->service_point_id;
+            $data['loan_bike_id']     = $this->record->loan_bike_id; 
+            // Prevents a visual bug where the slot_id shows instead of the formatted time.
+            $data['slot_id']          = $this->record->slot->formatted_time;
         }
 
         return $data;
@@ -45,10 +45,14 @@ class EditAppointment extends EditRecord
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
+        if ($this->record instanceof Appointment) {
+            $data['slot_id'] = $this->record->slot->id;
+        }
+
         // original model data to get the old loan_bike_id
         $oldLoanBikeId = $this->record->getOriginal('loan_bike_id');
 
-        if ($data['loan_bike_id'] !== $oldLoanBikeId) {
+        if (isset($data['loan_bike_id']) && $data['loan_bike_id'] !== $oldLoanBikeId) {
             $previousLoanBike = LoanBike::find($oldLoanBikeId);
 
             if ($previousLoanBike) {
@@ -58,7 +62,7 @@ class EditAppointment extends EditRecord
         }
 
         // Find the new LoanBike and update its status to RentedOut
-        if ($data['loan_bike_id']) {
+        if (isset($data['loan_bike_id']) && $data['loan_bike_id']) {
             $newLoanBike = LoanBike::find($data['loan_bike_id']);
             if ($newLoanBike) {
                 $newLoanBike->status = LoanBikeStatus::RentedOut;

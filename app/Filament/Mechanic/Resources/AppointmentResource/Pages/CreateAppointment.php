@@ -3,6 +3,7 @@
 namespace App\Filament\Mechanic\Resources\AppointmentResource\Pages;
 
 use App\Models\LoanBike;
+use App\Models\Appointment;
 use Filament\Facades\Filament;
 use Filament\Resources\Pages\CreateRecord;
 use App\Filament\Mechanic\Resources\AppointmentResource;
@@ -24,6 +25,8 @@ class CreateAppointment extends CreateRecord
             LoanBike::where('id', $data['loan_bike_id'])
                 ->update(['status' => 'rented_out']);
         }
+
+        $data['has_loan_bike'] = $data['has_loan_bike'] ?? false;
 
         return $data;
     }

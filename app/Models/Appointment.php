@@ -22,13 +22,12 @@ class Appointment extends Model
         'status',
         'loan_bike_id',
         'has_loan_bike',
-
     ];
 
     protected $casts = [
         'status'        => AppointmentStatus::class,
         'date'          => 'datetime',
-        'has_loan_bike' => 'boolean'
+        'has_loan_bike' => 'boolean',
     ];
 
     protected static function boot()

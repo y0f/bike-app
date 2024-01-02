@@ -22,13 +22,14 @@ class Contact extends Page implements HasForms, HasTable, HasInfolists
     use InteractsWithTable;
     use InteractsWithInfolists;
 
-    public $tenant;
+    protected $tenant;
 
     protected static ?string $model = User::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
     protected static string $view = 'filament.mechanic.pages.contact';
+
 
     public function mount()
     {

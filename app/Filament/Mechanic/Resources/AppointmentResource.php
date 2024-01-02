@@ -41,6 +41,9 @@ class AppointmentResource extends Resource
 
     public static function form(Form $form): Form
     {
+        /** @var \App\Models\ServicePoint $servicePoint the auth user's servicePoint */
+        $servicePoint = Filament::getTenant();
+
         return $form
             ->schema([
                 Forms\Components\Section::make([
@@ -48,7 +51,13 @@ class AppointmentResource extends Resource
                         ->label('Voertuig')
                         ->native(false)
                         ->relationship('customerBike', 'identifier')
-                        ->required(),
+                        ->required()
+                        ->preload()
+                        /** Retrieve helper text based on the availability of customer bikes in the current service point. */
+                        ->helperText(fn () => $servicePoint->customerBikes->isEmpty() ?
+                            new HtmlString(
+                                '<span class="text-sm text-danger-600 dark:text-danger-400">Er zijn geen geregistreerde tweewielers van klanten in dit servicepunt.</span>'
+                            ) : ''),
 
                     Forms\Components\DatePicker::make('date')
                         ->label('Datum')
@@ -60,32 +69,30 @@ class AppointmentResource extends Resource
 
                     // We only want slots from the logged in mechanic's tenant that don't have an appointment on the date given.
                     Forms\Components\Select::make('slot_id')
-                    ->label('Tijdslot')
-                    ->native(false)
-                    ->options(function (Get $get) {
-                        /** @var \App\Models\User $mechanic */
-                        $mechanic = Filament::auth()->user();
-                        /** @var \Illuminate\Support\Carbon $date */
-                        $date = Carbon::parse($get('date'));
-                        /** @var \App\Models\ServicePoint $servicePoint the auth user's servicePoint */
-                        $servicePoint = Filament::getTenant();
+                        ->label('Tijdslot')
+                        ->native(false)
+                        ->options(function (Get $get) use ($servicePoint) {
+                            /** @var \App\Models\User $mechanic */
+                            $mechanic = Filament::auth()->user();
+                            /** @var \Illuminate\Support\Carbon $date */
+                            $date = Carbon::parse($get('date'));
+                           
+                            return $servicePoint ? Slot::availableFor($mechanic, $date->dayOfWeek, $servicePoint->id, $date)
+                                ->get()
+                                ->pluck('formatted_time', 'id' ) : [];
+                        })
+                        ->hidden(fn (Get $get) => blank($get('date')))
+                        ->live()
+                        ->helperText(function ($component) {
+                            if (!$component->getOptions()) {
+                                return new HtmlString(
+                                    '<span class="text-sm text-danger-600 dark:text-danger-400">Geen beschikbare tijdsloten. Selecteer alstublieft een andere datum.</span>'
+                                );
+                            }
 
-                        return $servicePoint ? Slot::availableFor($mechanic, $date->dayOfWeek, $servicePoint->id, $date)
-                            ->get()
-                            ->pluck('formatted_time', 'id') : [];
-                    })
-                    ->hidden(fn (Get $get) => blank($get('date')))
-                    ->live()
-                    ->helperText(function ($component) {
-                        if (!$component->getOptions()) {
-                            return new HtmlString(
-                                '<span class="text-sm text-danger-600 dark:text-danger-400">Geen beschikbare tijdsloten. Selecteer alstublieft een andere datum.</span>'
-                            );
-                        }
-
-                        return '';
-                    })
-                    ->required(),
+                            return '';
+                        })
+                        ->required(),
 
                     Forms\Components\Toggle::make('has_loan_bike')
                         ->label('Is er een leenmiddel van toepassing?')
@@ -169,10 +176,11 @@ class AppointmentResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
+                // Tables\Actions\ViewAction::make(),
                 Tables\Actions\Action::make('Voltooien')
                     ->action(function (Appointment $record) {
                         $record->status = AppointmentStatus::Completed;
+                        $record->has_loan_bike = false;
                         $record->loan_bike_id = null;
                         $record->save();
 
@@ -191,6 +199,7 @@ class AppointmentResource extends Resource
                 Tables\Actions\Action::make('Annuleren')
                     ->action(function (Appointment $record) {
                         $record->status = AppointmentStatus::Cancelled;
+                        $record->has_loan_bike = false;
                         $record->loan_bike_id = null;
                         $record->save();
 

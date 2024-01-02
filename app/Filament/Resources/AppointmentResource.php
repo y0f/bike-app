@@ -113,6 +113,7 @@ class AppointmentResource extends Resource
 
                     // We only want slots from the selected mechanic within the selected servicepoint.
                     Forms\Components\Select::make('slot_id')
+                        ->label('Tijdslot')
                         ->native(false)
                         ->options(function (Get $get) {
                             $mechanicId = $get('mechanic_id');
@@ -233,6 +234,7 @@ class AppointmentResource extends Resource
                 Tables\Actions\Action::make('Voltooien')
                     ->action(function (Appointment $record) {
                         $record->status = AppointmentStatus::Completed;
+                        $record->has_loan_bike = false;
                         $record->loan_bike_id = null;
                         $record->save();
 
@@ -251,6 +253,7 @@ class AppointmentResource extends Resource
                 Tables\Actions\Action::make('Annuleren')
                     ->action(function (Appointment $record) {
                         $record->status = AppointmentStatus::Cancelled;
+                        $record->has_loan_bike = false;
                         $record->loan_bike_id = null;
                         $record->save();
 

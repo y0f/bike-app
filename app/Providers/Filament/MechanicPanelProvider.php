@@ -7,8 +7,10 @@ use Filament\Panel;
 use Filament\Widgets;
 use Filament\PanelProvider;
 use App\Models\ServicePoint;
+use Filament\Facades\Filament;
 use Filament\Navigation\MenuItem;
 use Filament\Support\Colors\Color;
+use App\Filament\Mechanic\Pages\Faq;
 use App\Filament\Mechanic\Pages\Contact;
 use App\Http\Middleware\ApplyTenantScopes;
 use Filament\Http\Middleware\Authenticate;
@@ -33,14 +35,27 @@ class MechanicPanelProvider extends PanelProvider
             ->path('mechanic')
             ->tenant(ServicePoint::class)
             ->login()
+            ->profile()
             ->passwordReset()
             ->userMenuItems([
                 'contact' => MenuItem::make()
                     ->label('Contactgegevens')
                     ->icon('heroicon-o-phone')
-                    // This line creates a menu link using the getUrl() method, ensuring the link includes the tenant's ID.
-                    // the downside is that it breaks profile() so EditProfile needs to be created manually.
-                    ->url(fn (): string => Contact::getUrl()),
+                    ->url(fn (): string => Contact::getUrl(
+                        [
+                            'tenant' => Filament::getTenant(),
+                            'contact'
+                        ]
+                    )),
+                'faq' => MenuItem::make()
+                    ->label('FAQ')
+                    ->icon('heroicon-o-question-mark-circle')
+                    ->url(fn (): string => Faq::getUrl(
+                        [
+                            'tenant' => Filament::getTenant(),
+                            'faq'
+                        ]
+                    )),
             ])
             ->colors([
                 'primary' => Color::Orange,
@@ -79,12 +94,9 @@ class MechanicPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
-            ->plugin(
+            ->plugins([
                 SpatieLaravelTranslatablePlugin::make()
                     ->defaultLocales(['en', 'nl']),
-            )
-            ->plugins([
-
             ]);
     }
 }

@@ -35,6 +35,8 @@ class User extends Authenticatable implements HasTenants, FilamentUser, HasAvata
         'service_point_id',
         'phone',
         'avatar_url',
+        'theme',
+        'theme_color',
     ];
 
     /**
