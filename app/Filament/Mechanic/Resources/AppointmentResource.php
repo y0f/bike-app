@@ -43,8 +43,6 @@ class AppointmentResource extends Resource
 
     public static function form(Form $form): Form
     {
-        $mechanic = Role::whereName('mechanic')->first();
-
         return $form
             ->schema([
                 Forms\Components\Section::make([

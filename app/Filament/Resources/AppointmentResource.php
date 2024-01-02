@@ -115,20 +115,30 @@ class AppointmentResource extends Resource
                     Forms\Components\Select::make('slot_id')
                         ->native(false)
                         ->options(function (Get $get) {
-                            /** @var \App\Models\User $mechanic */
-                            $mechanic = Filament::auth()->user();
+                            $mechanicId = $get('mechanic_id');
+
+                            $mechanic = User::find($mechanicId);
                             /** @var \Illuminate\Support\Carbon $date */
                             $date = Carbon::parse($get('date'));
                             /** @var \App\Models\ServicePoint $servicePoint the auth user's servicePoint */
-                            $servicePoint = Filament::getTenant();
+                            $servicePoint = $get('service_point_id');
                     
-                            return $servicePoint ? Slot::availableFor($mechanic, $date->dayOfWeek, $servicePoint->id, $date)
+                            return $servicePoint ? Slot::availableFor($mechanic, $date->dayOfWeek, $servicePoint, $date)
                                 ->get()
                                 ->pluck('formatted_time', 'id') : [];
                         })
                         ->hidden(fn (Get $get) => blank($get('mechanic_id')))
                         ->getOptionLabelFromRecordUsing(fn (Slot $record) => $record->start->format('H:i'))
                         ->live()
+                        ->helperText(function ($component) {
+                            if (!$component->getOptions()) {
+                                return new HtmlString(
+                                    '<span class="text-sm text-danger-600 dark:text-danger-400">Geen beschikbare tijdsloten. Selecteer alstublieft een andere datum.</span>'
+                                );
+                            }
+    
+                            return '';
+                        })
                         ->required(),
 
                     Forms\Components\Toggle::make('has_loan_bike')
