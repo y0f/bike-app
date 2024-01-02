@@ -13,8 +13,8 @@ use App\Models\LoanBike;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use App\Models\Appointment;
+use App\Models\ServicePoint;
 use App\Enums\LoanBikeStatus;
-use Filament\Facades\Filament;
 use Illuminate\Support\Carbon;
 use App\Enums\AppointmentStatus;
 use Filament\Infolists\Infolist;
@@ -116,14 +116,14 @@ class AppointmentResource extends Resource
                         ->native(false)
                         ->options(function (Get $get) {
                             $mechanicId = $get('mechanic_id');
-
                             $mechanic = User::find($mechanicId);
-                            /** @var \Illuminate\Support\Carbon $date */
+
+                            $servicePointId = $get('service_point_id');
+                            $servicePoint = ServicePoint::find($servicePointId);
+
                             $date = Carbon::parse($get('date'));
-                            /** @var \App\Models\ServicePoint $servicePoint the auth user's servicePoint */
-                            $servicePoint = $get('service_point_id');
-                    
-                            return $servicePoint ? Slot::availableFor($mechanic, $date->dayOfWeek, $servicePoint, $date)
+
+                            return $servicePoint ? Slot::availableFor($mechanic, $date->dayOfWeek, $servicePoint->id, $date)
                                 ->get()
                                 ->pluck('formatted_time', 'id') : [];
                         })
@@ -136,7 +136,7 @@ class AppointmentResource extends Resource
                                     '<span class="text-sm text-danger-600 dark:text-danger-400">Geen beschikbare tijdsloten. Selecteer alstublieft een andere datum.</span>'
                                 );
                             }
-    
+
                             return '';
                         })
                         ->required(),

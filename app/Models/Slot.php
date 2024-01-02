@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\User;
 use App\Services\SlotService;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
