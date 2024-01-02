@@ -37,9 +37,7 @@ This project is licensed under the MIT License.
 
 **Mechanic panel preview: (While logged in as demo mechanic 'Harrie Fietsers')**
 
-![image](https://github.com/minuut/BikeHub/assets/70378641/606a5207-9ef9-4df2-96e6-e6ef8f959680)
-
-Eventually when the customer selects a timeslot the slot will not be available for other customers to pick. There are duplicates in the screenshots, because it's still in development.
+![image](https://github.com/minuut/BikeHub/assets/70378641/5e3a9395-5e3c-4ff3-999f-4923878717d8)
 
 ## Disclaimer
 
