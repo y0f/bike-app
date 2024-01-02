@@ -2,8 +2,10 @@
 
 namespace App\Filament\Mechanic\Resources\AppointmentResource\Pages;
 
+use App\Models\Slot;
 use App\Models\LoanBike;
 use Filament\Facades\Filament;
+use App\Jobs\MakeSlotAvailable;
 use Filament\Resources\Pages\CreateRecord;
 use App\Filament\Mechanic\Resources\AppointmentResource;
 
@@ -22,7 +24,16 @@ class CreateAppointment extends CreateRecord
 
         if (isset($data['loan_bike_id'])) {
             LoanBike::where('id', $data['loan_bike_id'])
-            ->update(['status' => 'rented_out']);
+                ->update(['status' => 'rented_out']);
+        }
+
+        $slotId = $data['slot_id'];
+
+        $slot = Slot::find($slotId);
+
+        if ($slot) {
+            $slot->update(['available' => false]);
+        
         }
 
         return $data;

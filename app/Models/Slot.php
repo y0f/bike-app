@@ -20,11 +20,13 @@ class Slot extends Model
         'end',
         'schedule_id',
         'date',
+        'available',
     ];
 
     protected $casts = [
-        'start' => 'datetime',
-        'end'   => 'datetime',
+        'available' => 'boolean',
+        'start'     => 'datetime',
+        'end'       => 'datetime',
     ];
 
     public function appointment(): HasMany

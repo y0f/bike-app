@@ -14,14 +14,14 @@ return new class extends Migration
     public function up()
 {
     Schema::table('slots', function (Blueprint $table) {
-        $table->date('date')->nullable();
+        $table->boolean('available')->default(true)->nullable();
     });
 }
 
 public function down()
 {
     Schema::table('slots', function (Blueprint $table) {
-        $table->dropColumn('date');
+        $table->dropColumn('available');
     });
 }
 };

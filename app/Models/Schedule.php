@@ -16,7 +16,6 @@ class Schedule extends Model
         'owner_id',
         'service_point_id',
         'day_of_the_week',
-        'date',
     ];
 
     protected $casts = [
@@ -42,5 +41,19 @@ class Schedule extends Model
     public function customerBike(): BelongsTo
     {
         return $this->belongsTo(CustomerBike::class);
+    }
+
+    public function getDateForDayOfWeekAttribute(): \Carbon\Carbon
+    {
+        $dayOfWeek = $this->day_of_the_week->value;
+
+        // Calculate the difference in days between the current day and the specified day_of_the_week
+        $dayDifference = ($dayOfWeek - now()->dayOfWeek + 7) % 7;
+
+        // If today is Sunday (day_of_the_week = 0), show today's date
+        if ($dayOfWeek === 0) {
+            return now();
+        }
+        return now()->addDays($dayDifference);
     }
 }

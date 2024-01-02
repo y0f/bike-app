@@ -14,6 +14,7 @@ class SlotService
                 ->where('service_point_id', $servicePointId)
                 ->where('day_of_the_week', $dayOfTheWeek)
                 ->whereBelongsTo($mechanic, 'owner');
-        });
+        })
+        ->where('available', true); // Add this line to check availability
     }
 }

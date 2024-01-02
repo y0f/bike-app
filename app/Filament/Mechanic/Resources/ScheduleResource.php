@@ -75,6 +75,11 @@ class ScheduleResource extends Resource
         return $table
 
         ->columns([
+            Tables\Columns\TextColumn::make('date_for_day_of_week')
+    ->label('Date for Day of the Week')
+    ->formatStateUsing(function (Schedule $schedule) {
+        return $schedule->getDateForDayOfWeekAttribute()->format('Y-m-d');
+    }),
             Tables\Columns\TextColumn::make('servicePoint.name')
                 ->label('Servicepunt')
                 ->numeric()
@@ -83,8 +88,9 @@ class ScheduleResource extends Resource
                 ->label('Monteur')
                 ->numeric()
                 ->sortable(),
-            Tables\Columns\TextColumn::make('date')
-                ->label('Datum'),
+            // Tables\Columns\TextColumn::make('slots.available')
+            //     ->badge()
+            //     ->label('Beschikbaarheid'),
             Tables\Columns\TextColumn::make('slots')
                 ->label('Tijdsloten')
                 ->badge()
