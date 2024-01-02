@@ -18,6 +18,7 @@ use App\Enums\AppointmentStatus;
 use Filament\Resources\Resource;
 use Illuminate\Support\HtmlString;
 use Illuminate\Database\QueryException;
+use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Mechanic\Resources\AppointmentResource\Pages;
 
 class AppointmentResource extends Resource
@@ -61,19 +62,21 @@ class AppointmentResource extends Resource
                         ->live()
                         ->required(),
 
-                    // We only want slots from the logged in mechanic's tenant.
-                    // We also only want slots that don't have an appointment on the date given.
+                    // We only want slots from the logged in mechanic's tenant that don't have an appointment on the date given.
                     Forms\Components\Select::make('slot_id')
                     ->label('Tijdslot')
                     ->native(false)
                     ->options(function (Get $get) {
+                        /** @var \App\Models\User $mechanic */
                         $mechanic = Filament::auth()->user();
-                        $dayOfTheWeek = Carbon::parse($get('date'))->dayOfWeek;
-                        $servicePoint = Filament::getTenant();
+                        /** @var \Illuminate\Support\Carbon $date */
                         $date = Carbon::parse($get('date'));
-
-                        /* @phpstan-ignore-next-line */
-                        return $servicePoint ? Slot::availableFor($mechanic, $dayOfTheWeek, $servicePoint->id, $date)->get()->pluck('formatted_time', 'id') : [];
+                        /** @var \App\Models\ServicePoint $servicePoint the auth user's servicePoint */
+                        $servicePoint = Filament::getTenant();
+                
+                        return $servicePoint ? Slot::availableFor($mechanic, $date->dayOfWeek, $servicePoint->id, $date)
+                            ->get()
+                            ->pluck('formatted_time', 'id') : [];
                     })
                     ->hidden(fn (Get $get) => blank($get('date')))
                     ->live()

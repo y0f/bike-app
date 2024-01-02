@@ -13,16 +13,11 @@ class Schedule extends Model
 {
     use HasFactory;
 
-    /** Plans for Schedule:
-     *
-     * I want the mechanics to be able to manage their agenda's in the future
-     * This means that I want to make it date specific.
-    */
-
     protected $fillable = [
         'owner_id',
         'service_point_id',
         'day_of_the_week',
+        // TODO: holiday_start, holiday_end, update SlotService to use these dates.
     ];
 
     protected $casts = [

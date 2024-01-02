@@ -13,7 +13,9 @@ class CreateSchedule extends CreateRecord
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         $data['owner_id'] = Filament::auth()->user()->id;
-        $data['service_point_id'] = Filament::getTenant()->id;
+        /** @var \App\Models\ServicePoint $servicePoint the auth user's servicePoint */ 
+        $servicePoint = Filament::getTenant();
+        $data['service_point_id'] = $servicePoint->id;
 
         return $data;
     }

@@ -7,3 +7,4 @@ parameters:
         - app/
 
     level: 5
+    treatPhpDocTypesAsCertain: false

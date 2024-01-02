@@ -14,6 +14,7 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use App\Models\Appointment;
 use App\Enums\LoanBikeStatus;
+use Filament\Facades\Filament;
 use Illuminate\Support\Carbon;
 use App\Enums\AppointmentStatus;
 use Filament\Infolists\Infolist;
@@ -114,11 +115,16 @@ class AppointmentResource extends Resource
                     Forms\Components\Select::make('slot_id')
                         ->native(false)
                         ->options(function (Get $get) {
-                            $mechanic = User::find($get('mechanic_id'));
-                            $dayOfTheWeek = Carbon::parse($get('date'))->dayOfWeek;
-                            $servicePointId = $get('service_point_id');
-
-                            return $servicePointId ? Slot::availableFor($mechanic, $dayOfTheWeek, $servicePointId)->get()->pluck('formatted_time', 'id') : [];
+                            /** @var \App\Models\User $mechanic */
+                            $mechanic = Filament::auth()->user();
+                            /** @var \Illuminate\Support\Carbon $date */
+                            $date = Carbon::parse($get('date'));
+                            /** @var \App\Models\ServicePoint $servicePoint the auth user's servicePoint */
+                            $servicePoint = Filament::getTenant();
+                    
+                            return $servicePoint ? Slot::availableFor($mechanic, $date->dayOfWeek, $servicePoint->id, $date)
+                                ->get()
+                                ->pluck('formatted_time', 'id') : [];
                         })
                         ->hidden(fn (Get $get) => blank($get('mechanic_id')))
                         ->getOptionLabelFromRecordUsing(fn (Slot $record) => $record->start->format('H:i'))
