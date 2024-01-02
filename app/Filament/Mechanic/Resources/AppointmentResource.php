@@ -62,6 +62,7 @@ class AppointmentResource extends Resource
                         ->required(),
 
                     // We only want slots from the logged in mechanic's tenant.
+                    // We also only want slots that don't have an appointment on the date given.
                     Forms\Components\Select::make('slot_id')
                     ->label('Tijdslot')
                     ->native(false)
