@@ -39,11 +39,11 @@ class Slot extends Model
         return $this->belongsTo(Schedule::class);
     }
 
-    public function scopeAvailableFor(Builder $query, User $mechanic, int $dayOfTheWeek, int $servicePointId): void
+    public function scopeAvailableFor(Builder $query, User $mechanic, int $dayOfTheWeek, int $servicePointId, Carbon $date): void
     {
-        app(SlotService::class)->availableFor($query, $mechanic, $dayOfTheWeek, $servicePointId);
+        app(SlotService::class)->availableFor($query, $mechanic, $dayOfTheWeek, $servicePointId, $date);
     }
-
+    
     /**
      * @return Attribute<string, never>
      */

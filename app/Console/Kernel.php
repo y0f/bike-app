@@ -2,7 +2,6 @@
 
 namespace App\Console;
 
-use App\Jobs\ResetSlotAvailabilityJob;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -14,7 +13,6 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->command('images:delete')->weekly();
-        $schedule->job(new ResetSlotAvailabilityJob)->weeklyOn(0, '6:00'); 
     }
 
     /**

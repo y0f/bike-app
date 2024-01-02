@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use App\Enums\DaysOfTheWeek;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -43,17 +44,12 @@ class Schedule extends Model
         return $this->belongsTo(CustomerBike::class);
     }
 
-    public function getDateForDayOfWeekAttribute(): \Carbon\Carbon
+    public function getDateForDayOfWeekAttribute(): Carbon
     {
         $dayOfWeek = $this->day_of_the_week->value;
 
-        // Calculate the difference in days between the current day and the specified day_of_the_week
         $dayDifference = ($dayOfWeek - now()->dayOfWeek + 7) % 7;
 
-        // If today is Sunday (day_of_the_week = 0), show today's date
-        if ($dayOfWeek === 0) {
-            return now();
-        }
         return now()->addDays($dayDifference);
     }
 }
