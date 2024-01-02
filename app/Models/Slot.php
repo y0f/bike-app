@@ -3,10 +3,10 @@
 namespace App\Models;
 
 use App\Services\SlotService;
-use Illuminate\Support\Carbon;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -19,12 +19,9 @@ class Slot extends Model
         'start',
         'end',
         'schedule_id',
-        'date',
-        'available',
     ];
 
     protected $casts = [
-        'available' => 'boolean',
         'start'     => 'datetime',
         'end'       => 'datetime',
     ];
@@ -43,7 +40,7 @@ class Slot extends Model
     {
         app(SlotService::class)->availableFor($query, $mechanic, $dayOfTheWeek, $servicePointId, $date);
     }
-    
+
     /**
      * @return Attribute<string, never>
      */

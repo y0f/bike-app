@@ -70,7 +70,7 @@ class AppointmentResource extends Resource
                         $dayOfTheWeek = Carbon::parse($get('date'))->dayOfWeek;
                         $servicePoint = Filament::getTenant();
                         $date = Carbon::parse($get('date'));
-                
+
                         /* @phpstan-ignore-next-line */
                         return $servicePoint ? Slot::availableFor($mechanic, $dayOfTheWeek, $servicePoint->id, $date)->get()->pluck('formatted_time', 'id') : [];
                     })
@@ -82,11 +82,11 @@ class AppointmentResource extends Resource
                                 '<span class="text-sm text-danger-600 dark:text-danger-400">Geen beschikbare tijdsloten. Selecteer alstublieft een andere datum.</span>'
                             );
                         }
-                
+
                         return '';
                     })
                     ->required(),
-                
+
                     Forms\Components\Toggle::make('has_loan_bike')
                         ->label('Is er een leenmiddel van toepassing?')
                         ->onIcon('heroicon-o-check')

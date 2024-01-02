@@ -4,7 +4,8 @@ namespace App\Services;
 
 use Carbon\Carbon;
 use App\Models\User;
-use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Builder;
+
 
 class SlotService
 {
