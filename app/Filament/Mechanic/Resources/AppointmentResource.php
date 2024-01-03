@@ -16,7 +16,6 @@ use Illuminate\Support\Carbon;
 use App\Enums\AppointmentStatus;
 use Filament\Resources\Resource;
 use Illuminate\Support\HtmlString;
-use Illuminate\Database\QueryException;
 use App\Filament\Mechanic\Resources\AppointmentResource\Pages;
 
 class AppointmentResource extends Resource
@@ -76,10 +75,10 @@ class AppointmentResource extends Resource
                             $mechanic = Filament::auth()->user();
                             /** @var \Illuminate\Support\Carbon $date */
                             $date = Carbon::parse($get('date'));
-                           
+
                             return $servicePoint ? Slot::availableFor($mechanic, $date->dayOfWeek, $servicePoint->id, $date)
                                 ->get()
-                                ->pluck('formatted_time', 'id' ) : [];
+                                ->pluck('formatted_time', 'id') : [];
                         })
                         ->hidden(fn (Get $get) => blank($get('date')))
                         ->live()

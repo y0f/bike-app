@@ -20,7 +20,6 @@ use App\Enums\AppointmentStatus;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Illuminate\Support\HtmlString;
-use Illuminate\Database\QueryException;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Infolists\Components\TextEntry;
 use App\Filament\Resources\AppointmentResource\Pages;

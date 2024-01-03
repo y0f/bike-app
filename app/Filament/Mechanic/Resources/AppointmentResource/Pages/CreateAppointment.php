@@ -3,7 +3,6 @@
 namespace App\Filament\Mechanic\Resources\AppointmentResource\Pages;
 
 use App\Models\LoanBike;
-use App\Models\Appointment;
 use Filament\Facades\Filament;
 use Filament\Resources\Pages\CreateRecord;
 use App\Filament\Mechanic\Resources\AppointmentResource;

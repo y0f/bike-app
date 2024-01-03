@@ -35,7 +35,7 @@ class EditAppointment extends EditRecord
     {
         if ($this->record instanceof Appointment) {
             $data['mechanic_id']      = $this->record->slot->schedule->owner_id;
-            $data['loan_bike_id']     = $this->record->loan_bike_id; 
+            $data['loan_bike_id']     = $this->record->loan_bike_id;
             // Prevents a visual bug where the slot_id shows instead of the formatted time.
             $data['slot_id']          = $this->record->slot->formatted_time;
         }

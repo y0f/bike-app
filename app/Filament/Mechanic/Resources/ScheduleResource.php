@@ -84,10 +84,6 @@ class ScheduleResource extends Resource
                 ->formatStateUsing(function (Schedule $schedule) {
                     return $schedule->getDateForDayOfWeekAttribute()->format('Y-m-d');
                 }),
-            Tables\Columns\TextColumn::make('owner.name')
-                ->label('Monteur')
-                ->numeric()
-                ->sortable(),
             Tables\Columns\TextColumn::make('slots')
                 ->label('Tijdsloten')
                 ->badge()
@@ -131,7 +127,6 @@ class ScheduleResource extends Resource
             return '0';
         }
     }
-
 
     public static function getPages(): array
     {
