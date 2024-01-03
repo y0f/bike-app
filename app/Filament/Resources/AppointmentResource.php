@@ -296,11 +296,7 @@ class AppointmentResource extends Resource
 
     public static function getNavigationBadge(): ?string
     {
-        try {
-            return (string) static::getModel()::count();
-        } catch (QueryException $e) {
-            return '0';
-        }
+        return static::getModel()::new()->count();
     }
 
     public static function getPages(): array

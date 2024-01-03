@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\AppointmentStatus;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -69,5 +70,16 @@ class Appointment extends Model
     public function servicePoint(): BelongsTo
     {
         return $this->belongsTo(ServicePoint::class);
+    }
+
+    /**
+     * Scope a query to include only new appointments.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return void
+     */
+    public function scopeNew(Builder $query): void
+    {
+        $query->whereStatus(AppointmentStatus::Created);
     }
 }

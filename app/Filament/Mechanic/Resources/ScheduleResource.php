@@ -88,16 +88,10 @@ class ScheduleResource extends Resource
                 ->label('Monteur')
                 ->numeric()
                 ->sortable(),
-            // Tables\Columns\TextColumn::make('slots.available')
-            //     ->badge()
-            //     ->label('Beschikbaarheid'),
             Tables\Columns\TextColumn::make('slots')
                 ->label('Tijdsloten')
                 ->badge()
                 ->formatStateUsing(fn (Slot $state) => $state->start->format('H:i') . ' - ' . $state->end->format('H:i')),
-            Tables\Columns\TextColumn::make('day_of_the_week')
-                ->label('Werkdag')
-                ->badge(),
             Tables\Columns\TextColumn::make('created_at')
                 ->dateTime()
                 ->sortable()

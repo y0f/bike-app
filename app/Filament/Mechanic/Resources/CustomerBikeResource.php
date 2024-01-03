@@ -102,7 +102,7 @@ class CustomerBikeResource extends Resource
                 ->searchable()
                 ->sortable(),
             Tables\Columns\TextColumn::make('identifier')
-                ->label('Kenteken')
+                ->label('ID')
                 ->searchable(),
             Tables\Columns\TextColumn::make('brand')
                 ->label('Merk')
