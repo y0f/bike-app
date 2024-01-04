@@ -1,5 +1,3 @@
-# BikeHub
-
 ## Project Overview
 
 BikeHub is a Laravel Filament web app tailored for bike repair shops. It features user-friendly interfaces for Admins, Mechanics, and Customers, allowing easy scheduling of bike repairs. Mechanics have control over their schedules and appointments, specific to each service point. The mechanic panel supports multi-tenancy, enabling mechanics to manage appointments and schedules across different service points (locations, branches).
