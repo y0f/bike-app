@@ -76,7 +76,6 @@ class Appointment extends Model
         return $this->morphMany(LogEntry::class, 'loggable');
     }
 
-
     /**
      * Scope a query to include only new appointments.
      *

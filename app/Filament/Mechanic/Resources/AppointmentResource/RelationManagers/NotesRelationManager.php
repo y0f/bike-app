@@ -37,12 +37,14 @@ class NotesRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('body')
             ->columns([
-                Tables\Columns\TextColumn::make('body')
-                ->limit(14)
-                ->label('Notitie'),
-                Tables\Columns\TextColumn::make('created_at')
-                ->date('d-m-Y | h:i')
-                ->label('Datum'),
+                Tables\Columns\Layout\Split::make([
+                    Tables\Columns\Layout\Stack::make([
+                        Tables\Columns\TextColumn::make('created_at')
+                        ->date('d-m-Y | h:i'),
+                        Tables\Columns\TextColumn::make('body')
+                        ->formatStateUsing(fn ($state) => strip_tags($state)),
+                    ])
+                ])
             ])
             ->filters([
                 //

@@ -11,6 +11,7 @@ class LogEntry extends Model
     use HasFactory;
 
     protected $fillable = ['body'];
+    
     /**
      * Parent notable model, (CustomerBike, LoanBike, Appointment)
      *
