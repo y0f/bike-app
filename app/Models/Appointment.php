@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Enums\AppointmentStatus;
-use Illuminate\Support\Facades\Log;
+use App\Services\AppointmentService;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -37,14 +37,7 @@ class Appointment extends Model
         parent::boot();
 
         static::updating(function (Appointment $appointment) {
-            $originalStatus = $appointment->getOriginal('status');
-            $newStatus = $appointment->getAttribute('status');
-
-            if ($originalStatus !== $newStatus) {
-                Log::info("Afspraak status is gewijzigd van {$originalStatus->value} naar {$newStatus->value}", [
-                    'appointment_id' => $appointment->id,
-                ]);
-            }
+            AppointmentService::handleStatusUpdate($appointment);
         });
     }
 
@@ -77,6 +70,12 @@ class Appointment extends Model
     {
         return $this->MorphMany(Note::class, 'notable');
     }
+
+    public function logs(): MorphMany
+    {
+        return $this->morphMany(LogEntry::class, 'loggable');
+    }
+
 
     /**
      * Scope a query to include only new appointments.

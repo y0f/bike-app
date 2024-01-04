@@ -78,7 +78,10 @@ class AppointmentResource extends Resource
                         ->live()
                         ->required()
                         ->hidden(fn (Get $get) => blank($get('service_point_id')))
-                        ->afterStateUpdated(fn (Set $set) => $set('mechanic_id', null)),
+                        ->afterStateUpdated(function (Set $set) {
+                            $set('mechanic_id', null);
+                            $set('slot_id', null);
+                        }),
 
                     // We only want to show the mechanics that are available on the day of selection and within the selected service point.
                     Forms\Components\Select::make('mechanic_id')
@@ -156,8 +159,7 @@ class AppointmentResource extends Resource
                         ->native(false)
                         ->preload()
                         ->live()
-                        ->hidden(fn (Get $get) => blank($get('service_point_id')))
-                        ->visible(fn (Get $get) => $get('has_loan_bike') == true),
+                        ->hidden(fn (Get $get) => blank($get('service_point_id'))),
 
                     Forms\Components\Select::make('status')
                         ->options(AppointmentStatus::class)

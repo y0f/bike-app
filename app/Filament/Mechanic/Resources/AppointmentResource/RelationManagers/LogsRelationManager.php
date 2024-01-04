@@ -8,17 +8,17 @@ use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
 
-class NotesRelationManager extends RelationManager
+class LogsRelationManager extends RelationManager
 {
-    protected static string $relationship = 'notes';
+    protected static string $relationship = 'logs';
 
-    protected static ?string $label = 'Notitie';
+    protected static ?string $label = 'Activiteiten log';
 
-    protected static ?string $pluralLabel = 'notities';
+    protected static ?string $pluralLabel = 'activiteiten log';
 
-    protected static ?string $title = 'Notities';
+    protected static ?string $title = 'Activiteiten log';
 
-    protected static ?string $icon = 'heroicon-o-pencil';
+    protected static ?string $icon = 'heroicon-o-computer-desktop';
 
     public function form(Form $form): Form
     {
@@ -38,7 +38,6 @@ class NotesRelationManager extends RelationManager
             ->recordTitleAttribute('body')
             ->columns([
                 Tables\Columns\TextColumn::make('body')
-                ->limit(14)
                 ->label('Notitie'),
                 Tables\Columns\TextColumn::make('created_at')
                 ->date('d-m-Y | h:i')
@@ -48,16 +47,16 @@ class NotesRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                // Tables\Actions\CreateAction::make(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                 Tables\Actions\ViewAction::make(),
+                // Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                // Tables\Actions\BulkActionGroup::make([
+                //     Tables\Actions\DeleteBulkAction::make(),
+                // ]),
             ]);
     }
 }

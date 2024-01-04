@@ -6,6 +6,7 @@ use Filament\Forms;
 use App\Models\Slot;
 use Filament\Tables;
 use Filament\Forms\Get;
+use Filament\Forms\Set;
 use App\Models\LoanBike;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
@@ -62,7 +63,10 @@ class AppointmentResource extends Resource
                         ->displayFormat('d/m/Y')
                         ->closeOnDateSelection()
                         ->live()
-                        ->required(),
+                        ->required()
+                        ->afterStateUpdated(function (Set $set) {
+                            $set('slot_id', null);
+                        }),
 
                     // We only want slots from the logged in mechanic's tenant that don't have an appointment on the date given.
                     Forms\Components\Select::make('slot_id')
@@ -74,9 +78,9 @@ class AppointmentResource extends Resource
                             /** @var \Illuminate\Support\Carbon $date */
                             $date = Carbon::parse($get('date'));
 
-                            return $servicePoint ? Slot::availableFor($mechanic, $date->dayOfWeek, $servicePoint->id, $date)
+                            return Slot::availableFor($mechanic, $date->dayOfWeek, $servicePoint->id, $date)
                                 ->get()
-                                ->pluck('formatted_time', 'id') : [];
+                                ->pluck('formatted_time', 'id');
                         })
                         ->hidden(fn (Get $get) => blank($get('date')))
                         ->live()
@@ -96,7 +100,10 @@ class AppointmentResource extends Resource
                         ->onIcon('heroicon-o-check')
                         ->offIcon('heroicon-o-x-mark')
                         ->live()
-                        ->columnSpanFull(),
+                        ->columnSpanFull()
+                        ->afterStateUpdated(function (Set $set) {
+                            $set('loan_bike_id', null);
+                        }),
 
                     Forms\Components\Select::make('loan_bike_id')
                         ->label('Leenmiddel naar keuze')
@@ -123,7 +130,7 @@ class AppointmentResource extends Resource
                         ->columnSpanFull(),
                 ])
                     ->icon('heroicon-o-calendar-days')
-                    ->columns(2)
+                    ->columns(3)
             ]);
     }
 
@@ -220,6 +227,7 @@ class AppointmentResource extends Resource
     {
         return [
             AppointmentResource\RelationManagers\NotesRelationManager::class,
+            AppointmentResource\RelationManagers\LogsRelationManager::class,
         ];
     }
 
