@@ -1,14 +1,6 @@
 ## Project Overview
 
-BikeHub is a Laravel Filament web app tailored for bike repair shops. It features user-friendly interfaces for Admins, Mechanics, and Customers, allowing easy scheduling of bike repairs. Mechanics have control over their schedules and appointments, specific to each service point. The mechanic panel supports multi-tenancy, enabling mechanics to manage appointments and schedules across different service points (locations, branches).
-
-## Current Status
-
-- **Phase:** Active Exploration
-- **Progress:** Deep dive into Filament V3
-- **Timeframe:** I would say about 45% done.
-
-The application currently uses Dutch language, with plans to implement multi-language support.
+This project serves as a hands-on exploration of Laravel Filament V3. It features three panels: an admin panel for managing service points, mechanics, and users; a mechanic panel tailored to individual mechanics, allowing them to handle their own appointments and schedules; and a customer panel enabling customers to book appointments from available slots.
 
 ## Key Dependencies
 
