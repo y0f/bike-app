@@ -29,11 +29,11 @@ class ListSchedules extends ListRecords
         ];
 
         foreach (DaysOfTheWeek::cases() as $day) {
-            $tabs[$day->getLabel()] = Tab::make()
-                ->label($day->getLabel())
-                ->modifyQueryUsing(function (Builder $query) use ($day) {
-                    return $query->where('day_of_the_week', $day->value);
-                });
+            $dayLabel = $day->getLabel();
+
+            $tabs[$dayLabel] = Tab::make()
+                ->modifyQueryUsing(fn (Builder $query) => $query->where('day_of_the_week', $day))
+                ->badge(Schedule::query()->where('day_of_the_week', $day)->count() ?: null);
         }
 
         return $tabs;

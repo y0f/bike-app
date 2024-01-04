@@ -17,8 +17,6 @@ class ServicePointResource extends Resource
 
     protected static ?string $navigationIcon = 'icon-service-point';
 
-    protected static ?string $navigationGroup = 'Servicebeheer';
-
     protected static ?string $navigationLabel = 'Servicepunten';
 
     protected static ?string $label = 'Servicepunt';

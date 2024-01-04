@@ -29,7 +29,6 @@ class LoanBikeResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Leenmiddelen';
 
-    protected static ?string $navigationGroup = 'Servicebeheer';
 
     protected static ?int $navigationSort = 4;
 

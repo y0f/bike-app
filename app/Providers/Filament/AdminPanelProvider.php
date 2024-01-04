@@ -6,10 +6,20 @@ use Filament\Pages;
 use Filament\Panel;
 use Filament\Widgets;
 use Filament\PanelProvider;
+use Filament\Pages\Dashboard;
 use Filament\Support\Colors\Color;
+use Filament\Navigation\NavigationItem;
+use App\Filament\Resources\UserResource;
+use Filament\Navigation\NavigationGroup;
 use Filament\Http\Middleware\Authenticate;
+use Filament\Navigation\NavigationBuilder;
+use App\Filament\Resources\LoanBikeResource;
+use App\Filament\Resources\ScheduleResource;
 use Filament\SpatieLaravelTranslatablePlugin;
+use App\Filament\Resources\AppointmentResource;
 use Illuminate\Session\Middleware\StartSession;
+use App\Filament\Resources\CustomerBikeResource;
+use App\Filament\Resources\ServicePointResource;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
@@ -30,6 +40,33 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogo(asset('images/logo.png'))
             ->favicon(asset('images/logo.png'))
             ->login()
+            ->navigation(function (NavigationBuilder $builder): NavigationBuilder {
+
+                return $builder->groups([
+                    NavigationGroup::make('') // <- This makes the navigation item not have a group.
+                        ->items([
+                            NavigationItem::make('Dashboard')
+                                ->icon('heroicon-o-home')
+                               ->isActiveWhen(fn (): bool => request()->routeIs('filament.admin.pages.dashboard'))
+                                ->url(fn (): string => Dashboard::getUrl()),
+                        ]),
+                    NavigationGroup::make('Planning')
+                        ->items([
+                            ...AppointmentResource::getNavigationItems(),
+                            ...ScheduleResource::getNavigationItems(),
+                        ]),
+                    NavigationGroup::make('Servicebeheer')
+                        ->items([
+                            ...ServicePointResource::getNavigationItems(),
+                            ...CustomerBikeResource::getNavigationItems(),
+                            ...LoanBikeResource::getNavigationItems(),
+                        ]),
+                    NavigationGroup::make('Gebruikersbeheer')
+                        ->items([
+                            ...UserResource::getNavigationItems(),
+                        ]),
+                ]);
+            })
             ->colors([
                 'primary' => Color::Orange,
                 'danger'  => Color::Red,

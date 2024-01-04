@@ -45,11 +45,11 @@ class MechanicPanelProvider extends PanelProvider
             ->login()
             ->profile()
             ->passwordReset()
-            // Custom navigation order, render pages with an empty string within make method.
+            // Custom navigation order, render Pages within a NavigationGroup::make('') to render a Filament Page..
             ->navigation(function (NavigationBuilder $builder): NavigationBuilder {
-               
+
                 return $builder->groups([
-                    NavigationGroup::make('')
+                    NavigationGroup::make('') // <- This makes the navigation item not have a group.
                         ->items([
                             NavigationItem::make('Dashboard')
                                 ->icon('heroicon-o-home')
@@ -68,7 +68,7 @@ class MechanicPanelProvider extends PanelProvider
                         ]),
                 ]);
             })
-            // Top right profile items.
+            // Top right menu pages.
             ->userMenuItems([
                 'contact' => MenuItem::make()
                     ->label('Contactgegevens')

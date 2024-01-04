@@ -41,8 +41,6 @@ class AppointmentResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-calendar-days';
 
-    protected static ?string $navigationGroup = 'Planning';
-
     protected static ?int $navigationSort = 0;
 
     public static function form(Form $form): Form
@@ -295,7 +293,7 @@ class AppointmentResource extends Resource
 
     public static function getNavigationBadge(): ?string
     {
-        return static::getModel()::new()->count();
+        return static::getModel()::count();
     }
 
     public static function getPages(): array
