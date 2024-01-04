@@ -7,6 +7,7 @@ use App\Enums\LoanBikeStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class LoanBike extends Model
@@ -40,5 +41,10 @@ class LoanBike extends Model
     public function appointment(): HasOne
     {
         return $this->hasOne(Appointment::class, 'loan_bike_id');
+    }
+
+    public function notes(): MorphMany
+    {
+        return $this->MorphMany(Note::class, 'notable');
     }
 }

@@ -34,8 +34,6 @@ class AppointmentResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-calendar-days';
 
-    protected static ?string $navigationGroup = 'Planning';
-
     protected static ?int $navigationSort = 0;
 
     public static function form(Form $form): Form
@@ -143,12 +141,6 @@ class AppointmentResource extends Resource
                     ->searchable()
                     ->limit(16)
                     ->sortable(),
-                // I'm leaving this here for testing purposes for now, needs to be removed eventually.
-                // Tables\Columns\TextColumn::make('mechanic.name')
-                //     ->label('Monteur')
-                //     ->searchable()
-                //     ->sortable(),
-
                 Tables\Columns\TextColumn::make('date')
                     ->label('Datum')
                     ->sortable()
@@ -227,7 +219,7 @@ class AppointmentResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            AppointmentResource\RelationManagers\NotesRelationManager::class,
         ];
     }
 

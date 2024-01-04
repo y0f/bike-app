@@ -29,8 +29,6 @@ class ScheduleResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-clock';
 
-    protected static ?string $navigationGroup = 'Planning';
-
     protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form

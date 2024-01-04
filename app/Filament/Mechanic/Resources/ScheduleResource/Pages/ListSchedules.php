@@ -26,18 +26,23 @@ class ListSchedules extends ListRecords
     public function getTabs(): array
     {
         $user = Filament::auth()->user();
+        $ownerId = $user->id;
 
         $tabs = [
             'Alle roosters' => Tab::make()->badge(Schedule::query()->count()),
         ];
 
         foreach (DaysOfTheWeek::cases() as $day) {
+            $count = Schedule::where('day_of_the_week', $day->value)
+                ->where('owner_id', $ownerId)
+                ->count();
+
             $tabs[$day->getLabel()] = Tab::make()
                 ->label($day->getLabel())
-                ->badge(Schedule::query()->where('day_of_the_week', $day->value)->where('owner_id', $user->id)->count() ?: null)
-                ->modifyQueryUsing(function (Builder $query) use ($user, $day) {
+                ->badge($count ?: null)
+                ->modifyQueryUsing(function (Builder $query) use ($ownerId, $day) {
                     $query->where('day_of_the_week', $day->value)
-                        ->where('owner_id', $user->id);
+                        ->where('owner_id', $ownerId);
                 });
         }
 

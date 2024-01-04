@@ -7,21 +7,29 @@ use Filament\Panel;
 use Filament\Widgets;
 use Filament\PanelProvider;
 use App\Models\ServicePoint;
+use Filament\Pages\Dashboard;
 use Filament\Facades\Filament;
 use Filament\Navigation\MenuItem;
 use Filament\Support\Colors\Color;
 use App\Filament\Mechanic\Pages\Faq;
+use Filament\Navigation\NavigationItem;
 use App\Filament\Mechanic\Pages\Contact;
+use Filament\Navigation\NavigationGroup;
 use App\Http\Middleware\ApplyTenantScopes;
 use Filament\Http\Middleware\Authenticate;
+use Filament\Navigation\NavigationBuilder;
 use App\Http\Middleware\AssignGlobalScopes;
 use Filament\SpatieLaravelTranslatablePlugin;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Cookie\Middleware\EncryptCookies;
+use App\Filament\Mechanic\Resources\LoanBikeResource;
+use App\Filament\Mechanic\Resources\ScheduleResource;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use App\Filament\Mechanic\Resources\AppointmentResource;
 use Filament\Http\Middleware\DisableBladeIconComponents;
+use App\Filament\Mechanic\Resources\CustomerBikeResource;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
@@ -37,6 +45,30 @@ class MechanicPanelProvider extends PanelProvider
             ->login()
             ->profile()
             ->passwordReset()
+            // Custom navigation order, render pages with an empty string within make method.
+            ->navigation(function (NavigationBuilder $builder): NavigationBuilder {
+               
+                return $builder->groups([
+                    NavigationGroup::make('')
+                        ->items([
+                            NavigationItem::make('Dashboard')
+                                ->icon('heroicon-o-home')
+                               ->isActiveWhen(fn (): bool => request()->routeIs('filament.mechanic.pages.dashboard'))
+                                ->url(fn (): string => Dashboard::getUrl()),
+                        ]),
+                    NavigationGroup::make('Planning')
+                        ->items([
+                            ...AppointmentResource::getNavigationItems(),
+                            ...ScheduleResource::getNavigationItems(),
+                        ]),
+                    NavigationGroup::make('Servicebeheer')
+                        ->items([
+                            ...CustomerBikeResource::getNavigationItems(),
+                            ...LoanBikeResource::getNavigationItems(),
+                        ]),
+                ]);
+            })
+            // Top right profile items.
             ->userMenuItems([
                 'contact' => MenuItem::make()
                     ->label('Contactgegevens')

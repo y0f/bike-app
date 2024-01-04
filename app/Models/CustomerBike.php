@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class CustomerBike extends Model
 {
@@ -41,5 +42,10 @@ class CustomerBike extends Model
     public function servicePoints(): BelongsToMany
     {
         return $this->belongsToMany(ServicePoint::class);
+    }
+
+    public function notes(): MorphMany
+    {
+        return $this->MorphMany(Note::class, 'notable');
     }
 }

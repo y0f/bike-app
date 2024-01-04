@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Appointment extends Model
@@ -15,13 +16,13 @@ class Appointment extends Model
 
     protected $fillable = [
         'customer_bike_id',
-        'slot_id',
         'service_point_id',
+        'slot_id',
         'mechanic_id',
+        'loan_bike_id',
         'date',
         'description',
         'status',
-        'loan_bike_id',
         'has_loan_bike',
     ];
 
@@ -70,6 +71,11 @@ class Appointment extends Model
     public function servicePoint(): BelongsTo
     {
         return $this->belongsTo(ServicePoint::class);
+    }
+
+    public function notes(): MorphMany
+    {
+        return $this->MorphMany(Note::class, 'notable');
     }
 
     /**

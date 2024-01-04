@@ -29,8 +29,6 @@ class CustomerBikeResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Tweewielers van klanten';
 
-    protected static ?string $navigationGroup = 'Servicebeheer';
-
     protected static ?string $tenantOwnershipRelationshipName = 'servicePoints';
 
     protected static ?int $navigationSort = 3;

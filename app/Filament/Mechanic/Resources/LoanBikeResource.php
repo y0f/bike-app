@@ -29,8 +29,6 @@ class LoanBikeResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Leenmiddelen';
 
-    protected static ?string $navigationGroup = 'Servicebeheer';
-
     protected static ?int $navigationSort = 4;
 
     public static function form(Form $form): Form
@@ -73,11 +71,6 @@ class LoanBikeResource extends Resource
     {
         return $table
             ->columns([
-                // Tables\Columns\TextColumn::make('servicePoint.name')
-                //     ->label('Servicepunt')
-                //     ->badge()
-                //     ->color('undefined')
-                //     ->sortable(),
                 Tables\Columns\TextColumn::make('status')
                     ->badge()
                     ->searchable(),
@@ -85,7 +78,7 @@ class LoanBikeResource extends Resource
                     ->label('Kenteken / Serienummer')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('brand')
-                ->label('Merk')
+                    ->label('Merk')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('model')
                     ->searchable(),
