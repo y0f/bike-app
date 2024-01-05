@@ -19,6 +19,7 @@ This project serves as my hands-on exploration of Laravel Filament V3. It featur
 - **laravel/telescope:** ^4.17
 - **stechstudio/filament-impersonate:** ^3.5
 - **nunomaduro/larastan:** ^2.0
+- **pestphp/pest**: ^2.30
 
 ## License
 
