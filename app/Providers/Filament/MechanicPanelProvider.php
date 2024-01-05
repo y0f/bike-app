@@ -104,8 +104,6 @@ class MechanicPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Mechanic/Widgets'), for: 'App\\Filament\\Mechanic\\Widgets')
             ->widgets([
-                Widgets\BikeHubAccountWidget::class,
-                Widgets\BikeHubInfoWidget::class,
                 Widgets\StatsOverviewWidget::class,
             ])
             ->middleware([

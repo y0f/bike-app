@@ -132,4 +132,5 @@ class User extends Authenticatable implements HasTenants, FilamentUser, HasAvata
             return "/storage/logo.png";
         }
     }
+
 }
