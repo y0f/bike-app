@@ -131,31 +131,43 @@ class ActivityResource extends Resource
                     TextColumn::make('event')
                     ->label(__('filament-logger::filament-logger.resource.label.event'))
                     ->formatStateUsing(function (string $state) {
-                        // TODO: Adding proper translation file 
+                        // TODO: Adding proper translation file
                         $crudTranslations = [
                             'Created' => "Aangemaakt",
                             'Updated' => "Gewijzigd",
                             'Deleted' => "Verwijderd",
                         ];
-                
+
                         return $crudTranslations[$state] ?? $state;
                     })
                     ->sortable(),
 
                 TextColumn::make('description')
-            ->label(__('filament-logger::filament-logger.resource.label.description'))
+                    ->label(__('filament-logger::filament-logger.resource.label.description'))
                     ->toggleable()
                     ->toggledHiddenByDefault()
                     ->wrap(),
 
-                TextColumn::make('subject_type')
+                    TextColumn::make('subject_type')
                     ->label(__('filament-logger::filament-logger.resource.label.subject'))
                     ->formatStateUsing(function ($state, Model $record) {
                         /** @var Activity&ActivityModel $record */
                         if (!$state) {
                             return '-';
                         }
-                        return Str::of($state)->afterLast('\\')->headline().' # '.$record->subject_id;
+                        $translations = [
+                            'App\Models\Appointment' => 'Afspraak',
+                            'App\Models\Schedule' => 'Planning',
+                            'App\Models\User' => 'Gebruiker',
+                            'App\Models\CustomerBike' => 'Klantenfiets',
+                            'App\Models\LoanBike' => 'Uitleenfiets',
+                            'App\Models\ServicePoint' => 'Servicepunt',
+                            'App\Models\Slot' => 'Slot',
+                        ];
+
+                        $translatedState = $translations[$state] ?? $state;
+
+                        return Str::of($translatedState)->afterLast('\\')->headline().' #'.$record->subject_id;
                     }),
 
                 TextColumn::make('causer.name')
@@ -178,46 +190,46 @@ class ActivityResource extends Resource
                     ->options(static::getSubjectTypeList()),
 
                 Filter::make('properties->old')
-					->indicateUsing(function (array $data): ?string {
-						if (!$data['old']) {
-							return null;
-						}
+                    ->indicateUsing(function (array $data): ?string {
+                        if (!$data['old']) {
+                            return null;
+                        }
 
-						return __('filament-logger::filament-logger.resource.label.old_attributes') . $data['old'];
-					})
-					->form([
-						TextInput::make('old')
+                        return __('filament-logger::filament-logger.resource.label.old_attributes') . $data['old'];
+                    })
+                    ->form([
+                        TextInput::make('old')
                             ->label(__('filament-logger::filament-logger.resource.label.old'))
                             ->hint(__('filament-logger::filament-logger.resource.label.properties_hint')),
-					])
-					->query(function (Builder $query, array $data): Builder {
-						if (!$data['old']) {
-							return $query;
-						}
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        if (!$data['old']) {
+                            return $query;
+                        }
 
-						return $query->where('properties->old', 'like', "%{$data['old']}%");
-					}),
+                        return $query->where('properties->old', 'like', "%{$data['old']}%");
+                    }),
 
-				Filter::make('properties->attributes')
-					->indicateUsing(function (array $data): ?string {
-						if (!$data['new']) {
-							return null;
-						}
+                Filter::make('properties->attributes')
+                    ->indicateUsing(function (array $data): ?string {
+                        if (!$data['new']) {
+                            return null;
+                        }
 
-						return __('filament-logger::filament-logger.resource.label.new_attributes') . $data['new'];
-					})
-					->form([
-						TextInput::make('new')
+                        return __('filament-logger::filament-logger.resource.label.new_attributes') . $data['new'];
+                    })
+                    ->form([
+                        TextInput::make('new')
                             ->label(__('filament-logger::filament-logger.resource.label.new'))
                             ->hint(__('filament-logger::filament-logger.resource.label.properties_hint')),
-					])
-					->query(function (Builder $query, array $data): Builder {
-						if (!$data['new']) {
-							return $query;
-						}
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        if (!$data['new']) {
+                            return $query;
+                        }
 
-						return $query->where('properties->attributes', 'like', "%{$data['new']}%");
-					}),
+                        return $query->where('properties->attributes', 'like', "%{$data['new']}%");
+                    }),
 
                 Filter::make('created_at')
                     ->form([
@@ -254,7 +266,7 @@ class ActivityResource extends Resource
             $subjects = [];
             $exceptResources = [...config('filament-logger.resources.exclude'), config('filament-logger.activity_resource')];
             $removedExcludedResources = collect(Filament::getResources())->filter(function ($resource) use ($exceptResources) {
-                return ! in_array($resource, $exceptResources);
+                return !in_array($resource, $exceptResources);
             });
             foreach ($removedExcludedResources as $resource) {
                 $model = $resource::getModel();

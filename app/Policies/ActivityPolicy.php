@@ -6,9 +6,9 @@ use App\Models\User;
 
 class ActivityPolicy
 {
-     /**
-     * Determine whether the user can view any models.
-     */
+    /**
+    * Determine whether the user can view any models.
+    */
     public function viewAny(): bool
     {
         return auth()->user()->role->name === 'admin';

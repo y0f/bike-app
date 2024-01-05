@@ -1,4 +1,5 @@
 <?php
+
 return [
     'datetime_format' => 'd/m/Y H:i:s',
     'date_format' => 'd/m/Y',
@@ -6,7 +7,7 @@ return [
     'activity_resource' => \App\Filament\Resources\ActivityResource::class,
 
     'resources' => [
-        'enabled' => true,
+        'enabled' => false,
         'log_name' => 'Resource',
         'logger' => \Z3d0X\FilamentLogger\Loggers\ResourceLogger::class,
         'color' => 'success',
@@ -35,7 +36,14 @@ return [
         'color' => 'warning',
         'logger' => \Z3d0X\FilamentLogger\Loggers\ModelLogger::class,
         'register' => [
-            //App\Models\User::class,
+            App\Models\User::class,
+            App\Models\Appointment::class,
+            App\Models\LoanBike::class,
+            App\Models\CustomerBike::class,
+            App\Models\Slot::class,
+            App\Models\ServicePoint::class,
+            App\Models\Note::class,
+            App\Models\Schedule::class,
         ],
     ],
 

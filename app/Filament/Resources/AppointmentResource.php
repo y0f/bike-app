@@ -188,6 +188,12 @@ class AppointmentResource extends Resource
                     ->titlePrefixedWithLabel(false)
             )
             ->columns([
+                // ID visually here so there's a reference for the admin in 'Activiteitenlogboek'.
+                // We hide it by default but it is searchable.
+                Tables\Columns\TextColumn::make('id')
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('status')
                     ->sortable()
                     ->searchable()
@@ -211,7 +217,6 @@ class AppointmentResource extends Resource
                 Tables\Columns\TextColumn::make('slot.formatted_time')
                     ->label('Tijdslot')
                     ->badge()
-                    ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('loanBike.identifier')
                     ->placeholder('N.V.T.')

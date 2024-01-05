@@ -10,10 +10,10 @@ class AppointmentLogService
     public static function handleStatusUpdate(Appointment $appointment)
     {
         $fieldsToCheck = [
-            'description', 
-            'loan_bike_id', 
-            'date', 
-            'has_loan_bike', 
+            'description',
+            'loan_bike_id',
+            'date',
+            'has_loan_bike',
             'status'
         ];
 
