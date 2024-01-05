@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\ActivityResource\Pages;
 
-use App\Enums\AppointmentStatus;
 use Filament\Resources\Pages\ListRecords;
 
 class ListActivities extends ListRecords

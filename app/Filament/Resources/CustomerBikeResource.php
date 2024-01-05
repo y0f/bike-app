@@ -5,12 +5,14 @@ namespace App\Filament\Resources;
 use Filament\Forms;
 use Filament\Tables;
 use App\Enums\BikeType;
+use App\Enums\UserRoles;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use App\Models\CustomerBike;
 use Filament\Resources\Resource;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\CustomerBikeResource\Pages;
 
 class CustomerBikeResource extends Resource
@@ -117,8 +119,8 @@ class CustomerBikeResource extends Resource
                         ->maxLength(65535)
                         ->columnSpanFull(),
                 ])
-                ->icon('icon-bike')
-                ->columns(2)
+                    ->icon('icon-bike')
+                    ->columns(2)
             ]);
     }
 
@@ -128,53 +130,67 @@ class CustomerBikeResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\ImageColumn::make('image')
-                ->circular()
-                ->label('Afbeelding')
-                ->defaultImageUrl(url('/images/logo.png'))
-                ->toggleable(isToggledHiddenByDefault: true),
-            Tables\Columns\TextColumn::make('servicePoints.name')
-                ->label('Servicepunt')
-                ->badge()
-                ->color('undefined'),
-            Tables\Columns\TextColumn::make('owner.name')
-                ->label('Eigenaar')
-                ->searchable()
-                ->sortable(),
-            Tables\Columns\TextColumn::make('identifier')
-                ->label('Kenteken')
-                ->searchable(),
-            Tables\Columns\TextColumn::make('brand')
-                ->label('Merk')
-                ->searchable(),
-            Tables\Columns\TextColumn::make('model')
-                ->label('Model')
-                ->searchable(),
-            Tables\Columns\TextColumn::make('type')
-                ->label('Type voertuig')
-                ->badge()
-                ->searchable(),
-            Tables\Columns\TextColumn::make('color')
-                ->label('Kleur')
-                ->searchable(),
-            Tables\Columns\TextColumn::make('created_at')
-                ->dateTime()
-                ->sortable()
-                ->toggleable(isToggledHiddenByDefault: true),
-            Tables\Columns\TextColumn::make('updated_at')
-                ->dateTime()
-                ->sortable()
-                ->toggleable(isToggledHiddenByDefault: true),
+                    ->circular()
+                    ->label('Afbeelding')
+                    ->defaultImageUrl(url('/images/logo.png'))
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('servicePoints.name')
+                    ->label('Servicepunt')
+                    ->badge()
+                    ->color('undefined'),
+                Tables\Columns\TextColumn::make('owner.name')
+                    ->label('Eigenaar')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('identifier')
+                    ->label('Kenteken')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('brand')
+                    ->label('Merk')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('model')
+                    ->label('Model')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('type')
+                    ->label('Type voertuig')
+                    ->badge()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('color')
+                    ->label('Kleur')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('name')
+                    ->label('Eigenaar')
+                    ->relationship('owner', 'name', function (Builder $query) {
+                        $query->where('role_id', UserRoles::VehicleOwner);
+                    })
+                    ->preload()
+                    ->native(false)
+                    ->searchable(),
+                Tables\Filters\SelectFilter::make('service_point_id')
+                    ->label('Servicepunt')
+                    ->multiple()
+                    ->preload()
+                    ->native(false)
+                    ->relationship('servicePoints', 'name')
+                    ->searchable(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make()
-                ->before(function (CustomerBike $record) {
-                    // Deleting the image from the server when Vehicle $record gets deleted.
-                    Storage::delete('public/asset-images/'. $record->image);
-                }),
+                    ->before(function (CustomerBike $record) {
+                        // Deleting the image from the server when Vehicle $record gets deleted.
+                        Storage::delete('public/asset-images/' . $record->image);
+                    }),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

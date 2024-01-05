@@ -24,10 +24,12 @@ use Spatie\Activitylog\Contracts\Activity;
 use Spatie\Activitylog\ActivitylogServiceProvider;
 use Spatie\Activitylog\Models\Activity as ActivityModel;
 use App\Filament\Resources\ActivityResource\Pages;
+use App\Utils\TranslationUtils;
 
 class ActivityResource extends Resource
 {
     protected static ?string $label = 'Activity Log';
+
     protected static ?string $slug = 'activity-logs';
 
     protected static ?string $navigationIcon = 'heroicon-o-clipboard-list';
@@ -72,7 +74,6 @@ class ActivityResource extends Resource
 
                         Placeholder::make('event')
                             ->content(function (?Model $record): string {
-                                /** @phpstan-ignore-next-line */
                                 $eventTranslations = self::getEventTranslations();
                                 /** @phpstan-ignore-next-line */
                                 return $record?->event ? $eventTranslations[$record?->event] : '-';
@@ -131,19 +132,25 @@ class ActivityResource extends Resource
                     ->formatStateUsing(fn ($state) => ucwords($state))
                     ->sortable(),
 
-                TextColumn::make('event')
+                    TextColumn::make('event')
                     ->label(__('filament-logger::filament-logger.resource.label.event'))
                     ->formatStateUsing(function (string $state) {
                         $crudTranslations = self::getEventTranslations();
-                        return $crudTranslations[$state] ?? $state;
+                        $translated = $crudTranslations[$state] ?? $state;
+                
+                        return ucfirst(strtolower($translated));
                     })
                     ->sortable(),
-                
 
                 TextColumn::make('description')
                     ->label(__('filament-logger::filament-logger.resource.label.description'))
                     ->toggleable()
-                    ->toggledHiddenByDefault()
+                    ->formatStateUsing(function (string $state) {
+                        $translations = trans('activity-log-fields');
+                        $translated = TranslationUtils::translateWords($state, $translations);
+
+                        return ucfirst(strtolower($translated));
+                    })
                     ->wrap(),
 
                 TextColumn::make('subject_type')
@@ -352,13 +359,7 @@ class ActivityResource extends Resource
 
     private static function getEventTranslations(): array
     {
-        return [
-            'Created' => __('crud.created'),
-            'Updated' => __('crud.updated'),
-            'Deleted' => __('crud.deleted'),
-            'Login'   => 'Ingelogd',
-            'Logout'  => 'Uitgelogd',
-        ];
+        return trans('activity-log-fields');
     }
 
     public static function getModelTranslations(): array

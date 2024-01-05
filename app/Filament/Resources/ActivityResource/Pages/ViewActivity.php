@@ -35,6 +35,6 @@ class ViewActivity extends ViewRecord
             $data['properties']['status'] = $translatedStatus;
         }
 
-       return $data;
+        return $data;
     }
 }

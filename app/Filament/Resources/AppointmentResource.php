@@ -9,6 +9,7 @@ use App\Models\User;
 use Filament\Tables;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
+use App\Enums\UserRoles;
 use App\Models\LoanBike;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
@@ -231,7 +232,21 @@ class AppointmentResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('name')
+                    ->label('Monteur')
+                    ->relationship('mechanic', 'name', function (Builder $query) {
+                        $query->where('role_id', UserRoles::Mechanic);
+                    })
+                    ->preload()
+                    ->native(false)
+                    ->searchable(),
+                Tables\Filters\SelectFilter::make('service_point_id')
+                    ->label('Servicepunt')
+                    ->multiple()
+                    ->preload()
+                    ->native(false)
+                    ->relationship('servicePoint', 'name')
+                    ->searchable(),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
