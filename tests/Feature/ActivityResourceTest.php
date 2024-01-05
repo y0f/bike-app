@@ -22,7 +22,7 @@ it('renders the index page', function () {
         ->assertOk();
 });
 
-it('renders the view page for the first created record', function () {
+it('renders the view page', function () {
     // Retrieve the ID of the first created record
     // This assumes the existence of a record with ID 1 in Spatie\Activitylog\Models\Activity
     $recordId = 1;

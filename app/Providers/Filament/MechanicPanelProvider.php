@@ -42,6 +42,8 @@ class MechanicPanelProvider extends PanelProvider
             ->id('mechanic')
             ->path('mechanic')
             ->tenant(ServicePoint::class)
+            ->brandLogo(asset('images/filament-logo.png'))
+            ->favicon(asset('images/logo.png'))
             ->login()
             ->profile()
             ->passwordReset()
