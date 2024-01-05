@@ -10,12 +10,15 @@ This project serves as my hands-on exploration of Laravel Filament V3. It featur
 - **Filament Actions:** ^3.0
 - **Spatie Laravel Translatable Plugin:** ^3.0
 - **Laravel Trend:** ^0.1.5
+- **spatie/laravel-activitylog:** ^4.7
+- **z3d0x/filament-logger:** ^0.6.2
 
 ## Additional Packages
 
 - **laravel/debugbar:** ^3.9
 - **laravel/telescope:** ^4.17
 - **stechstudio/filament-impersonate:** ^3.5
+- **nunomaduro/larastan:** ^2.0
 
 ## License
 
