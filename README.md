@@ -1,6 +1,6 @@
 ## Project Overview
 
-This project serves as a hands-on exploration of Laravel Filament V3. It features three panels: an admin panel for managing service points, mechanics, and users; a mechanic panel tailored to individual mechanics, allowing them to handle their own appointments and schedules; and a customer panel enabling customers to book appointments from available slots.
+This project serves as my hands-on exploration of Laravel Filament V3. It features three panels: an admin panel for managing service points, mechanics, and users; a mechanic panel tailored to individual mechanics, allowing them to handle their own appointments and schedules; and a customer panel enabling customers to book appointments from available slots.
 
 ## Key Dependencies
 
