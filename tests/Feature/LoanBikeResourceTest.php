@@ -3,7 +3,7 @@
 use App\Models\User;
 
 use Illuminate\Support\Facades\Storage;
-use App\Filament\Owner\Resources\CustomerBikeResource;
+use App\Filament\Resources\LoanBikeResource;
 
 use function Pest\Laravel\get;
 use function Pest\Laravel\actingAs;
@@ -11,18 +11,18 @@ use function Pest\Laravel\seed;
 
 beforeEach(function () {
     seed();
-    $this->ownerUser = User::whereName('Owner')->first();
-    actingAs($this->ownerUser);
+    $this->adminUser = User::whereName('Admin')->first();
+    actingAs($this->adminUser);
 
     Storage::fake('avatars');
 });
 
 it('renders the index page', function () {
-    get(CustomerBikeResource::getUrl('index', panel: 'vehicleowner'))
+    get(LoanBikeResource::getUrl('index'))
         ->assertOk();
 });
 
 it('renders the create page', function () {
-    get(CustomerBikeResource::getUrl('create', panel: 'vehicleowner'))
+    get(LoanBikeResource::getUrl('create'))
         ->assertOk();
 });
