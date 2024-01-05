@@ -11,7 +11,6 @@ class ViewActivity extends ViewRecord
         return config('filament-logger.activity_resource');
     }
 
-    // User should not be able to edit this or create this, so this serves just for translating purposes
     protected function mutateFormDataBeforeFill(array $data): array
     {
         $fieldTranslations = trans('activity-log-fields');

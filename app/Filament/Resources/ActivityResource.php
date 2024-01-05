@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Tables;
 use Illuminate\Support\Str;
 use Filament\Facades\Filament;
 use Filament\Resources\Resource;
@@ -137,6 +138,7 @@ class ActivityResource extends Resource
                         return $crudTranslations[$state] ?? $state;
                     })
                     ->sortable(),
+                
 
                 TextColumn::make('description')
                     ->label(__('filament-logger::filament-logger.resource.label.description'))
@@ -167,7 +169,13 @@ class ActivityResource extends Resource
                     ->sortable(),
             ])
             ->defaultSort('created_at', 'desc')
-            ->bulkActions([])
+
+            // TEMPORARILY.
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
+            ])
             ->filters([
                 SelectFilter::make('log_name')
                     ->label(__('filament-logger::filament-logger.resource.label.type'))
@@ -348,6 +356,8 @@ class ActivityResource extends Resource
             'Created' => __('crud.created'),
             'Updated' => __('crud.updated'),
             'Deleted' => __('crud.deleted'),
+            'Login'   => 'Ingelogd',
+            'Logout'  => 'Uitgelogd',
         ];
     }
 

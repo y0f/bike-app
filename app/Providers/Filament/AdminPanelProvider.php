@@ -38,13 +38,13 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('administratie_portaal')
-            ->brandLogo(asset('images/logo.png'))
+            ->brandLogo(asset('images/filament-logo.png'))
             ->favicon(asset('images/logo.png'))
             ->login()
             ->navigation(function (NavigationBuilder $builder): NavigationBuilder {
 
                 return $builder->groups([
-                    NavigationGroup::make('') // <- This makes the navigation item not have a group.
+                    NavigationGroup::make('') // <- This makes the navigation item not have a group. Useful for pages.
                         ->items([
                             NavigationItem::make('Dashboard')
                                 ->icon('heroicon-o-home')

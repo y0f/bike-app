@@ -9,3 +9,8 @@
     border-bottom: 1px solid #ff6d2c;
 }
 
+.fi-logo {
+    width: 110px !important;
+    height: 42px !important;
+    border: 1px solid #ff6d2c !important;
+}
