@@ -11,11 +11,14 @@ class Note extends Model
     use HasFactory;
 
     protected $fillable = ['body'];
-    
+
     /**
-     * Parent notable model, (CustomerBike, LoanBike, Appointment)
+     * Retrieve the parent notable model associated with this note.
      *
-     * @return MorphTo
+     * This method defines a polymorphic relationship, allowing the Note model
+     * to be associated with various notable models such as CustomerBike, LoanBike, and Appointment.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
     public function notable(): MorphTo
     {

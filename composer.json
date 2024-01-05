@@ -20,7 +20,9 @@
         "laravel/sanctum": "^3.3",
         "laravel/telescope": "^4.17",
         "laravel/tinker": "^2.8",
-        "stechstudio/filament-impersonate": "^3.5"
+        "spatie/laravel-activitylog": "^4.7",
+        "stechstudio/filament-impersonate": "^3.5",
+        "z3d0x/filament-logger": "^0.6.2"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

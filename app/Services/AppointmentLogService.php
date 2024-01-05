@@ -5,11 +5,17 @@ namespace App\Services;
 use App\Models\LoanBike;
 use App\Models\Appointment;
 
-class AppointmentService
+class AppointmentLogService
 {
     public static function handleStatusUpdate(Appointment $appointment)
     {
-        $fieldsToCheck = ['description', 'loan_bike_id', 'date', 'has_loan_bike', 'status'];
+        $fieldsToCheck = [
+            'description', 
+            'loan_bike_id', 
+            'date', 
+            'has_loan_bike', 
+            'status'
+        ];
 
         foreach ($fieldsToCheck as $field) {
             $originalValue = $appointment->getOriginal($field);

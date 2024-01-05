@@ -119,6 +119,7 @@ class AppointmentResource extends Resource
                     Forms\Components\Select::make('status')
                         ->options(AppointmentStatus::class)
                         ->required()
+                        ->native(false)
                         ->visibleOn(Pages\EditAppointment::class),
 
                     Forms\Components\RichEditor::make('description')

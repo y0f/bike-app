@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Models\ServicePoint;
 use App\Policies\UserPolicy;
 use App\Policies\ServicePointPolicy;
+use Spatie\Activitylog\Models\Activity;
+use App\Policies\ActivityPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -18,7 +20,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         User::class         => UserPolicy::class,
-        ServicePoint::class => ServicePointPolicy::class
+        ServicePoint::class => ServicePointPolicy::class,
+        Activity::class => ActivityPolicy::class,
     ];
 
     /**

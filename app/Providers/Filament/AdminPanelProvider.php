@@ -21,6 +21,7 @@ use Illuminate\Session\Middleware\StartSession;
 use App\Filament\Resources\CustomerBikeResource;
 use App\Filament\Resources\ServicePointResource;
 use Illuminate\Cookie\Middleware\EncryptCookies;
+use Z3d0X\FilamentLogger\Resources\ActivityResource;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
@@ -64,9 +65,13 @@ class AdminPanelProvider extends PanelProvider
                     NavigationGroup::make('Gebruikersbeheer')
                         ->items([
                             ...UserResource::getNavigationItems(),
+                            ...ActivityResource::getNavigationItems(),
                         ]),
                 ]);
             })
+            ->resources([
+                config('filament-logger.activity_resource')
+            ])
             ->colors([
                 'primary' => Color::Orange,
                 'danger'  => Color::Red,

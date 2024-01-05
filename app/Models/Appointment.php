@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Enums\AppointmentStatus;
-use App\Services\AppointmentService;
+use App\Services\AppointmentLogService;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -37,7 +37,7 @@ class Appointment extends Model
         parent::boot();
 
         static::updating(function (Appointment $appointment) {
-            AppointmentService::handleStatusUpdate($appointment);
+            AppointmentLogService::handleStatusUpdate($appointment);
         });
     }
 

@@ -3,10 +3,12 @@
 namespace App\Filament\Mechanic\Resources\AppointmentResource\RelationManagers;
 
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Support\Colors\Color;
+use Filament\Support\Enums\FontWeight;
+use Filament\Resources\RelationManagers\RelationManager;
 
 class LogsRelationManager extends RelationManager
 {
@@ -35,15 +37,18 @@ class LogsRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
-            ->recordTitleAttribute('body')
+            ->recordTitleAttribute('')
             ->columns([
                 Tables\Columns\Layout\Split::make([
                     Tables\Columns\Layout\Stack::make([
                         Tables\Columns\TextColumn::make('created_at')
-                        ->date('d-m-Y | h:i'),
+                            ->date('d-m-Y | h:i')
+                            ->color(Color::Orange),
                         Tables\Columns\TextColumn::make('body')
-                        ->formatStateUsing(fn ($state) => strip_tags($state)),
-                    ])
+                            ->formatStateUsing(fn ($state) => strip_tags($state))
+                            // ->bulleted()
+                            ->weight(FontWeight::SemiBold),
+                    ])->space(1),
                 ])
             ])
             ->filters([
@@ -53,7 +58,7 @@ class LogsRelationManager extends RelationManager
                 // Tables\Actions\CreateAction::make(),
             ])
             ->actions([
-                 Tables\Actions\ViewAction::make(),
+                // Tables\Actions\ViewAction::make(),
                 // Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
