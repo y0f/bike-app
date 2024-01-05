@@ -14,6 +14,7 @@ use App\Models\LoanBike;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use App\Models\Appointment;
+use App\Models\CustomerBike;
 use App\Models\ServicePoint;
 use App\Enums\LoanBikeStatus;
 use Illuminate\Support\Carbon;
@@ -63,13 +64,32 @@ class AppointmentResource extends Resource
                             $set('mechanic_id', null);
                             $set('has_loan_bike', null);
                             $set('loan_bike_id', null);
+                            $set('customer_bike_id', null);
                         }),
 
                     Forms\Components\Select::make('customer_bike_id')
                         ->label('Voertuig')
                         ->native(false)
-                        ->relationship('customerBike', 'identifier')
-                        ->required(),
+                        ->options(function (Get $get) {
+                            $servicePointId = $get('service_point_id');
+
+                            // Fetch customer bikes belonging to the selected service point
+                            $customerBikes = CustomerBike::whereHas('servicePoints', function ($query) use ($servicePointId) {
+                                $query->where('service_point_id', $servicePointId);
+                            })->pluck('identifier', 'id');
+
+                            return $customerBikes;
+                        })
+                        ->required()
+                        ->helperText(function ($component) {
+                            if (!$component->getOptions()) {
+                                return new HtmlString(
+                                    '<span class="text-sm text-danger-600 dark:text-danger-400">Geen beschikbare middelen.</span>'
+                                );
+                            }
+
+                            return '';
+                        }),
 
                     Forms\Components\DatePicker::make('date')
                         ->label('Datum')
@@ -148,6 +168,9 @@ class AppointmentResource extends Resource
                         ->onIcon('heroicon-o-check')
                         ->offIcon('heroicon-o-x-mark')
                         ->live()
+                        ->afterStateUpdated(function (Set $set) {
+                            $set('loan_bike_id', null);
+                        })
                         ->hidden(fn (Get $get) => blank($get('service_point_id')))
                         ->columnSpanFull(),
 
@@ -160,6 +183,7 @@ class AppointmentResource extends Resource
                         ->native(false)
                         ->preload()
                         ->live()
+                        ->visible(fn (Get $get) => $get('has_loan_bike') == true)
                         ->hidden(fn (Get $get) => blank($get('service_point_id'))),
 
                     Forms\Components\Select::make('status')
@@ -246,6 +270,12 @@ class AppointmentResource extends Resource
                     ->preload()
                     ->native(false)
                     ->relationship('servicePoint', 'name')
+                    ->searchable(),
+                Tables\Filters\SelectFilter::make('status')
+                    ->label('Status')
+                    ->options(AppointmentStatus::class)
+                    ->preload()
+                    ->native(false)
                     ->searchable(),
             ])
             ->actions([

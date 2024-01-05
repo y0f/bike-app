@@ -10,7 +10,6 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use App\Enums\LoanBikeStatus;
 use Filament\Resources\Resource;
-use Illuminate\Database\QueryException;
 use App\Filament\Resources\LoanBikeResource\Pages;
 
 class LoanBikeResource extends Resource
@@ -28,7 +27,6 @@ class LoanBikeResource extends Resource
     protected static ?string $label = 'leenmiddel';
 
     protected static ?string $pluralModelLabel = 'Leenmiddelen';
-
 
     protected static ?int $navigationSort = 4;
 
@@ -126,11 +124,7 @@ class LoanBikeResource extends Resource
 
     public static function getNavigationBadge(): ?string
     {
-        try {
-            return (string) static::getModel()::count();
-        } catch (QueryException $e) {
-            return '0';
-        }
+        return static::getModel()::count();
     }
 
     public static function getPages(): array

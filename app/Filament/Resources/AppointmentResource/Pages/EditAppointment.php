@@ -34,9 +34,9 @@ class EditAppointment extends EditRecord
     protected function mutateFormDataBeforeFill(array $data): array
     {
         if ($this->record instanceof Appointment) {
-            $data['mechanic_id']      = $this->record->slot->schedule->owner_id;
+            $data['mechanic_id'] = $this->record->slot->schedule->owner_id;
             // Prevents a visual bug where the slot_id shows instead of the formatted time.
-            $data['slot_id']          = $this->record->slot->formatted_time;
+            $data['slot_id'] = $this->record->slot->formatted_time;
         }
 
         return $data;

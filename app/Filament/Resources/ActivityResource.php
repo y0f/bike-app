@@ -137,7 +137,7 @@ class ActivityResource extends Resource
                     ->formatStateUsing(function (string $state) {
                         $crudTranslations = self::getEventTranslations();
                         $translated = $crudTranslations[$state] ?? $state;
-                
+
                         return ucfirst(strtolower($translated));
                     })
                     ->sortable(),

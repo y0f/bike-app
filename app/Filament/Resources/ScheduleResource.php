@@ -15,7 +15,6 @@ use App\Enums\DaysOfTheWeek;
 use App\Models\ServicePoint;
 use Filament\Resources\Resource;
 use Illuminate\Support\Collection;
-use Illuminate\Database\QueryException;
 use App\Filament\Resources\ScheduleResource\Pages;
 
 class ScheduleResource extends Resource
@@ -155,11 +154,7 @@ class ScheduleResource extends Resource
 
     public static function getNavigationBadge(): ?string
     {
-        try {
-            return (string) static::getModel()::count();
-        } catch (QueryException $e) {
-            return '0';
-        }
+        return static::getModel()::count();
     }
 
     public static function getPages(): array

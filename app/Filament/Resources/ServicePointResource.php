@@ -8,7 +8,6 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use App\Models\ServicePoint;
 use Filament\Resources\Resource;
-use Illuminate\Database\QueryException;
 use App\Filament\Resources\ServicePointResource\Pages;
 
 class ServicePointResource extends Resource
@@ -122,20 +121,16 @@ class ServicePointResource extends Resource
             ]);
     }
 
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+
     public static function getRelations(): array
     {
         return [
             //
         ];
-    }
-
-    public static function getNavigationBadge(): ?string
-    {
-        try {
-            return (string) static::getModel()::count();
-        } catch (QueryException $e) {
-            return '0';
-        }
     }
 
     public static function getPages(): array

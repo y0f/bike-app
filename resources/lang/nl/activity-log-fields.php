@@ -8,7 +8,6 @@ return [
     'in_progress'   => 'In Uitvoering',
     'completed'     => 'Voltooid',
     'log_name'      => 'Log Naam',
-    'description'   => 'Omschrijving',
     'event'         => 'Gebeurtenis',
     'subject_id'    => 'Onderwerp ID',
     'causer_type'   => 'Veroorzaker Type',

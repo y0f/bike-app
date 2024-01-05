@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\ActivityResource\Pages;
 
+use App\Utils\TranslationUtils;
 use Filament\Resources\Pages\ViewRecord;
 
 class ViewActivity extends ViewRecord
@@ -14,7 +15,6 @@ class ViewActivity extends ViewRecord
     protected function mutateFormDataBeforeFill(array $data): array
     {
         $fieldTranslations = trans('activity-log-fields');
-        $modelTranslations = trans('models');
 
         // Translate all fields
         foreach ($fieldTranslations as $field => $translation) {
@@ -23,8 +23,14 @@ class ViewActivity extends ViewRecord
             }
         }
 
+        if (isset($data['description'])) {
+            $translatedDescription = TranslationUtils::translateWords($data['description'], $fieldTranslations);
+            $data['description'] = $translatedDescription;
+        }
+
         // Translate subject_type if needed
         if (isset($data['subject_type'])) {
+            $modelTranslations = trans('models');
             $translatedSubjectType = $modelTranslations[$data['subject_type']] ?? $data['subject_type'];
             $data['subject_type'] = $translatedSubjectType;
         }

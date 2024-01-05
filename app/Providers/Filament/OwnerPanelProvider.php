@@ -25,9 +25,9 @@ class OwnerPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
-            ->id('klanten')
+            ->id('vehicleowner')
             ->path('klanten_portaal')
-            ->brandLogo(asset('images/logo.png'))
+            ->brandLogo(asset('images/filament-logo.png'))
             ->favicon(asset('images/logo.png'))
             ->login()
             ->registration(Register::class)

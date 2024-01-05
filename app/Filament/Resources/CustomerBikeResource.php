@@ -10,7 +10,6 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use App\Models\CustomerBike;
 use Filament\Resources\Resource;
-use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\CustomerBikeResource\Pages;
@@ -208,11 +207,7 @@ class CustomerBikeResource extends Resource
 
     public static function getNavigationBadge(): ?string
     {
-        try {
-            return (string) static::getModel()::count();
-        } catch (QueryException $e) {
-            return '0';
-        }
+        return static::getModel()::count();
     }
 
     public static function getPages(): array

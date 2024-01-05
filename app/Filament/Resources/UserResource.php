@@ -10,7 +10,6 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Database\QueryException;
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\Pages\ViewUser;
 
@@ -143,14 +142,10 @@ class UserResource extends Resource
         ];
     }
 
-    // Admins can see the total usercount, because only admins should be able to see the userresource
+    // NOTE: These cause duplicated queries.
     public static function getNavigationBadge(): ?string
     {
-        try {
-            return (string) static::getModel()::count();
-        } catch (QueryException $e) {
-            return '0';
-        }
+        return static::getModel()::count();
     }
 
     // NOTE: This still allows users to guess the url, if no policies are set.
