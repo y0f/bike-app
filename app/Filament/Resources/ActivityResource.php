@@ -47,7 +47,7 @@ class ActivityResource extends Resource
                         TextInput::make('subject_type')
                             ->afterStateHydrated(function ($component, ?Model $record, $state) {
                                 /** @var Activity&ActivityModel $record */
-                                return $state ? $component->state(Str::of($state)->afterLast('\\')->headline().' # '.$record->subject_id) : '-';
+                                return $state ? $component->state(Str::of($state)->afterLast('\\')->headline() . ' # ' . $record->subject_id) : '-';
                             })
                             ->label(__('filament-logger::filament-logger.resource.label.subject')),
 
@@ -56,9 +56,9 @@ class ActivityResource extends Resource
                             ->rows(2)
                             ->columnSpan('full'),
                     ])
-                    ->columns(2),
+                        ->columns(2),
                 ])
-                ->columnSpan(['sm' => 3]),
+                    ->columnSpan(['sm' => 3]),
 
                 Group::make([
                     Section::make([
@@ -72,7 +72,9 @@ class ActivityResource extends Resource
                         Placeholder::make('event')
                             ->content(function (?Model $record): string {
                                 /** @phpstan-ignore-next-line */
-                                return $record?->event ? ucwords($record?->event) : '-';
+                                $eventTranslations = self::getEventTranslations();
+                                /** @phpstan-ignore-next-line */
+                                return $record?->event ? $eventTranslations[$record?->event] : '-';
                             })
                             ->label(__('filament-logger::filament-logger.resource.label.event')),
 
@@ -128,16 +130,10 @@ class ActivityResource extends Resource
                     ->formatStateUsing(fn ($state) => ucwords($state))
                     ->sortable(),
 
-                    TextColumn::make('event')
+                TextColumn::make('event')
                     ->label(__('filament-logger::filament-logger.resource.label.event'))
                     ->formatStateUsing(function (string $state) {
-                        // TODO: Adding proper translation file
-                        $crudTranslations = [
-                            'Created' => "Aangemaakt",
-                            'Updated' => "Gewijzigd",
-                            'Deleted' => "Verwijderd",
-                        ];
-
+                        $crudTranslations = self::getEventTranslations();
                         return $crudTranslations[$state] ?? $state;
                     })
                     ->sortable(),
@@ -148,26 +144,18 @@ class ActivityResource extends Resource
                     ->toggledHiddenByDefault()
                     ->wrap(),
 
-                    TextColumn::make('subject_type')
+                TextColumn::make('subject_type')
                     ->label(__('filament-logger::filament-logger.resource.label.subject'))
                     ->formatStateUsing(function ($state, Model $record) {
                         /** @var Activity&ActivityModel $record */
                         if (!$state) {
                             return '-';
                         }
-                        $translations = [
-                            'App\Models\Appointment' => 'Afspraak',
-                            'App\Models\Schedule' => 'Planning',
-                            'App\Models\User' => 'Gebruiker',
-                            'App\Models\CustomerBike' => 'Klantenfiets',
-                            'App\Models\LoanBike' => 'Uitleenfiets',
-                            'App\Models\ServicePoint' => 'Servicepunt',
-                            'App\Models\Slot' => 'Slot',
-                        ];
 
-                        $translatedState = $translations[$state] ?? $state;
+                        $modelTranslations = self::getModelTranslations();
+                        $translatedState = $modelTranslations[$state] ?? $state;
 
-                        return Str::of($translatedState)->afterLast('\\')->headline().' #'.$record->subject_id;
+                        return Str::of($translatedState)->afterLast('\\')->headline() . ' #' . $record->subject_id;
                     }),
 
                 TextColumn::make('causer.name')
@@ -352,5 +340,19 @@ class ActivityResource extends Resource
     public static function getNavigationIcon(): string
     {
         return __('icon-activity-log');
+    }
+
+    private static function getEventTranslations(): array
+    {
+        return [
+            'Created' => __('crud.created'),
+            'Updated' => __('crud.updated'),
+            'Deleted' => __('crud.deleted'),
+        ];
+    }
+
+    public static function getModelTranslations(): array
+    {
+        return trans('models');
     }
 }

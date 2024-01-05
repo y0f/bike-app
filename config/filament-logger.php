@@ -20,19 +20,19 @@ return [
         'enabled' => true,
         'logger' => \Z3d0X\FilamentLogger\Loggers\AccessLogger::class,
         'color' => 'danger',
-        'log_name' => 'Access',
+        'log_name' => 'Toegang',
     ],
 
     'notifications' => [
         'enabled' => true,
         'logger' => \Z3d0X\FilamentLogger\Loggers\NotificationLogger::class,
         'color' => null,
-        'log_name' => 'Notification',
+        'log_name' => 'Notificatie',
     ],
 
     'models' => [
         'enabled' => true,
-        'log_name' => 'Model',
+        'log_name' => 'Entiteit',
         'color' => 'warning',
         'logger' => \Z3d0X\FilamentLogger\Loggers\ModelLogger::class,
         'register' => [
