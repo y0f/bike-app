@@ -23,7 +23,8 @@ This project is licensed under the MIT License.
 
 **Admin panel preview:**
 
-![image](https://github.com/minuut/BikeHub/assets/70378641/43d374c4-6519-42ca-93be-fcce303ff99d)
+![image](https://github.com/minuut/laravel-filament-bike-repair-app/assets/70378641/021f6a7f-7b11-492e-903a-b2d56b5a2efc)
+![image](https://github.com/minuut/laravel-filament-bike-repair-app/assets/70378641/985eceb7-13e2-46ea-bbe2-3024ae9d3f15)
 
 **Mechanic panel preview: (While logged in as demo mechanic 'Harrie Fietsers' within his servicepoint)**
 
