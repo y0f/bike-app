@@ -38,13 +38,3 @@ it('renders the edit page', function () {
     get(CustomerBikeResource::getUrl('edit', ['record' => $customerBike], panel: 'vehicleowner'))
         ->assertOk();
 });
-
-// need this to work will fix tommorow
-
-// it('can list customer bikes', function () {
-
-//     $customerBikes = CustomerBike::factory()->count(3)->create();
-
-//     livewire(CustomerBikeResource\Pages\ListCustomerBikes::class)
-//         ->assertCanSeeTableRecords($customerBikes);
-// });
