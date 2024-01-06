@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\Enums\BikeType;
-use App\Models\CustomerBike;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CustomerBikeFactory extends Factory

@@ -11,12 +11,14 @@ use App\Models\LoanBike;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use App\Models\Appointment;
+use App\Models\CustomerBike;
 use App\Enums\LoanBikeStatus;
 use Filament\Facades\Filament;
 use Illuminate\Support\Carbon;
 use App\Enums\AppointmentStatus;
 use Filament\Resources\Resource;
 use Illuminate\Support\HtmlString;
+use Illuminate\Database\Eloquent\Model;
 use App\Filament\Mechanic\Resources\AppointmentResource\Pages;
 
 class AppointmentResource extends Resource
@@ -49,8 +51,21 @@ class AppointmentResource extends Resource
                         ->label('Voertuig')
                         ->native(false)
                         ->relationship('customerBike', 'identifier')
+                        ->allowHtml()
+                        ->searchable()
+                        ->getSearchResultsUsing(function (string $search) {
+                            $customerBikes = CustomerBike::where('identifier', 'like', "%{$search}%")->limit(10)->get();
+
+                            return $customerBikes->mapWithKeys(function ($customerBike) {
+                                return [$customerBike->getKey() => static::getOptionString($customerBike)];
+                            })->toArray();
+                        })
+                        ->getOptionLabelUsing(function ($value): string {
+                            $customerBike = CustomerBike::find($value);
+
+                            return static::getOptionString($customerBike);
+                        })
                         ->required()
-                        ->preload()
                         /** Retrieve helper text based on the availability of customer bikes in the current service point. */
                         ->helperText(fn () => $servicePoint->customerBikes->isEmpty() ?
                             new HtmlString(
@@ -222,6 +237,11 @@ class AppointmentResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
+    }
+
+    public static function getOptionString(Model $record): string
+    {
+        return view('filament.components.select-customer-bike-results', compact('record'))->render();
     }
 
     public static function getRelations(): array

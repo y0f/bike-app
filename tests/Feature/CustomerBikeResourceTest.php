@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\User;
-use Livewire\Livewire;
 use App\Models\CustomerBike;
 
 use Illuminate\Support\Facades\Storage;
@@ -10,7 +9,6 @@ use App\Filament\Owner\Resources\CustomerBikeResource;
 use function Pest\Laravel\get;
 use function Pest\Laravel\seed;
 use function Pest\Laravel\actingAs;
-use function Pest\Livewire\livewire;
 
 beforeEach(function () {
     seed();
