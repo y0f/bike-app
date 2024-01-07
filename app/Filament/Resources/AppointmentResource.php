@@ -22,10 +22,13 @@ use App\Enums\AppointmentStatus;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Illuminate\Support\HtmlString;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Contracts\Support\Htmlable;
 use Filament\Infolists\Components\TextEntry;
 use App\Filament\Resources\AppointmentResource\Pages;
 use App\Filament\Resources\AppointmentResource\Pages\CreateAppointment;
+use App\Filament\Resources\AppointmentResource\RelationManagers\NotesRelationManager;
 
 class AppointmentResource extends Resource
 {
@@ -43,7 +46,9 @@ class AppointmentResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-calendar-days';
 
-    protected static ?int $navigationSort = 0;
+    protected static ?string $recordTitleAttribute = 'id';
+
+    protected static int $globalSearchResultsLimit = 20;
 
     public static function form(Form $form): Form
     {
@@ -244,7 +249,7 @@ class AppointmentResource extends Resource
                     ->badge()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('loanBike.identifier')
-                    ->placeholder('N.V.T.')
+                    ->placeholder(new HtmlString(view('heroicons.false')->render()))
                     ->label('Leenmiddel'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -328,6 +333,41 @@ class AppointmentResource extends Resource
             ]);
     }
 
+    public static function getGlobalSearchEloquentQuery(): Builder
+    {
+        // Eager loading 'mechanic', 'status', and 'servicePoint' relationships
+        return parent::getGlobalSearchEloquentQuery()->with(['mechanic', 'servicePoint']);
+    }
+
+    public static function getGlobalSearchResultDetails(Model $record): array
+    {
+        try {
+            // Ensuring the relationships are loaded
+            $record->load('mechanic', 'servicePoint');
+
+            $mechanicName = optional($record->mechanic)->name ?? 'N/A';
+            $dateString = optional($record->date)->toDateString('D-M-Y') ?? 'N/A';
+            $statusLabel = optional($record->status)->getLabel() ?? 'N/A';
+            $servicePointName = optional($record->servicePoint)->name ?? 'N/A';
+
+            return [
+                'Monteur'      => $mechanicName,
+                'Datum'          => $dateString,
+                'Status'        => $statusLabel,
+                'Servicepunt' => $servicePointName,
+            ];
+        } catch (\Exception $exception) {
+            return [
+                'error' => "Er is een fout opgetreden. :(",
+            ];
+        }
+    }
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['date', 'mechanic.name'];
+    }
+
     public static function infolist(Infolist $infolist): Infolist
     {
         return $infolist
@@ -339,7 +379,7 @@ class AppointmentResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            NotesRelationManager::class,
         ];
     }
 

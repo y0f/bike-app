@@ -32,6 +32,8 @@ class CustomerBikeResource extends Resource
 
     protected static ?int $navigationSort = 3;
 
+    protected static ?string $recordTitleAttribute = 'identifier';
+
     public static function form(Form $form): Form
     {
         return $form

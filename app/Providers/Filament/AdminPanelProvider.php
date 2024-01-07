@@ -41,6 +41,7 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogo(asset('images/filament-logo.png'))
             ->favicon(asset('images/logo.png'))
             ->login()
+            ->globalSearchKeyBindings(['command+k', 'ctrl+k'])
             ->navigation(function (NavigationBuilder $builder): NavigationBuilder {
 
                 return $builder->groups([
