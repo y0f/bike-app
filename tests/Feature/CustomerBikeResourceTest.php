@@ -11,7 +11,7 @@ use function Pest\Laravel\seed;
 use function Pest\Laravel\actingAs;
 
 beforeEach(function () {
-    seed();
+    $this->seed();
     $this->ownerUser = User::whereName('Owner')->first();
     actingAs($this->ownerUser);
 

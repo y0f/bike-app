@@ -10,7 +10,7 @@ use function Pest\Laravel\actingAs;
 use function Pest\Laravel\seed;
 
 beforeEach(function () {
-    seed();
+    $this->seed();
     $this->adminUser = User::whereName('Admin')->first();
     actingAs($this->adminUser);
 

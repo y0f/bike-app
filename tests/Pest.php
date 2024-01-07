@@ -12,7 +12,7 @@
 */
 
 uses(
-    Tests\TestCase::class,
+    Tests\FeatureTestCase::class,
     Illuminate\Foundation\Testing\RefreshDatabase::class,
 )->in('Feature');
 
