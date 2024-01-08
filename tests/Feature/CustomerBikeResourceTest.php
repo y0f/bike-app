@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Storage;
 use App\Filament\Owner\Resources\CustomerBikeResource;
 
 use function Pest\Laravel\get;
-use function Pest\Laravel\seed;
 use function Pest\Laravel\actingAs;
 
 beforeEach(function () {

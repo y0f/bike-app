@@ -24,7 +24,6 @@ use Filament\Resources\Resource;
 use Illuminate\Support\HtmlString;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Contracts\Support\Htmlable;
 use Filament\Infolists\Components\TextEntry;
 use App\Filament\Resources\AppointmentResource\Pages;
 use App\Filament\Resources\AppointmentResource\Pages\CreateAppointment;
@@ -345,10 +344,15 @@ class AppointmentResource extends Resource
             // Ensuring the relationships are loaded
             $record->load('mechanic', 'servicePoint');
 
-            $mechanicName = optional($record->mechanic)->name ?? 'N/A';
-            $dateString = optional($record->date)->toDateString('D-M-Y') ?? 'N/A';
-            $statusLabel = optional($record->status)->getLabel() ?? 'N/A';
-            $servicePointName = optional($record->servicePoint)->name ?? 'N/A';
+            $date = $record->date ?? 'N/A';
+            $dateString = $date->toDateString('D-M-Y');
+            $status = $record->status ?? 'N/A';
+            $statusLabel = $status->getLabel();
+
+            /** @var string $mechanicName*/
+            $mechanicName = $record->mechanic->name ?? 'N/A';
+            /** @var string $servicePointName*/
+            $servicePointName = $record->servicePoint->name ?? 'N/A';
 
             return [
                 'Monteur'      => $mechanicName,

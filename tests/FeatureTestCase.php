@@ -12,7 +12,7 @@ abstract class FeatureTestCase extends BaseTestCase
     use CreatesApplication;
 
     private static bool $dbWiped = false;
-    
+
     public $ownerUser;
     public $adminUser;
 

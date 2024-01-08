@@ -7,7 +7,6 @@ use App\Filament\Resources\LoanBikeResource;
 
 use function Pest\Laravel\get;
 use function Pest\Laravel\actingAs;
-use function Pest\Laravel\seed;
 
 beforeEach(function () {
     $this->seed();

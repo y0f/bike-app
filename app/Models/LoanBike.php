@@ -14,8 +14,6 @@ class LoanBike extends Model
 {
     use HasFactory;
 
-    use HasFactory;
-
     protected $fillable = [
         'identifier',
         'brand',

@@ -17,6 +17,7 @@ class Schedule extends Model
         'owner_id',
         'service_point_id',
         'day_of_the_week',
+        'date',
         // TODO: holiday_start, holiday_end, update SlotService to use these dates.
     ];
 

@@ -8,8 +8,6 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Support\Colors\Color;
 use Filament\Support\Enums\FontWeight;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Resources\RelationManagers\RelationManager;
 
 class NotesRelationManager extends RelationManager
