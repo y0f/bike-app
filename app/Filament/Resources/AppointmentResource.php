@@ -334,7 +334,7 @@ class AppointmentResource extends Resource
 
     public static function getGlobalSearchEloquentQuery(): Builder
     {
-        // Eager loading 'mechanic', 'status', and 'servicePoint' relationships
+        // Eager loading 'mechanic' and 'servicePoint' relationships
         return parent::getGlobalSearchEloquentQuery()->with(['mechanic', 'servicePoint']);
     }
 
