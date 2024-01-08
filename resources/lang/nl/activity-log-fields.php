@@ -29,4 +29,8 @@ return [
     'Updated'       => 'gewijzigd',
     'by'            => 'door',
     'Login'         => 'ingelogd',
+    'sent'          => 'verstuurd',
+    'notification'  => 'notificatie',
+    'Notification Sent'  => 'Notificatie',
+    'Database'      => 'model',
 ];
