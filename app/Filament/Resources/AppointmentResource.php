@@ -45,8 +45,6 @@ class AppointmentResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-calendar-days';
 
-    protected static ?string $recordTitleAttribute = 'id';
-
     protected static int $globalSearchResultsLimit = 20;
 
     public static function form(Form $form): Form

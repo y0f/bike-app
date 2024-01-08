@@ -83,6 +83,7 @@ class UserResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\ImageColumn::make('avatar_url')
+                    ->label('Profielfoto')
                     ->circular(),
                 Tables\Columns\TextColumn::make('name')
                     ->label('Naam')

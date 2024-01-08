@@ -42,11 +42,12 @@ class MechanicPanelProvider extends PanelProvider
             ->id('mechanic')
             ->path('mechanic')
             ->tenant(ServicePoint::class)
-            ->brandLogo(asset('images/filament-logo.png'))
+            ->brandLogo(asset('images/logo.png'))
             ->favicon(asset('images/logo.png'))
             ->login()
             ->profile()
             ->passwordReset()
+            ->databaseNotifications()
             // Custom navigation order, render Pages within a NavigationGroup::make('') to render a Filament Page..
             ->navigation(function (NavigationBuilder $builder): NavigationBuilder {
 

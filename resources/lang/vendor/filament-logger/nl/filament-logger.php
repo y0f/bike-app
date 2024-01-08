@@ -15,7 +15,7 @@ return [
     'resource.label.logs' => 'Activiteitenlogboek',
     'resource.label.user' => 'Gebruiker',
     'resource.label.subject' => 'Soort type',
-    'resource.label.subject_type' => 'Onderwerptype',
+    'resource.label.subject_type' => 'Onderwerp',
     'resource.label.description' => 'Omschrijving',
     'resource.label.type' => 'Type',
     'resource.label.event' => 'Gebeurtenis',

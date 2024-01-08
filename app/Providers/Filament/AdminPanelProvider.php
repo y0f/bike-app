@@ -38,9 +38,10 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('administratie_portaal')
-            ->brandLogo(asset('images/filament-logo.png'))
+            ->brandLogo(asset('images/logo.png'))
             ->favicon(asset('images/logo.png'))
             ->login()
+            ->databaseNotifications()
             ->globalSearchKeyBindings(['command+k', 'ctrl+k'])
             ->navigation(function (NavigationBuilder $builder): NavigationBuilder {
 
