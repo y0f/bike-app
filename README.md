@@ -2,8 +2,6 @@
 
 This project serves as my hands-on exploration of Laravel Filament V3. It features three panels: an admin panel for managing service points, mechanics, and users; a mechanic panel tailored to individual mechanics, allowing them to handle their own appointments and schedules; and a customer panel enabling customers to book appointments from available slots. To make it production-ready, it would eventually need a payment method, which I would probably use Stripe for. However, this is not a project I intend to commercialize. There are alot of tricks and concepts I learned through creating this on my week off.
 
-Update: I use this repo to test filament plugins.
-
 ## Key Dependencies
 
 - **PHP Version:** ^8.1
