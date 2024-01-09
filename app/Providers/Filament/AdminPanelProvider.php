@@ -77,7 +77,7 @@ class AdminPanelProvider extends PanelProvider
                 config('filament-logger.activity_resource')
             ])
             ->colors([
-                'primary' => Color::Orange,
+                'primary' => Color::Purple,
                 'danger'  => Color::Red,
                 'gray'    => Color::Zinc,
                 'info'    => Color::Blue,
