@@ -3,7 +3,6 @@
 namespace App\Observers;
 
 use App\Models\Appointment;
-use Filament\Facades\Filament;
 use Filament\Notifications\Notification;
 use Filament\Notifications\Actions\Action;
 

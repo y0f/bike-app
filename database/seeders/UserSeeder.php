@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use App\Models\ServicePoint; 
+use App\Models\ServicePoint;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -11,7 +11,7 @@ class UserSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    
+
     public function run(): void
     {
         $firstServicePoint = ServicePoint::first();
@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@email.com',
             'phone' => '5555551234',
-            'avatar_url' => $avatarUrl 
+            'avatar_url' => $avatarUrl
         ]);
         $admin->servicePoints()->attach($firstServicePoint->id);
 
@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
             'name' => 'Owner',
             'email' => 'owner@email.com',
             'phone' => '1155551234',
-            'avatar_url' => $avatarUrl 
+            'avatar_url' => $avatarUrl
         ]);
         $owner->servicePoints()->attach($firstServicePoint->id);
 
@@ -37,7 +37,7 @@ class UserSeeder extends Seeder
             'name' => 'Mechanic',
             'email' => 'mechanic@email.com',
             'phone' => '5544551234',
-            'avatar_url' => $avatarUrl 
+            'avatar_url' => $avatarUrl
         ]);
         $mechanic->servicePoints()->attach($firstServicePoint->id);
     }

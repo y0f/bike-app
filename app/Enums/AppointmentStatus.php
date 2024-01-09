@@ -54,10 +54,10 @@ enum AppointmentStatus: string implements HasLabel, HasColor, HasIcon
     {
         return collect(self::cases())->map(function ($case) {
             return [
-                'id' => $case->value, 
+                'id' => $case->value,
                 'title' => $case->getLabel(),
             ];
         });
     }
-    
+
 }
