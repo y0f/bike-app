@@ -20,6 +20,8 @@
         "laravel/sanctum": "^3.3",
         "laravel/telescope": "^4.17",
         "laravel/tinker": "^2.8",
+        "mokhosh/filament-kanban": "^1.9",
+        "spatie/eloquent-sortable": "^4.1",
         "spatie/laravel-activitylog": "^4.7",
         "stechstudio/filament-impersonate": "^3.5",
         "z3d0x/filament-logger": "^0.6.2"

@@ -5,6 +5,7 @@ namespace App\Enums;
 use Filament\Support\Contracts\HasLabel;
 use Filament\Support\Contracts\HasColor;
 use Filament\Support\Contracts\HasIcon;
+use Illuminate\Support\Collection;
 
 enum AppointmentStatus: string implements HasLabel, HasColor, HasIcon
 {
@@ -48,4 +49,15 @@ enum AppointmentStatus: string implements HasLabel, HasColor, HasIcon
             self::Completed  => 'heroicon-o-check-circle',
         };
     }
+
+    public static function statuses(): Collection
+    {
+        return collect(self::cases())->map(function ($case) {
+            return [
+                'id' => $case->value, 
+                'title' => $case->getLabel(),
+            ];
+        });
+    }
+    
 }

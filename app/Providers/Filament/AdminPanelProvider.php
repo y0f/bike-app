@@ -4,6 +4,7 @@ namespace App\Providers\Filament;
 
 use Filament\Pages;
 use Filament\Panel;
+use App\Filament\Pages\AppointmentsKanbanBoard;
 use Filament\Widgets;
 use Filament\PanelProvider;
 use Filament\Pages\Dashboard;
@@ -55,6 +56,7 @@ class AdminPanelProvider extends PanelProvider
                         ]),
                     NavigationGroup::make('Planning')
                         ->items([
+                        // Need to look further into this    ...AppointmentsKanbanBoard::getNavigationItems(),
                             ...AppointmentResource::getNavigationItems(),
                             ...ScheduleResource::getNavigationItems(),
                         ]),
