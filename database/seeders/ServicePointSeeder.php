@@ -14,6 +14,6 @@ class ServicePointSeeder extends Seeder
      */
     public function run()
     {
-        ServicePoint::factory(3)->create();
+        ServicePoint::factory(1)->create();
     }
 }
