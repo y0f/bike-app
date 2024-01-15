@@ -5,8 +5,11 @@ namespace App\Providers\Filament;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\Widgets;
+use App\Filament\Pages\Faq;
 use Filament\PanelProvider;
 use Filament\Pages\Dashboard;
+use Filament\Facades\Filament;
+use Filament\Navigation\MenuItem;
 use Filament\Support\Colors\Color;
 use Filament\Navigation\NavigationItem;
 use App\Filament\Resources\UserResource;
@@ -38,9 +41,10 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('administratie_portaal')
-            ->brandLogo(asset('images/logo.png'))
-            ->favicon(asset('images/logo.png'))
+            ->brandLogo(asset('images/logo.svg'))
+            ->favicon(asset('images/logo.svg'))
             ->login()
+            ->profile()
             ->databaseNotifications()
             ->globalSearchKeyBindings(['command+k', 'ctrl+k'])
             ->navigation(function (NavigationBuilder $builder): NavigationBuilder {
@@ -71,6 +75,12 @@ class AdminPanelProvider extends PanelProvider
                         ]),
                 ]);
             })
+            ->userMenuItems([
+                'faq' => MenuItem::make()
+                    ->label('FAQ')
+                    ->icon('heroicon-o-question-mark-circle')
+                    ->url(fn (): string => Faq::getUrl()),
+            ])
             ->resources([
                 config('filament-logger.activity_resource')
             ])
