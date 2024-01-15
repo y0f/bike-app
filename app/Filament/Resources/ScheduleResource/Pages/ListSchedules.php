@@ -33,23 +33,23 @@ class ListSchedules extends ListRecords
             DaysOfTheWeek::Monday->getLabel()  => Tab::make()
                 ->modifyQueryUsing(fn (Builder $query) => $query->where('day_of_the_week', DaysOfTheWeek::Monday))
                 ->badge(Schedule::query()->where('day_of_the_week', DaysOfTheWeek::Monday)->count() ?: null),
-    
+
             DaysOfTheWeek::Tuesday->getLabel() => Tab::make()
                 ->modifyQueryUsing(fn (Builder $query) => $query->where('day_of_the_week', DaysOfTheWeek::Tuesday))
                 ->badge(Schedule::query()->where('day_of_the_week', DaysOfTheWeek::Tuesday)->count() ?: null),
-    
+
             DaysOfTheWeek::Wednesday->getLabel() => Tab::make()
                 ->modifyQueryUsing(fn (Builder $query) => $query->where('day_of_the_week', DaysOfTheWeek::Wednesday))
                 ->badge(Schedule::query()->where('day_of_the_week', DaysOfTheWeek::Wednesday)->count() ?: null),
-    
+
             DaysOfTheWeek::Thursday->getLabel() => Tab::make()
                 ->modifyQueryUsing(fn (Builder $query) => $query->where('day_of_the_week', DaysOfTheWeek::Thursday))
                 ->badge(Schedule::query()->where('day_of_the_week', DaysOfTheWeek::Thursday)->count() ?: null),
-    
+
             DaysOfTheWeek::Friday->getLabel() => Tab::make()
                 ->modifyQueryUsing(fn (Builder $query) => $query->where('day_of_the_week', DaysOfTheWeek::Friday))
                 ->badge(Schedule::query()->where('day_of_the_week', DaysOfTheWeek::Friday)->count() ?: null),
-    
+
             DaysOfTheWeek::Saturday->getLabel() => Tab::make()
                 ->modifyQueryUsing(fn (Builder $query) => $query->where('day_of_the_week', DaysOfTheWeek::Saturday))
                 ->badge(Schedule::query()->where('day_of_the_week', DaysOfTheWeek::Saturday)->count() ?: null),

@@ -8,7 +8,6 @@ use Filament\Widgets;
 use App\Filament\Pages\Faq;
 use Filament\PanelProvider;
 use Filament\Pages\Dashboard;
-use Filament\Facades\Filament;
 use Filament\Navigation\MenuItem;
 use Filament\Support\Colors\Color;
 use Filament\Navigation\NavigationItem;
@@ -50,7 +49,7 @@ class AdminPanelProvider extends PanelProvider
             ->navigation(function (NavigationBuilder $builder): NavigationBuilder {
 
                 return $builder->groups([
-                    NavigationGroup::make('') 
+                    NavigationGroup::make('')
                         ->items([
                             NavigationItem::make('Dashboard')
                                 ->icon('heroicon-o-home')
@@ -94,6 +93,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
+            ->discoverClusters(in: app_path('Filament/Clusters'), for: 'App\\Filament\\Clusters')
             ->pages([
                 Pages\Dashboard::class,
             ])

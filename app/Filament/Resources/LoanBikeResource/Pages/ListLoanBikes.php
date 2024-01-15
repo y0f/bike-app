@@ -19,7 +19,7 @@ class ListLoanBikes extends ListRecords
     }
 
     // Refacting UI @ work example
-    
+
     // public function getTabs(): array
     // {
     //     return [

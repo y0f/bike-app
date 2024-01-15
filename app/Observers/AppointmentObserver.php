@@ -18,7 +18,7 @@ class AppointmentObserver
 
         Notification::make()
             ->title('Nieuwe afspraak!')
-            ->body('van ' . $appointment->customerBike->owner->name . ' op ' . $appointment->date->toDateString('d-m-y'))
+            ->body('van ' . $appointment->customerBike->owner->name . ' op ' . $appointment->date->format('d-m-y'))
             ->icon('heroicon-o-document-text')
             ->iconColor('primary')
             ->actions([

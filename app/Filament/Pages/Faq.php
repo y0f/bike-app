@@ -3,7 +3,6 @@
 namespace App\Filament\Pages;
 
 use Filament\Pages\Page;
-use Filament\Facades\Filament;
 
 class Faq extends Page
 {
@@ -28,7 +27,6 @@ class Faq extends Page
     public function mount()
     {
     }
-
 
     public function getHeading(): string
     {

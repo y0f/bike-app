@@ -2,11 +2,12 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Tables;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
-use Filament\Tables;
 use Illuminate\Support\Str;
 use Filament\Facades\Filament;
+use App\Utils\TranslationUtils;
 use Filament\Resources\Resource;
 use Filament\Tables\Filters\Filter;
 use Filament\Forms\Components\Group;
@@ -21,10 +22,9 @@ use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Components\Placeholder;
 use Spatie\Activitylog\Contracts\Activity;
+use App\Filament\Resources\ActivityResource\Pages;
 use Spatie\Activitylog\ActivitylogServiceProvider;
 use Spatie\Activitylog\Models\Activity as ActivityModel;
-use App\Filament\Resources\ActivityResource\Pages;
-use App\Utils\TranslationUtils;
 
 class ActivityResource extends Resource
 {
