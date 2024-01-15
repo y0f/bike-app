@@ -18,7 +18,7 @@ class CustomerBikeResource extends Resource
 {
     protected static ?string $model = CustomerBike::class;
 
-    protected static ?string $navigationIcon = 'icon-bike';
+    protected static ?string $navigationIcon = 'icon-customer-bike';
 
     protected static ?string $navigationLabel = 'Tweewielers van klanten';
 

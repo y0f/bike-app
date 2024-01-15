@@ -6,6 +6,7 @@ use Filament\Pages;
 use Filament\Panel;
 use Filament\Widgets;
 use App\Filament\Pages\Faq;
+use App\Filament\Pages\Settings;
 use Filament\PanelProvider;
 use Filament\Pages\Dashboard;
 use Filament\Navigation\MenuItem;
@@ -111,16 +112,15 @@ class AdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+                \Hasnayeen\Themes\Http\Middleware\SetTheme::class
             ])
             ->authMiddleware([
                 Authenticate::class,
             ])
-            ->plugin(
+            ->plugins([
                 SpatieLaravelTranslatablePlugin::make()
                     ->defaultLocales(['en', 'nl']),
-            )
-            ->plugins([
-
+                \Hasnayeen\Themes\ThemesPlugin::make(),
             ]);
     }
 }

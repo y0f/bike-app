@@ -10,8 +10,6 @@ class Faq extends Page
 
     protected static string $view = 'filament.pages.faq';
 
-    protected $tenant;
-
     public $faqTitles = [
         'Hoe plan ik een fietsreparatie in?',
         'Hoe beheer ik mijn afspraken als monteur?',

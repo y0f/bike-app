@@ -15,6 +15,7 @@
         "filament/spatie-laravel-translatable-plugin": "^3.0",
         "flowframe/laravel-trend": "^0.1.5",
         "guzzlehttp/guzzle": "^7.2",
+        "hasnayeen/themes": "^3.0",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/telescope": "^4.17",
