@@ -24,7 +24,6 @@ This project is licensed under the MIT License.
 **Admin panel preview:**
 
 ![image](https://github.com/minuut/laravel-filament-bike-repair-app/assets/70378641/a87e2771-b7dd-44f3-b36e-363d620957ce)
-![image](https://github.com/minuut/laravel-filament-bike-repair-app/assets/70378641/5afa3337-b344-4eaa-93ee-09372c8871ba)
 
 
 
