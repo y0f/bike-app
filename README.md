@@ -24,16 +24,18 @@ This project is licensed under the MIT License.
 **Admin panel preview:**
 
 ![image](https://github.com/minuut/laravel-filament-bike-repair-app/assets/70378641/a87e2771-b7dd-44f3-b36e-363d620957ce)
-![image](https://github.com/minuut/laravel-filament-bike-repair-app/assets/70378641/5afa3337-b344-4eaa-93ee-09372c8871ba)
 
 
 
-**Mechanic panel preview: (While logged in as demo mechanic within a servicepoint he belongs to). He can only manage his own appointments, schedules but he can manage servicepoint loan bikes.**
+**Mechanic panel preview: (While logged in as demo mechanic within a servicepoint he belongs to).**
+
+He can only manage his own appointments and schedules within the servicepoint, and he can manage loan assets that belong to the servicepoint, while logged into his panel.
+If the mechanic is in multiple servicepoints, he can simply click the servicepoint name on the top left and select a different servicepoint and manage his appointments / schedule in there.
 
 ![image](https://github.com/minuut/laravel-filament-bike-repair-app/assets/70378641/dac03529-4d18-4cb3-b529-c0e7fc8492ee)
 
 
-If the mechanic is in multiple servicepoints, he can simply click the servicepoint name and select a different servicepoint and manage his appointments / schedule in there.
+
 
 ## Disclaimer
 
