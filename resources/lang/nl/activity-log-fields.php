@@ -33,4 +33,6 @@ return [
     'notification'  => 'notificatie',
     'Notification Sent'  => 'Notificatie',
     'Database'      => 'model',
+    'logged'        => 'ingelogd',
+    'in'            => '',
 ];

@@ -6,7 +6,6 @@ use Filament\Pages;
 use Filament\Panel;
 use Filament\Widgets;
 use App\Filament\Pages\Faq;
-use App\Filament\Pages\Settings;
 use Filament\PanelProvider;
 use Filament\Pages\Dashboard;
 use Filament\Navigation\MenuItem;

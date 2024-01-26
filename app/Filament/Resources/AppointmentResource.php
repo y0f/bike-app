@@ -353,9 +353,9 @@ class AppointmentResource extends Resource
 
             return [
                 'Monteur'      => $mechanicName,
-                'Datum'          => $dateString,
-                'Status'        => $statusLabel,
-                'Servicepunt' => $servicePointName,
+                'Datum'        => $dateString,
+                'Status'       => $statusLabel,
+                'Servicepunt'  => $servicePointName,
             ];
         } catch (\Exception $exception) {
             return [
