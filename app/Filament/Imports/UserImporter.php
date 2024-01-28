@@ -46,12 +46,21 @@ class UserImporter extends Importer
 
     public static function getCompletedNotificationBody(Import $import): string
     {
-        $body = 'Uw gebruikersimport is voltooid en ' . number_format($import->successful_rows) . ' ' . str('rij')->plural($import->successful_rows) . ' geïmporteerd.';
-
-        if ($failedRowsCount = $import->getFailedRowsCount()) {
-            $body .= ' ' . number_format($failedRowsCount) . ' ' . str('rij')->plural($failedRowsCount) . ' kon niet worden geïmporteerd.';
+        $importedRows = $import->successful_rows;
+        $failedRowsCount = $import->getFailedRowsCount();
+    
+        $importedRowsText = $importedRows === 1 ? 'rij' : 'rijen';
+        $failedRowsText = $failedRowsCount === 1 ? 'rij' : 'rijen';
+    
+        $body = "De import van uw gebruiker(s) is voltooid. Er " . ($importedRows === 1 ? 'is' : 'zijn') . " " . number_format($importedRows) . " $importedRowsText geïmporteerd.";
+    
+        if ($failedRowsCount === 1) {
+            $body .= " $failedRowsCount $failedRowsText kon niet worden geïmporteerd.";
+        } elseif ($failedRowsCount > 1) {
+            $body .= " $failedRowsCount $failedRowsText konden niet worden geïmporteerd.";
         }
-
+    
         return $body;
-    }
+    }   
+ 
 }

@@ -24,7 +24,7 @@ return [
     ],
 
     'notifications' => [
-        'enabled' => true,
+        'enabled' => false,
         'logger' => \Z3d0X\FilamentLogger\Loggers\NotificationLogger::class,
         'color' => null,
         'log_name' => 'Notificatie',

@@ -30,9 +30,11 @@ return [
     'by'            => 'door',
     'Login'         => 'ingelogd',
     'sent'          => 'verstuurd',
-    'notification'  => 'notificatie',
+    'notification'  => 'Notificatie',
+    'Notification'  => 'Notificatie',
     'Notification Sent'  => 'Notificatie',
     'Database'      => 'model',
     'logged'        => 'ingelogd',
     'in'            => '',
+    'DatabaseNotification' => '',
 ];
