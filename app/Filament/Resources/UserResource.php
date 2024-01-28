@@ -12,6 +12,8 @@ use Filament\Resources\Resource;
 use Illuminate\Support\Facades\Hash;
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\Pages\ViewUser;
+use Filament\Forms\Components\ToggleButtons;
+use Filament\Forms\Components\Split;
 
 class UserResource extends Resource
 {
@@ -35,47 +37,80 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make([
-                    Forms\Components\TextInput::make('name')
-                        ->label('Voor & achternaam')
-                        ->required()
-                        ->maxLength(255)
-                        ->columnSpanFull(),
-                    Forms\Components\TextInput::make('phone')
-                        ->label('Telefoonnummer')
-                        ->tel()
-                        ->maxLength(255),
-                    Forms\Components\TextInput::make('email')
-                        ->email()
-                        ->required()
-                        ->maxLength(255),
-                    Forms\Components\Select::make('service_point_id')
-                        ->relationship('servicePoints', 'name')
-                        ->label('Servicepunten')
-                        ->native(false)
-                        ->multiple()
-                        ->searchable()
-                        ->preload(),
-                    Forms\Components\TextInput::make('password')
-                        ->label('Wachtwoord')
-                        ->password()
-                        ->dehydrateStateUsing(fn ($state) => Hash::make($state))
-                        ->dehydrated(fn ($state) => filled($state))
-                        ->required(fn (string $context): bool => $context === 'create')
-                        ->hidden(fn ($livewire) => $livewire instanceof ViewUser)
-                        ->maxLength(255),
-                    Forms\Components\Select::make('role_id')
-                        ->label('Gebruikersrol')
-                        ->preload()
-                        ->native(false)
-                        ->options(UserRoles::class)
-                        ->required(),
-                    Forms\Components\FileUpload::make('avatar_url')
-                        ->label('Profielfoto')
-                        ->image(),
-                ])
-                    ->icon('heroicon-o-users')
-                    ->columns(2)
+                Forms\Components\Group::make([
+                    Forms\Components\Section::make([
+                        Forms\Components\TextInput::make('name')
+                            ->label('Voor & achternaam')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('phone')
+                            ->label('Telefoonnummer')
+                            ->tel()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('email')
+                            ->email()
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('password')
+                            ->label('Wachtwoord')
+                            ->password()
+                            ->dehydrateStateUsing(fn ($state) => Hash::make($state))
+                            ->dehydrated(fn ($state) => filled($state))
+                            ->required(fn (string $context): bool => $context === 'create')
+                            ->hidden(fn ($livewire) => $livewire instanceof ViewUser)
+                            ->maxLength(255),
+                    ])
+                        ->description('Basisinformatie')
+                        ->icon('heroicon-o-users')
+                        ->columns(2),
+                    Forms\Components\Section::make([
+                        Forms\Components\Select::make('service_point_id')
+                            ->relationship('servicePoints', 'name')
+                            ->label('Servicepunten')
+                            ->native(false)
+                            ->multiple()
+                            ->searchable()
+                            ->preload()
+                            ->hintIcon('heroicon-o-question-mark-circle')
+                            ->hintColor('primary')
+                            ->hintIconTooltip('Op welke locaties werkt uw personeelslid?'),
+                    ])
+                        ->description('Vestigingen')
+                        ->icon('heroicon-o-map-pin')
+                ]),
+                Forms\Components\Group::make([
+                    Forms\Components\Section::make([
+                        ToggleButtons::make('role_id')
+                            ->label('Gebruikersrol')
+                            ->inline()
+                            ->options(UserRoles::class)
+                            ->colors([
+                                UserRoles::Admin->getIcon(),
+                                UserRoles::Staff->getIcon(),
+                                UserRoles::Mechanic->getIcon(),
+                                UserRoles::VehicleOwner->getIcon(),
+                            ])
+                            ->icons([
+                                UserRoles::Admin->getColor(),
+                                UserRoles::Staff->getColor(),
+                                UserRoles::Mechanic->getColor(),
+                                UserRoles::VehicleOwner->getColor(),
+                            ])
+                            ->required()
+                            ->extraAttributes(['class' => 'p-2']),
+                    ])
+                        ->columns(1)
+                        ->description('Gebruikersrechten')
+                        ->icon('heroicon-o-user-circle'),
+                    Forms\Components\Section::make([
+                        Forms\Components\FileUpload::make('avatar_url')
+                            ->label('Profielfoto')
+                            ->image(),
+                    ])
+                        ->columns(1)
+                        ->description('Profielfoto')
+                        ->icon('heroicon-o-camera'),
+                ]),
             ]);
     }
 
@@ -110,9 +145,6 @@ class UserResource extends Resource
                     ->label('Servicepunten')
                     ->badge()
                     ->color('undefined'),
-                // Note: need to fix bugs in this.
-                // ->sortable()
-                //->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
