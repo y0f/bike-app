@@ -40,13 +40,21 @@ class LoanBikeExporter extends Exporter
 
     public static function getCompletedNotificationBody(Export $export): string
     {
-        $body = 'Uw fietsuitleen export is voltooid en ' . number_format($export->successful_rows) . ' ' . str('rij')->plural($export->successful_rows) . ' geëxporteerd.';
-
-        if ($failedRowsCount = $export->getFailedRowsCount()) {
-            $body .= ' ' . number_format($failedRowsCount) . ' ' . str('rij')->plural($failedRowsCount) . ' konden niet geëxporteerd worden.';
+        $successfulRows = $export->successful_rows;
+        $failedRowsCount = $export->getFailedRowsCount();
+    
+        $successfulRowsText = $successfulRows === 1 ? 'rij' : 'rijen';
+        $failedRowsText = $failedRowsCount === 1 ? 'rij' : 'rijen';
+    
+        $body = "Uw leenmiddelen export is voltooid en " . number_format($successfulRows) . " $successfulRowsText geëxporteerd.";
+    
+        if ($failedRowsCount === 1) {
+            $body .= " $failedRowsCount $failedRowsText kon niet worden geëxporteerd.";
+        } elseif ($failedRowsCount > 1) {
+            $body .= " " . number_format($failedRowsCount) . " $failedRowsText konden niet worden geëxporteerd.";
         }
-
+    
         return $body;
     }
-
+    
 }
