@@ -48,19 +48,19 @@ class UserImporter extends Importer
     {
         $importedRows = $import->successful_rows;
         $failedRowsCount = $import->getFailedRowsCount();
-    
+
         $importedRowsText = $importedRows === 1 ? 'rij' : 'rijen';
         $failedRowsText = $failedRowsCount === 1 ? 'rij' : 'rijen';
-    
+
         $body = "De import van uw gebruiker(s) is voltooid. Er " . ($importedRows === 1 ? 'is' : 'zijn') . " " . number_format($importedRows) . " $importedRowsText geïmporteerd.";
-    
+
         if ($failedRowsCount === 1) {
             $body .= " $failedRowsCount $failedRowsText kon niet worden geïmporteerd.";
         } elseif ($failedRowsCount > 1) {
             $body .= " $failedRowsCount $failedRowsText konden niet worden geïmporteerd.";
         }
-    
+
         return $body;
-    }   
- 
+    }
+
 }

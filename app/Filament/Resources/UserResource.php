@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Hash;
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\Pages\ViewUser;
 use Filament\Forms\Components\ToggleButtons;
-use Filament\Forms\Components\Split;
 
 class UserResource extends Resource
 {

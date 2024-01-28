@@ -26,10 +26,10 @@ enum UserRoles: string implements HasLabel, HasColor, HasIcon
     public function getColor(): ?string
     {
         return match ($this) {
-            self::Admin        => 'info', 
-            self::Staff        => 'warning', 
-            self::Mechanic     => 'primary', 
-            self::VehicleOwner => 'success', 
+            self::Admin        => 'info',
+            self::Staff        => 'warning',
+            self::Mechanic     => 'primary',
+            self::VehicleOwner => 'success',
         };
     }
 
@@ -37,9 +37,9 @@ enum UserRoles: string implements HasLabel, HasColor, HasIcon
     {
         return match ($this) {
             self::Admin        => 'heroicon-o-user',
-            self::Staff        => 'heroicon-o-users', 
-            self::Mechanic     => 'heroicon-o-wrench', 
-            self::VehicleOwner => 'icon-bike', 
+            self::Staff        => 'heroicon-o-users',
+            self::Mechanic     => 'heroicon-o-wrench',
+            self::VehicleOwner => 'icon-bike',
         };
     }
 
