@@ -2,8 +2,9 @@
 
 namespace App\Filament\Resources\UserResource\Pages;
 
-use App\Filament\Resources\UserResource;
 use Filament\Actions;
+use App\Filament\Imports\UserImporter;
+use App\Filament\Resources\UserResource;
 use Filament\Resources\Pages\ListRecords;
 
 class ListUsers extends ListRecords
@@ -13,7 +14,14 @@ class ListUsers extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\ImportAction::make()
+             ->label('Gebruikers importeren')
+             ->color('primary')
+             ->icon('heroicon-o-user-group')
+             ->importer(UserImporter::class),
+            Actions\CreateAction::make()
+             ->label('Nieuwe gebruiker aanmaken')
+             ->icon('heroicon-o-user'),
         ];
     }
 }

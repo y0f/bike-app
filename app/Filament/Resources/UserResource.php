@@ -36,8 +36,6 @@ class UserResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Section::make([
-                    Forms\Components\FileUpload::make('avatar_url')
-                        ->image(),
                     Forms\Components\TextInput::make('name')
                         ->label('Voor & achternaam')
                         ->required()
@@ -72,6 +70,9 @@ class UserResource extends Resource
                         ->native(false)
                         ->options(UserRoles::class)
                         ->required(),
+                    Forms\Components\FileUpload::make('avatar_url')
+                        ->label('Profielfoto')
+                        ->image(),
                 ])
                     ->icon('heroicon-o-users')
                     ->columns(2)

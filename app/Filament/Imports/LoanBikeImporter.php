@@ -3,8 +3,9 @@
 namespace App\Filament\Imports;
 
 use App\Models\LoanBike;
-use Filament\Actions\Imports\ImportColumn;
+use Filament\Facades\Filament;
 use Filament\Actions\Imports\Importer;
+use Filament\Actions\Imports\ImportColumn;
 use Filament\Actions\Imports\Models\Import;
 
 class LoanBikeImporter extends Importer
@@ -13,11 +14,18 @@ class LoanBikeImporter extends Importer
 
     public static function getColumns(): array
     {
+        $user = Filament::auth()->user();
+
         return [
             ImportColumn::make('servicePoint')
                 ->requiredMapping()
                 ->relationship()
-                ->rules(['required'])
+                ->rules(['required', function ($attribute, $value, $fail) use ($user) {
+                    // Check if the provided servicePoint is associated with the admin
+                    if (!$user->servicePoints->contains('id', $value)) {
+                        $fail("Het geselecteerde servicepunt is niet gekoppeld aan uw account. U kunt deze koppelen via uw gebruikersinstellingen.");
+                    }
+                }])
                 ->example(1), // Example servicePoint value
 
             ImportColumn::make('identifier')
@@ -61,7 +69,7 @@ class LoanBikeImporter extends Importer
         $body = 'De import van uw leenfiets is voltooid en ' . number_format($import->successful_rows) . ' ' . str('rij')->plural($import->successful_rows) . ' geïmporteerd.';
 
         if ($failedRowsCount = $import->getFailedRowsCount()) {
-            $body .= ' ' . number_format($failedRowsCount) . ' ' . str('row')->plural($failedRowsCount) . ' failed to import.';
+            $body .= ' ' . number_format($failedRowsCount) . ' ' . str('rij')->plural($failedRowsCount) . ' kon niet worden geïmporteerd.';
         }
 
         return $body;
