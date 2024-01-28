@@ -104,7 +104,9 @@ class UserResource extends Resource
                     Forms\Components\Section::make([
                         Forms\Components\FileUpload::make('avatar_url')
                             ->label('Profielfoto')
-                            ->image(),
+                            ->image()
+                            ->imageEditor()
+                            ->imageEditorMode(2),
                     ])
                         ->columns(1)
                         ->description('Profielfoto')
