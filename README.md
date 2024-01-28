@@ -2,8 +2,8 @@
 
 - **PHP Version:** ^8.1
 - **Laravel Framework:** ^10.10
-- **Filament:** ^3.0
-- **Filament Actions:** ^3.0
+- **Filament:** ^3.2
+- **Filament Actions:** ^3.2
 - **Spatie Laravel Translatable Plugin:** ^3.0
 - **Laravel Trend:** ^0.1.5
 - **spatie/laravel-activitylog:** ^4.7
