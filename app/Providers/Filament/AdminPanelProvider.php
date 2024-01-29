@@ -7,10 +7,11 @@ use Filament\Panel;
 use Filament\Widgets;
 use App\Filament\Pages\Faq;
 use Filament\PanelProvider;
-use Filament\Pages\Dashboard;
+use App\Filament\Pages\Dashboard;
 use Filament\Navigation\MenuItem;
 use Filament\Support\Colors\Color;
 use Filament\Navigation\NavigationItem;
+use Filament\Widgets\UserAccountWidget;
 use App\Filament\Resources\UserResource;
 use Filament\Navigation\NavigationGroup;
 use Filament\Http\Middleware\Authenticate;
@@ -99,7 +100,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
+                UserAccountWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
