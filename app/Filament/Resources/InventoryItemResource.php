@@ -69,7 +69,8 @@ class InventoryItemResource extends Resource
     {
         return $table
             ->columns([
-                // TODO: Tabs for each servicepoint.
+                // TODO: Add import with csv, xlsx
+                // TODO: Add transaction model 
                 Tables\Columns\TextColumn::make('servicePoint.name')
                     ->label('Servicepunt')
                     ->searchable(),
