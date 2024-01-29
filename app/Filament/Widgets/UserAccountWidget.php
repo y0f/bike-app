@@ -1,7 +1,6 @@
 <?php
 
 namespace Filament\Widgets;
-use Filament\Widgets\AccountWidget;
 
 class UserAccountWidget extends AccountWidget
 {
@@ -10,7 +9,7 @@ class UserAccountWidget extends AccountWidget
     protected static bool $isLazy = false;
 
     protected int | string | array $columnSpan = 'full';
-    
+
     /**
      * @var view-string
      */

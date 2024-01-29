@@ -18,7 +18,7 @@ class NewPlatformUsersThisYear extends ChartWidget
 
     protected function getData(): array
     {
-        $currentYear = date('Y'); // Use PHP date function for the current year
+        $currentYear = date('Y');
 
         $newUsers = User::whereYear('created_at', $currentYear)->select('created_at')->get();
 

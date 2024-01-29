@@ -21,7 +21,6 @@ class AppointmentsChart extends ChartWidget
     {
         $currentYear = now()->year;
 
-        // Optimize the query by selecting only the necessary data
         $appointments = Appointment::where('status', AppointmentStatus::Completed)
             ->whereYear('date', $currentYear)
             ->select('date')

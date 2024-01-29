@@ -42,19 +42,19 @@ class LoanBikeExporter extends Exporter
     {
         $successfulRows = $export->successful_rows;
         $failedRowsCount = $export->getFailedRowsCount();
-    
+
         $successfulRowsText = $successfulRows === 1 ? 'rij' : 'rijen';
         $failedRowsText = $failedRowsCount === 1 ? 'rij' : 'rijen';
-    
+
         $body = "Uw leenmiddelen export is voltooid en " . number_format($successfulRows) . " $successfulRowsText geëxporteerd.";
-    
+
         if ($failedRowsCount === 1) {
             $body .= " $failedRowsCount $failedRowsText kon niet worden geëxporteerd.";
         } elseif ($failedRowsCount > 1) {
             $body .= " " . number_format($failedRowsCount) . " $failedRowsText konden niet worden geëxporteerd.";
         }
-    
+
         return $body;
     }
-    
+
 }
