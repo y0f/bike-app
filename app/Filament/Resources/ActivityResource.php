@@ -32,7 +32,7 @@ class ActivityResource extends Resource
 
     protected static ?string $slug = 'activity-logs';
 
-    protected static ?string $navigationIcon = 'heroicon-o-clipboard-list';
+    protected static ?string $navigationIcon = 'heroicon-o-book-open';
 
     public static function form(Form $form): Form
     {
@@ -354,7 +354,7 @@ class ActivityResource extends Resource
 
     public static function getNavigationIcon(): string
     {
-        return __('icon-activity-log');
+        return __('heroicon-o-book-open');
     }
 
     private static function getEventTranslations(): array
