@@ -24,6 +24,7 @@ use Illuminate\Session\Middleware\StartSession;
 use App\Filament\Resources\CustomerBikeResource;
 use App\Filament\Resources\ServicePointResource;
 use Illuminate\Cookie\Middleware\EncryptCookies;
+use App\Filament\Resources\InventoryItemResource;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
@@ -64,6 +65,7 @@ class AdminPanelProvider extends PanelProvider
                     NavigationGroup::make('Servicebeheer')
                         ->items([
                             ...ServicePointResource::getNavigationItems(),
+                            ...InventoryItemResource::getNavigationItems(),
                             ...CustomerBikeResource::getNavigationItems(),
                             ...LoanBikeResource::getNavigationItems(),
                         ]),
