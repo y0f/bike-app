@@ -1,3 +1,19 @@
+## About
+
+This is a learning project that got out of hand. With each new Filament version, I explore and integrate features into this small business model. 
+Two panels are included: an admin panel for company and service point management, and a mechanic panel for asset and schedule management within assigned service points.
+
+**Admin panel preview:**
+
+![image](https://github.com/minuut/laravel-filament-bike-repair-app/assets/70378641/a87e2771-b7dd-44f3-b36e-363d620957ce)
+
+**Mechanic panel preview: (While logged in as demo mechanic within a servicepoint he belongs to).**
+
+He can only manage his own appointments and schedules within the servicepoint, and he can manage loan assets that belong to the servicepoint, while logged into his panel.
+If the mechanic is in multiple servicepoints, he can simply click the servicepoint name on the top left and select a different servicepoint and manage his appointments / schedule in there.
+
+![image](https://github.com/minuut/laravel-filament-bike-repair-app/assets/70378641/dac03529-4d18-4cb3-b529-c0e7fc8492ee)
+
 ## Key Dependencies
 
 - **PHP Version:** ^8.1
@@ -20,22 +36,6 @@
 ## License
 
 This project is licensed under the MIT License.
-
-**Admin panel preview:**
-
-![image](https://github.com/minuut/laravel-filament-bike-repair-app/assets/70378641/a87e2771-b7dd-44f3-b36e-363d620957ce)
-
-
-
-**Mechanic panel preview: (While logged in as demo mechanic within a servicepoint he belongs to).**
-
-He can only manage his own appointments and schedules within the servicepoint, and he can manage loan assets that belong to the servicepoint, while logged into his panel.
-If the mechanic is in multiple servicepoints, he can simply click the servicepoint name on the top left and select a different servicepoint and manage his appointments / schedule in there.
-
-![image](https://github.com/minuut/laravel-filament-bike-repair-app/assets/70378641/dac03529-4d18-4cb3-b529-c0e7fc8492ee)
-
-
-
 
 ## Disclaimer
 
