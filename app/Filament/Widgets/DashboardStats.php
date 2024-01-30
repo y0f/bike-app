@@ -20,14 +20,9 @@ class DashboardStats extends BaseWidget
 
     protected function getStats(): array
     {
-        $combinedStats = [];
-
-        $newCustomersStats = $this->newCustomersStat->getStats();
-        $combinedStats = array_merge($combinedStats, $newCustomersStats);
-
-        $anotherStats = $this->anotherStat->getStats();
-        $combinedStats = array_merge($combinedStats, $anotherStats);
-
-        return $combinedStats;
+        return [
+            ...$this->newCustomersStat->getStats(),
+            ...$this->anotherStat->getStats(),
+        ];
     }
 }
