@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Filament\Stats;
+namespace App\Filament\Widgets\Stats;
 
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 
 class AnotherStat extends BaseWidget
 {
-    // protected int|string|array $columnSpan = '2xl';
+    // protected int|string|array $columnSpan = '2xl'
+    
+    protected static bool $isDiscovered = false;
 
     protected function getStats(): array
     {

@@ -32,7 +32,7 @@ class UserImporter extends Importer
     {
         $user = new User();
 
-        // Set the default role_id to vehicleowner
+        // Set the default role_id to customer
         $user->role_id = 3;
 
         $user->name = $this->data['name'];

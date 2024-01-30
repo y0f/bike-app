@@ -87,13 +87,13 @@ class UserResource extends Resource
                                 UserRoles::Admin->getIcon(),
                                 UserRoles::Staff->getIcon(),
                                 UserRoles::Mechanic->getIcon(),
-                                UserRoles::VehicleOwner->getIcon(),
+                                UserRoles::Customer->getIcon(),
                             ])
                             ->icons([
                                 UserRoles::Admin->getColor(),
                                 UserRoles::Staff->getColor(),
                                 UserRoles::Mechanic->getColor(),
-                                UserRoles::VehicleOwner->getColor(),
+                                UserRoles::Customer->getColor(),
                             ])
                             ->required()
                             ->extraAttributes(['class' => 'p-2']),

@@ -117,7 +117,7 @@ class User extends Authenticatable implements HasTenants, FilamentUser, HasAvata
         return match ($panel->getId()) {
             'admin'          => $role === 'admin',
             'mechanic'       => $role === 'mechanic',
-            'vehicleowner'   => $role === 'owner',
+            'customer'   => $role === 'owner',
             default          => false,
         };
     }

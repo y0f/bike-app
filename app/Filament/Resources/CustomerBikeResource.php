@@ -172,7 +172,7 @@ class CustomerBikeResource extends Resource
                 Tables\Filters\SelectFilter::make('name')
                     ->label('Eigenaar')
                     ->relationship('owner', 'name', function (Builder $query) {
-                        $query->where('role_id', UserRoles::VehicleOwner);
+                        $query->where('role_id', UserRoles::Customer);
                     })
                     ->preload()
                     ->native(false)

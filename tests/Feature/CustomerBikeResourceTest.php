@@ -18,12 +18,12 @@ beforeEach(function () {
 });
 
 it('renders the index page', function () {
-    get(CustomerBikeResource::getUrl('index', panel: 'vehicleowner'))
+    get(CustomerBikeResource::getUrl('index', panel: 'customer'))
         ->assertOk();
 });
 
 it('renders the create page', function () {
-    get(CustomerBikeResource::getUrl('create', panel: 'vehicleowner'))
+    get(CustomerBikeResource::getUrl('create', panel: 'customer'))
         ->assertOk();
 });
 
@@ -32,6 +32,6 @@ it('renders the edit page', function () {
         ->for($this->ownerUser, relationship: 'owner')
         ->create();
 
-    get(CustomerBikeResource::getUrl('edit', ['record' => $customerBike], panel: 'vehicleowner'))
+    get(CustomerBikeResource::getUrl('edit', ['record' => $customerBike], panel: 'customer'))
         ->assertOk();
 });

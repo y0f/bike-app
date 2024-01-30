@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Filament\Stats;
+namespace App\Filament\Widgets\Stats;
 
 use App\Models\User;
+use App\Enums\UserRoles;
 use Illuminate\Support\Carbon;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
@@ -12,6 +13,8 @@ class NewCustomersStat extends BaseWidget
     protected $newCustomersThisWeek;
     protected $newCustomersLastWeek;
     protected $monthlyChart;
+
+    protected static bool $isDiscovered = false;
 
     public function __construct()
     {
@@ -38,7 +41,7 @@ class NewCustomersStat extends BaseWidget
     {
         return User::where('created_at', '>=', now()->startOfWeek())
             ->where('created_at', '<=', now()->endOfWeek())
-            ->where('role_id', 3)
+            ->where('role_id', UserRoles::Customer)
             ->count();
     }
 
@@ -46,7 +49,7 @@ class NewCustomersStat extends BaseWidget
     {
         return User::where('created_at', '>=', now()->startOfWeek()->subWeek())
             ->where('created_at', '<=', now()->endOfWeek()->subWeek())
-            ->where('role_id', 3)
+            ->where('role_id', UserRoles::Customer)
             ->count();
     }
 
@@ -69,7 +72,7 @@ class NewCustomersStat extends BaseWidget
             $monthStart = Carbon::now()->subMonths($i)->startOfMonth();
             $monthEnd = Carbon::now()->subMonths($i)->endOfMonth();
 
-            $newUsersMonthlyCount = User::where('role_id', 3)
+            $newUsersMonthlyCount = User::where('role_id', UserRoles::Customer)
                 ->whereBetween('created_at', [$monthStart, $monthEnd])
                 ->count();
 
