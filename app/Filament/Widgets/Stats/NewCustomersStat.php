@@ -68,7 +68,7 @@ class NewCustomersStat extends BaseWidget
     {
         $monthlyChart = [];
 
-        for ($i = 11; $i >= 0; $i--) {
+        for ($i = 12; $i >= 0; $i--) {
             $monthStart = Carbon::now()->subMonths($i)->startOfMonth();
             $monthEnd = Carbon::now()->subMonths($i)->endOfMonth();
 
