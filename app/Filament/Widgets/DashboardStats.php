@@ -3,7 +3,6 @@
 namespace App\Filament\Widgets;
 
 use App\Filament\Widgets\Stats\AnotherStat;
-use Filament\Widgets\StatsOverviewWidget\Stat;
 use App\Filament\Widgets\Stats\NewCustomersStat;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 

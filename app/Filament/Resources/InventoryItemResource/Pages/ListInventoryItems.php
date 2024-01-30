@@ -25,11 +25,11 @@ class ListInventoryItems extends ListRecords
         $servicePointIds = InventoryItem::distinct('service_point_id')->pluck('service_point_id');
 
         $tabs = [
-            'Alle onderdelen' => Tab::make()->badge(InventoryItem::query()->count()), 
+            'Alle onderdelen' => Tab::make()->badge(InventoryItem::query()->count()),
         ];
-    
+
         foreach ($servicePointIds as $servicePointId) {
-            $servicePoint = ServicePoint::find($servicePointId); 
+            $servicePoint = ServicePoint::find($servicePointId);
             $tabs[$servicePoint->name] = Tab::make()
                 ->badge(InventoryItem::where('service_point_id', $servicePointId)->count())
                 ->icon('icon-service-point');

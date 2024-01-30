@@ -8,7 +8,7 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 class AnotherStat extends BaseWidget
 {
     // protected int|string|array $columnSpan = '2xl'
-    
+
     protected static bool $isDiscovered = false;
 
     protected function getStats(): array

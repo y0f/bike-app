@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class () extends Migration {
     /**
      * Run the migrations.
      */
@@ -19,8 +18,8 @@ return new class extends Migration
             $table->integer('stock')->default(0);
             $table->decimal('price', 10, 2)->default(0);
             $table->integer('low_stock_threshold')->default(10);
-            $table->unsignedBigInteger('service_point_id'); 
-            $table->foreign('service_point_id')->references('id')->on('service_points'); 
+            $table->unsignedBigInteger('service_point_id');
+            $table->foreign('service_point_id')->references('id')->on('service_points');
             $table->timestamps();
         });
     }
