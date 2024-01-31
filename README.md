@@ -1,6 +1,5 @@
 ## About
 
-This is a learning project that got out of hand. With each new Filament version, I explore and integrate features into this small business model. 
 Two panels are included: an admin panel for company and service point management, and a mechanic panel for asset and schedule management within assigned service points.
 
 **Admin panel preview:**
