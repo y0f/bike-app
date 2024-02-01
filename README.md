@@ -1,7 +1,7 @@
 ## About
 
 I created this in my off time to get comfortable with Filament.
-This is a small business model I use for testing new Filament features each release.
+This is a small business model I now use for testing new Filament features each release.
 Two panels are included: an admin panel for company and service point management, and a mechanic panel for asset and schedule management within assigned service points.
 
 **Admin panel preview:**
