@@ -36,68 +36,82 @@ class LoanBikeResource extends Resource
             ->schema([
                 Forms\Components\Select::make('service_point_id')
                     ->relationship('servicePoint', 'name')
+                    ->label(__('filament.service_points'))
                     ->required(),
                 Forms\Components\Select::make('status')
+                    ->label(__('filament.status'))
                     ->required()
                     ->native(false)
                     ->options(LoanBikeStatus::class)
                     ->default('available'),
                 Forms\Components\TextInput::make('identifier')
+                    ->label(__('filament.identifier'))
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('brand')
+                    ->label(__('filament.brand'))
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('model')
+                    ->label(__('filament.model'))
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Select::make('type')
+                    ->label(__('filament.type'))
                     ->native(false)
                     ->options(BikeType::class)
                     ->required()
-                    ->searchable()
-                    ->label('Type voertuig'),
+                    ->searchable(),
                 Forms\Components\FileUpload::make('image')
+                    ->label(__('filament.image'))
                     ->image(),
                 Forms\Components\TextInput::make('color')
+                    ->label(__('filament.color'))
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Textarea::make('specifications')
+                    ->label(__('filament.specifications'))
                     ->maxLength(65535)
                     ->columnSpanFull(),
             ]);
     }
+
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('servicePoint.name')
-                    ->label('Servicepunt')
+                    ->label(__('filament.service_points'))
                     ->sortable(),
                 Tables\Columns\TextColumn::make('status')
+                    ->label(__('filament.status'))
                     ->badge()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('identifier')
-                    ->label('Kenteken / Serienummer')
+                    ->label(__('filament.identifier'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('brand')
-                ->label('Merk')
+                    ->label(__('filament.brand'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('model')
+                    ->label(__('filament.model'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('type')
+                    ->label(__('filament.type'))
                     ->badge()
                     ->color('primary')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('color')
-                    ->label('Kleur')
+                    ->label(__('filament.color'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label(__('filament.created_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label(__('filament.updated_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -114,6 +128,7 @@ class LoanBikeResource extends Resource
                 ]),
             ]);
     }
+
 
     public static function getRelations(): array
     {

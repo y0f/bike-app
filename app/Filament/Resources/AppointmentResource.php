@@ -55,7 +55,7 @@ class AppointmentResource extends Resource
                 Forms\Components\Section::make([
                     Forms\Components\Select::make('service_point_id')
                         ->relationship('servicePoint', 'name')
-                        ->label('Servicepunten')
+                        ->label(__('filament.service_points'))
                         ->native(false)
                         ->preload()
                         ->searchable()
@@ -69,7 +69,7 @@ class AppointmentResource extends Resource
                         }),
 
                     Forms\Components\Select::make('customer_bike_id')
-                        ->label('Voertuig')
+                        ->label(__('filament.customer_bike_id'))
                         ->native(false)
                         ->options(function (Get $get) {
                             $servicePointId = $get('service_point_id');
@@ -85,7 +85,7 @@ class AppointmentResource extends Resource
                         ->helperText(function ($component) {
                             if (!$component->getOptions()) {
                                 return new HtmlString(
-                                    '<span class="text-sm text-danger-600 dark:text-danger-400">Geen beschikbare middelen.</span>'
+                                    '<span class="text-sm text-danger-600 dark:text-danger-400">' . __('filament.no_resources_available') . '</span>'
                                 );
                             }
 
@@ -93,7 +93,7 @@ class AppointmentResource extends Resource
                         }),
 
                     Forms\Components\DatePicker::make('date')
-                        ->label('Datum')
+                        ->label(__('filament.date'))
                         ->native(false)
                         ->displayFormat('d/m/Y')
                         ->closeOnDateSelection()
@@ -105,9 +105,8 @@ class AppointmentResource extends Resource
                             $set('slot_id', null);
                         }),
 
-                    // We only want to show the mechanics that are available on the day of selection and within the selected service point.
                     Forms\Components\Select::make('mechanic_id')
-                        ->label('Monteur')
+                        ->label(__('filament.mechanic_id'))
                         ->options(function (Get $get) use ($mechanic) {
                             return User::whereBelongsTo($mechanic)
                                 ->whereHas('schedules', function (Builder $query) use ($get) {
@@ -126,16 +125,15 @@ class AppointmentResource extends Resource
                         ->helperText(function ($component) {
                             if (!$component->getOptions()) {
                                 return new HtmlString(
-                                    "<span class='text-sm text-danger-600 dark:text-primary-400'>Geen monteurs beschikbaar, selecteer een andere datum of servicepunt. :(</span>"
+                                    "<span class='text-sm text-danger-600 dark:text-primary-400'>" . __('filament.no_mechanics_available') . "</span>"
                                 );
                             }
 
                             return '';
                         }),
 
-                    // We only want slots from the selected mechanic within the selected servicepoint.
                     Forms\Components\Select::make('slot_id')
-                        ->label('Tijdslot')
+                        ->label(__('filament.slot_id'))
                         ->native(false)
                         ->options(function (Get $get) {
                             $mechanicId = $get('mechanic_id');
@@ -156,7 +154,7 @@ class AppointmentResource extends Resource
                         ->helperText(function ($component) {
                             if (!$component->getOptions()) {
                                 return new HtmlString(
-                                    '<span class="text-sm text-danger-600 dark:text-danger-400">Geen beschikbare tijdsloten. Selecteer alstublieft een andere datum.</span>'
+                                    '<span class="text-sm text-danger-600 dark:text-danger-400">' . __('filament.no_slots_available') . '</span>'
                                 );
                             }
 
@@ -165,7 +163,7 @@ class AppointmentResource extends Resource
                         ->required(),
 
                     Forms\Components\Toggle::make('has_loan_bike')
-                        ->label('Is er een leenmiddel van toepassing?')
+                        ->label(__('filament.has_loan_bike'))
                         ->onIcon('heroicon-o-check')
                         ->offIcon('heroicon-o-x-mark')
                         ->live()
@@ -176,7 +174,7 @@ class AppointmentResource extends Resource
                         ->columnSpanFull(),
 
                     Forms\Components\Select::make('loan_bike_id')
-                        ->label('Leenmiddel naar keuze')
+                        ->label(__('filament.loan_bike_id'))
                         ->relationship('loanBike', 'identifier')
                         ->options(
                             LoanBike::where('status', LoanBikeStatus::Available)->pluck('identifier', 'id')
@@ -193,10 +191,10 @@ class AppointmentResource extends Resource
                         ->hidden(fn ($livewire) => $livewire instanceof CreateAppointment),
 
                     Forms\Components\RichEditor::make('description')
-                        ->label('Omschrijving')
+                        ->label(__('filament.description'))
                         ->hintIcon('heroicon-o-question-mark-circle')
                         ->hintColor('primary')
-                        ->hintIconTooltip('Wat is het probleem met uw voertuig?')
+                        ->hintIconTooltip(__('filament.description_hint'))
                         ->required()
                         ->columnSpanFull(),
                 ])
@@ -204,6 +202,7 @@ class AppointmentResource extends Resource
                     ->columns(2)
             ]);
     }
+
 
     public static function table(Table $table): Table
     {
@@ -219,107 +218,122 @@ class AppointmentResource extends Resource
                 Tables\Columns\TextColumn::make('id')
                     ->sortable()
                     ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->label(__('filament.id')),
+
                 Tables\Columns\TextColumn::make('status')
                     ->sortable()
                     ->searchable()
-                    ->badge(),
+                    ->badge()
+                    ->label(__('filament.status')),
+
                 Tables\Columns\TextColumn::make('customerBike.identifier')
-                    ->label('Voertuig')
-                    ->numeric()
-                    ->searchable()
-                    ->limit(12)
-                    ->sortable(),
+                    ->label(__('filament.customerBike.identifier'))
+                    ->limit(12),
+
                 Tables\Columns\TextColumn::make('mechanic.name')
-                    ->label('Monteur')
-                    ->searchable()
-                    ->sortable(),
+                    ->label(__('filament.mechanic')),
+
                 Tables\Columns\TextColumn::make('date')
-                    ->label('Datum')
+                    ->label(__('filament.date'))
                     ->sortable()
                     ->date('d-m-y')
                     ->searchable()
                     ->badge(),
+
                 Tables\Columns\TextColumn::make('slot.formatted_time')
-                    ->label('Tijdslot')
+                    ->label(__('filament.slot.formatted_time'))
                     ->badge()
                     ->sortable(),
+
                 Tables\Columns\TextColumn::make('loanBike.identifier')
                     ->placeholder(new HtmlString(view('heroicons.false')->render()))
-                    ->label('Leenmiddel'),
+                    ->label(__('filament.loanBike.identifier')),
+
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->label(__('filament.created_at')),
+
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->label(__('filament.updated_at')),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('name')
-                    ->label('Monteur')
+                    ->label(__('filament.mechanic'))
                     ->relationship('mechanic', 'name', function (Builder $query) {
                         $query->where('role_id', UserRoles::Mechanic);
                     })
                     ->preload()
                     ->native(false)
                     ->searchable(),
+
                 Tables\Filters\SelectFilter::make('service_point_id')
-                    ->label('Servicepunt')
+                    ->label(__('filament.service_point_id'))
                     ->multiple()
                     ->preload()
                     ->native(false)
                     ->relationship('servicePoint', 'name')
                     ->searchable(),
+
                 Tables\Filters\SelectFilter::make('status')
-                    ->label('Status')
+                    ->label(__('filament.status'))
                     ->options(AppointmentStatus::class)
                     ->preload()
                     ->native(false)
                     ->searchable(),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\Action::make('Voltooien')
-                    ->action(function (Appointment $record) {
-                        $record->status = AppointmentStatus::Completed;
-                        $record->has_loan_bike = false;
-                        $record->loan_bike_id = null;
-                        $record->save();
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\ViewAction::make(),
 
-                        // Update LoanBike status to available
-                        if ($record->loanBike) {
-                            $record->loanBike->status = LoanBikeStatus::Available;
-                            $record->loanBike->save();
-                        }
-                    })
-                    ->visible(fn (Appointment $record)
-                    => $record->status !== AppointmentStatus::Completed
-                        && $record->status !== AppointmentStatus::Cancelled)
-                    ->color('success')
-                    ->icon('heroicon-o-check'),
+                    Tables\Actions\Action::make(__('filament.complete'))
+                        ->action(function (Appointment $record) {
+                            $record->status = AppointmentStatus::Completed;
+                            $record->has_loan_bike = false;
+                            $record->loan_bike_id = null;
+                            $record->save();
 
-                Tables\Actions\Action::make('Annuleren')
-                    ->action(function (Appointment $record) {
-                        $record->status = AppointmentStatus::Cancelled;
-                        $record->has_loan_bike = false;
-                        $record->loan_bike_id = null;
-                        $record->save();
+                            // Update LoanBike status to available
+                            if ($record->loanBike) {
+                                $record->loanBike->status = LoanBikeStatus::Available;
+                                $record->loanBike->save();
+                            }
+                        })
+                        ->visible(fn (Appointment $record)
+                        => $record->status !== AppointmentStatus::Completed
+                            && $record->status !== AppointmentStatus::Cancelled)
+                        ->color('success')
+                        ->icon('heroicon-o-check'),
 
-                        // Update LoanBike status to available
-                        if ($record->loanBike) {
-                            $record->loanBike->status = LoanBikeStatus::Available;
-                            $record->loanBike->save();
-                        }
-                    })
-                    ->visible(fn (Appointment $record)
-                    => $record->status !== AppointmentStatus::Cancelled
-                        && $record->status !== AppointmentStatus::Completed)
-                    ->color('danger')
-                    ->icon('heroicon-o-x-mark'),
+                    Tables\Actions\Action::make(__('filament.cancel'))
+                        ->action(function (Appointment $record) {
+                            $record->status = AppointmentStatus::Cancelled;
+                            $record->has_loan_bike = false;
+                            $record->loan_bike_id = null;
+                            $record->save();
 
-                Tables\Actions\EditAction::make(),
+                            // Update LoanBike status to available
+                            if ($record->loanBike) {
+                                $record->loanBike->status = LoanBikeStatus::Available;
+                                $record->loanBike->save();
+                            }
+                        })
+                        ->visible(fn (Appointment $record)
+                        => $record->status !== AppointmentStatus::Cancelled
+                            && $record->status !== AppointmentStatus::Completed)
+                        ->color('danger')
+                        ->icon('heroicon-o-x-mark'),
+
+                    Tables\Actions\EditAction::make()->color('warning'),
+                ])
+                ->button()
+                ->color('gray')
+                ->label('acties')
             ])
 
             ->bulkActions([
@@ -328,6 +342,7 @@ class AppointmentResource extends Resource
                 ]),
             ]);
     }
+
 
     public static function getGlobalSearchEloquentQuery(): Builder
     {

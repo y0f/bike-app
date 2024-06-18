@@ -39,19 +39,20 @@ class UserResource extends Resource
                 Forms\Components\Group::make([
                     Forms\Components\Section::make([
                         Forms\Components\TextInput::make('name')
-                            ->label('Voor & achternaam')
+                            ->label(__('filament.name'))
                             ->required()
                             ->maxLength(255),
                         Forms\Components\TextInput::make('phone')
-                            ->label('Telefoonnummer')
+                            ->label(__('filament.phone'))
                             ->tel()
                             ->maxLength(255),
                         Forms\Components\TextInput::make('email')
+                            ->label(__('filament.email'))
                             ->email()
                             ->required()
                             ->maxLength(255),
                         Forms\Components\TextInput::make('password')
-                            ->label('Wachtwoord')
+                            ->label(__('filament.password'))
                             ->password()
                             ->dehydrateStateUsing(fn ($state) => Hash::make($state))
                             ->dehydrated(fn ($state) => filled($state))
@@ -59,28 +60,28 @@ class UserResource extends Resource
                             ->hidden(fn ($livewire) => $livewire instanceof ViewUser)
                             ->maxLength(255),
                     ])
-                        ->description('Basisinformatie')
+                        ->description(__('filament.basic_info'))
                         ->icon('heroicon-o-users')
                         ->columns(2),
                     Forms\Components\Section::make([
                         Forms\Components\Select::make('service_point_id')
                             ->relationship('servicePoints', 'name')
-                            ->label('Servicepunten')
+                            ->label(__('filament.service_points'))
                             ->native(false)
                             ->multiple()
                             ->searchable()
                             ->preload()
                             ->hintIcon('heroicon-o-question-mark-circle')
                             ->hintColor('primary')
-                            ->hintIconTooltip('Op welke locaties werkt uw personeelslid?'),
+                            ->hintIconTooltip(__('filament.service_points_hint')),
                     ])
-                        ->description('Vestigingen')
+                        ->description(__('filament.branches'))
                         ->icon('heroicon-o-map-pin')
                 ]),
                 Forms\Components\Group::make([
                     Forms\Components\Section::make([
                         ToggleButtons::make('role_id')
-                            ->label('Gebruikersrol')
+                            ->label(__('filament.role'))
                             ->inline()
                             ->options(UserRoles::class)
                             ->colors([
@@ -99,17 +100,17 @@ class UserResource extends Resource
                             ->extraAttributes(['class' => 'p-2']),
                     ])
                         ->columns(1)
-                        ->description('Gebruikersrechten')
+                        ->description(__('filament.user_rights'))
                         ->icon('heroicon-o-user-circle'),
                     Forms\Components\Section::make([
                         Forms\Components\FileUpload::make('avatar_url')
-                            ->label('Profielfoto')
+                            ->label(__('filament.avatar'))
                             ->image()
                             ->imageEditor()
                             ->imageEditorMode(2),
                     ])
                         ->columns(1)
-                        ->description('Profielfoto')
+                        ->description(__('filament.profile_photo'))
                         ->icon('heroicon-o-camera'),
                 ]),
             ]);
@@ -120,21 +121,22 @@ class UserResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\ImageColumn::make('avatar_url')
-                    ->label('Profielfoto')
+                    ->label(__('filament.avatar'))
                     ->circular(),
                 Tables\Columns\TextColumn::make('name')
-                    ->label('Naam')
+                    ->label(__('filament.name'))
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('phone')
-                    ->label('Telefoonnummer')
+                    ->label(__('filament.phone'))
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('email')
+                    ->label(__('filament.email'))
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('role_id')
-                    ->label('Rol')
+                    ->label(__('filament.role'))
                     ->badge()
                     ->sortable()
                     ->formatStateUsing(function (string $state): string {
@@ -143,14 +145,16 @@ class UserResource extends Resource
                         return $role->getLabel() ?? $state;
                     }),
                 Tables\Columns\TextColumn::make('servicePoints.name')
-                    ->label('Servicepunten')
+                    ->label(__('filament.service_points'))
                     ->badge()
                     ->color('undefined'),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label(__('filament.created_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label(__('filament.updated_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

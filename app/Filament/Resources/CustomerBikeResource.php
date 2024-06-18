@@ -44,45 +44,46 @@ class CustomerBikeResource extends Resource
                         ->native(false)
                         ->searchable()
                         ->preload()
-                        ->label('Eigenaar')
+                        ->label(__('filament.owner'))
                         ->createOptionForm([
                             Forms\Components\TextInput::make('name')
-                                ->label('Voornaam & Achternaam')
+                                ->label(__('filament.name'))
                                 ->required()
                                 ->maxLength(255)
                                 ->columnSpan(1),
                             Forms\Components\TextInput::make('contact_phone')
-                                ->label('Telefoonnummer')
+                                ->label(__('filament.phone'))
                                 ->tel()
                                 ->maxLength(255)
                                 ->columnSpan(1),
                             Forms\Components\TextInput::make('contact_email')
-                                ->label('Contact email')
+                                ->label(__('filament.contact_email'))
                                 ->email()
                                 ->required()
                                 ->maxLength(255),
                             Forms\Components\TextInput::make('alternate_contact_email')
-                                ->label('Alternatieve contact email')
+                                ->label(__('filament.alternate_contact_email'))
                                 ->email()
                                 ->maxLength(255),
                             Forms\Components\TextInput::make('website')
+                                ->label(__('filament.website'))
                                 ->maxLength(255),
                             Forms\Components\TextInput::make('street_address')
-                                ->label('Adres')
+                                ->label(__('filament.street_address'))
                                 ->maxLength(255),
                             Forms\Components\TextInput::make('city')
-                                ->label('Stad')
+                                ->label(__('filament.city'))
                                 ->maxLength(255),
                             Forms\Components\TextInput::make('province')
-                                ->label('Provincie')
+                                ->label(__('filament.province'))
                                 ->maxLength(255),
                             Forms\Components\TextInput::make('postal_code')
-                                ->label('Postcode')
+                                ->label(__('filament.postal_code'))
                                 ->maxLength(255),
                         ]),
                     Forms\Components\Select::make('service_point_id')
                         ->relationship('servicePoints', 'name')
-                        ->label('Servicepunten')
+                        ->label(__('filament.service_points'))
                         ->native(false)
                         ->multiple()
                         ->searchable()
@@ -90,33 +91,33 @@ class CustomerBikeResource extends Resource
                     Forms\Components\TextInput::make('identifier')
                         ->required()
                         ->maxLength(255)
-                        ->label('Kenteken / Serienummer'),
+                        ->label(__('filament.identifier')),
                     Forms\Components\TextInput::make('brand')
                         ->required()
                         ->maxLength(255)
-                        ->label('Merk'),
+                        ->label(__('filament.brand')),
                     Forms\Components\TextInput::make('model')
                         ->required()
                         ->maxLength(255)
-                        ->label('Model'),
+                        ->label(__('filament.model')),
                     Forms\Components\Select::make('type')
                         ->native(false)
                         ->options(BikeType::class)
                         ->required()
                         ->searchable()
-                        ->label('Type voertuig'),
+                        ->label(__('filament.type')),
                     Forms\Components\TextInput::make('color')
                         ->required()
                         ->maxLength(255)
-                        ->label('Kleur'),
+                        ->label(__('filament.color')),
                     Forms\Components\FileUpload::make('image')
                         ->image()
                         ->directory('asset-images')
                         ->imageEditor()
-                        ->label('Afbeelding')
+                        ->label(__('filament.image'))
                         ->columnSpanFull(),
                     Forms\Components\Textarea::make('specifications')
-                        ->label('Specificaties')
+                        ->label(__('filament.specifications'))
                         ->maxLength(65535)
                         ->columnSpanFull(),
                 ])
@@ -125,39 +126,38 @@ class CustomerBikeResource extends Resource
             ]);
     }
 
-
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
                 Tables\Columns\ImageColumn::make('image')
                     ->circular()
-                    ->label('Afbeelding')
+                    ->label(__('filament.image'))
                     ->defaultImageUrl(url('/images/logo.png'))
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('servicePoints.name')
-                    ->label('Servicepunt')
+                    ->label(__('filament.service_point'))
                     ->badge()
                     ->color('undefined'),
                 Tables\Columns\TextColumn::make('owner.name')
-                    ->label('Eigenaar')
+                    ->label(__('filament.owner'))
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('identifier')
-                    ->label('Kenteken')
+                    ->label(__('filament.identifier'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('brand')
-                    ->label('Merk')
+                    ->label(__('filament.brand'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('model')
-                    ->label('Model')
+                    ->label(__('filament.model'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('type')
-                    ->label('Type voertuig')
+                    ->label(__('filament.type'))
                     ->badge()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('color')
-                    ->label('Kleur')
+                    ->label(__('filament.color'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -170,7 +170,7 @@ class CustomerBikeResource extends Resource
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('name')
-                    ->label('Eigenaar')
+                    ->label(__('filament.owner'))
                     ->relationship('owner', 'name', function (Builder $query) {
                         $query->where('role_id', UserRoles::Customer);
                     })
@@ -178,7 +178,7 @@ class CustomerBikeResource extends Resource
                     ->native(false)
                     ->searchable(),
                 Tables\Filters\SelectFilter::make('service_point_id')
-                    ->label('Servicepunt')
+                    ->label(__('filament.service_point'))
                     ->multiple()
                     ->preload()
                     ->native(false)
@@ -199,6 +199,7 @@ class CustomerBikeResource extends Resource
                 ]),
             ]);
     }
+
 
     public static function getRelations(): array
     {

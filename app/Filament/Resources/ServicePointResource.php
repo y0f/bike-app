@@ -28,15 +28,14 @@ class ServicePointResource extends Resource
     {
         return $form
             ->schema([
-
                 Forms\Components\Section::make([
                     Forms\Components\TextInput::make('name')
-                        ->label('Naam')
+                        ->label(__('filament.name'))
                         ->prefixIcon('heroicon-o-cog-6-tooth')
                         ->prefixIconColor('primary')
                         ->hintIcon('heroicon-o-question-mark-circle')
                         ->hintColor('primary')
-                        ->hintIconTooltip('De naam en de locatie van uw vestiging.')
+                        ->hintIconTooltip(__('filament.name_hint'))
                         ->placeholder('Repairstation Rosmalen')
                         ->required()
                         ->unique()
@@ -44,7 +43,7 @@ class ServicePointResource extends Resource
                     Forms\Components\TextInput::make('phone')
                         ->prefixIcon('heroicon-o-phone')
                         ->prefixIconColor('primary')
-                        ->label('Telefoonnummer')
+                        ->label(__('filament.phone'))
                         ->placeholder('062233445566')
                         ->tel()
                         ->required()
@@ -54,8 +53,8 @@ class ServicePointResource extends Resource
                         ->prefixIconColor('primary')
                         ->hintIcon('heroicon-o-question-mark-circle')
                         ->hintColor('primary')
-                        ->hintIconTooltip('Straatnaam en huisnummer.')
-                        ->label('Adres')
+                        ->hintIconTooltip(__('filament.address_hint'))
+                        ->label(__('filament.address'))
                         ->placeholder('Pieterburglaan 12')
                         ->unique()
                         ->required()
@@ -64,39 +63,41 @@ class ServicePointResource extends Resource
                         ->placeholder('5555AA')
                         ->prefixIcon('heroicon-o-paper-airplane')
                         ->prefixIconColor('primary')
-                        ->label('Postcode')
+                        ->label(__('filament.zip'))
                         ->required()
                         ->maxLength(255),
                 ])
-
                     ->icon('heroicon-o-wrench-screwdriver')
-                    ->description('Hier kunt de servicepunten binnen uw bedrijf toevoegen.')
+                    ->description(__('filament.service_point_description'))
                     ->iconColor('primary')
                     ->columns(2)
             ]);
     }
+
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->label('Naam')
+                    ->label(__('filament.name'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('address')
-                    ->label('Adres')
+                    ->label(__('filament.address'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('zip')
-                    ->label('Postcode')
+                    ->label(__('filament.zip'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('phone')
-                    ->label('Telefoonnummer')
+                    ->label(__('filament.phone'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label(__('filament.created_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label(__('filament.updated_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -107,18 +108,18 @@ class ServicePointResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make()
-                ->before(function (ServicePoint $record) {
-                    $record->users()->detach();
-                    $record->customerBikes()->detach();
-                    $record->appointments()->delete();
-                    $record->schedules()->delete();
-                }),
+                    ->before(function (ServicePoint $record) {
+                        $record->users()->detach();
+                        $record->customerBikes()->detach();
+                        $record->appointments()->delete();
+                        $record->schedules()->delete();
+                    }),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
+            Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+            ]),
+        ]);
     }
 
     public static function getNavigationBadge(): ?string

@@ -41,14 +41,14 @@ class ScheduleResource extends Resource
 
         return $form
             ->schema([
-                Forms\Components\Section::make('Monteursrooster')
-                    ->description('De tijdsloten van de monteur per dag.')
+                Forms\Components\Section::make(__('filament.mechanic_schedule'))
+                    ->description(__('filament.mechanic_schedule_description'))
                     ->schema([
                         Forms\Components\Select::make('service_point_id')
                             ->prefixIcon('icon-service-point')
                             ->prefixIconColor('primary')
                             ->relationship('servicePoint', 'name')
-                            ->label('Servicepunten')
+                            ->label(__('filament.service_points'))
                             ->native(false)
                             ->preload()
                             ->searchable()
@@ -58,7 +58,7 @@ class ScheduleResource extends Resource
                             ->prefixIcon('heroicon-o-cog')
                             ->prefixIconColor('primary')
                             ->native(false)
-                            ->label('Monteur')
+                            ->label(__('filament.mechanic'))
                             ->options(function (Get $get) use ($mechanic): array|Collection {
                                 return ServicePoint::find($get('service_point_id'))
                                     ?->users()
@@ -71,12 +71,12 @@ class ScheduleResource extends Resource
                         Forms\Components\Select::make('day_of_the_week')
                             ->prefixIcon('icon-day')
                             ->prefixIconColor('primary')
-                            ->label('Dag van de week')
+                            ->label(__('filament.day_of_the_week'))
                             ->options(DaysOfTheWeek::class)
                             ->native(false)
                             ->required(),
                         Forms\Components\Repeater::make('slots')
-                            ->label('Tijdvakken')
+                            ->label(__('filament.time_slots'))
                             ->relationship()
                             ->schema([
                                 Forms\Components\TimePicker::make('start')
@@ -102,30 +102,32 @@ class ScheduleResource extends Resource
         return $table
             ->defaultGroup(
                 Tables\Grouping\Group::make('servicePoint.name')
-                ->collapsible()
-                ->titlePrefixedWithLabel(false)
+                    ->collapsible()
+                    ->titlePrefixedWithLabel(false)
             )
             ->columns([
                 Tables\Columns\TextColumn::make('date')
-                    ->label('Datum')
+                    ->label(__('filament.date'))
                     ->date()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('owner.name')
-                    ->label('Monteur')
+                    ->label(__('filament.mechanic'))
                     ->sortable(),
                 Tables\Columns\TextColumn::make('slots')
-                    ->label('Tijdsloten')
+                    ->label(__('filament.slots'))
                     ->badge()
                     ->formatStateUsing(fn (Slot $state) => $state->start->format('H:i') . ' - ' . $state->end->format('H:i')),
                 Tables\Columns\TextColumn::make('day_of_the_week')
-                    ->label('Werkdag')
+                    ->label(__('filament.workday'))
                     ->badge(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label(__('filament.created_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label(__('filament.updated_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -144,6 +146,7 @@ class ScheduleResource extends Resource
                 ]),
             ]);
     }
+
 
     public static function getRelations(): array
     {
