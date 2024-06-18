@@ -10,6 +10,7 @@ use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 
 class NewCustomersStat extends BaseWidget
 {
+
     protected $newCustomersThisWeek;
     protected $newCustomersLastWeek;
     protected $monthlyChart;

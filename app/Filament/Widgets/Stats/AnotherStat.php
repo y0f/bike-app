@@ -7,18 +7,17 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 
 class AnotherStat extends BaseWidget
 {
-    // protected int|string|array $columnSpan = '2xl'
-
     protected static bool $isDiscovered = false;
 
     protected function getStats(): array
     {
         return [
-            Stat::make('TODO', '1')
-                ->description('3% decrease')
-                ->descriptionIcon('heroicon-m-arrow-trending-down')
-                ->chart([17, 1, 14, 1, 14, 13, 23])
-                ->color('danger'),
+            Stat::make("", '')
+                ->description('TODO: Repair registration module for mechanics to create quotations, use inventoryitemsresource.')
+                ->descriptionIcon('heroicon-o-exclamation-circle'),
+            Stat::make("", '')
+                ->description('TODO: Implement translationfiles from config')
+                ->descriptionIcon('heroicon-o-exclamation-circle')
         ];
     }
 }

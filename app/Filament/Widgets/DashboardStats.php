@@ -19,9 +19,6 @@ class DashboardStats extends BaseWidget
 
     protected function getStats(): array
     {
-        return [
-            ...$this->newCustomersStat->getStats(),
-            ...$this->anotherStat->getStats(),
-        ];
+        return [...$this->newCustomersStat->getStats(), ...$this->anotherStat->getStats()];
     }
 }
