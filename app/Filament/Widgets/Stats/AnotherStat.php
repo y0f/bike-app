@@ -16,7 +16,7 @@ class AnotherStat extends BaseWidget
                 ->description('TODO: Repair registration module for mechanics to create quotations, use inventoryitemsresource.')
                 ->descriptionIcon('heroicon-o-exclamation-circle'),
             Stat::make("", '')
-                ->description('TODO: Implement translationfiles from config')
+                ->description('TODO: Implement translationfiles from config. Use more relationmanagers.')
                 ->descriptionIcon('heroicon-o-exclamation-circle')
         ];
     }
