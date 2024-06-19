@@ -30,7 +30,7 @@ class Faq extends Page
 
     public function getHeading(): string
     {
-        return __('faq.heading'); // Assuming you have a heading key in your translation file
+        return __('faq.heading');
     }
 
     public static function shouldRegisterNavigation(): bool
