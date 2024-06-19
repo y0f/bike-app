@@ -4,7 +4,7 @@ return [
     'datetime_format' => 'd/m/Y H:i:s',
     'date_format' => 'd/m/Y',
 
-    'activity_resource' => \App\Filament\Resources\ActivityResource::class,
+    'activity_resource' => \App\Filament\Admin\Resources\ActivityResource::class,
 
     'resources' => [
         'enabled' => false,

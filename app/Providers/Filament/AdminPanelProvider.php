@@ -5,28 +5,28 @@ namespace App\Providers\Filament;
 use Filament\Pages;
 use Filament\Panel;
 use Illuminate\View\View;
-use App\Filament\Pages\Faq;
+use App\Filament\Admin\Pages\Faq;
 use Filament\PanelProvider;
-use App\Filament\Pages\Dashboard;
+use App\Filament\Admin\Pages\Dashboard;
 use Filament\Navigation\MenuItem;
 use Filament\Support\Colors\Color;
 use Filament\View\PanelsRenderHook;
 use Filament\Navigation\NavigationItem;
-use Filament\Widgets\UserAccountWidget;
-use App\Filament\Resources\UserResource;
+use Filament\Admin\Widgets\UserAccountWidget;
+use App\Filament\Admin\Resources\UserResource;
 use Filament\Navigation\NavigationGroup;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Navigation\NavigationBuilder;
-use App\Filament\Resources\ActivityResource;
-use App\Filament\Resources\LoanBikeResource;
-use App\Filament\Resources\ScheduleResource;
+use App\Filament\Admin\Resources\ActivityResource;
+use App\Filament\Admin\Resources\LoanBikeResource;
+use App\Filament\Admin\Resources\ScheduleResource;
 use Filament\SpatieLaravelTranslatablePlugin;
-use App\Filament\Resources\AppointmentResource;
+use App\Filament\Admin\Resources\AppointmentResource;
 use Illuminate\Session\Middleware\StartSession;
-use App\Filament\Resources\CustomerBikeResource;
-use App\Filament\Resources\ServicePointResource;
+use App\Filament\Admin\Resources\CustomerBikeResource;
+use App\Filament\Admin\Resources\ServicePointResource;
 use Illuminate\Cookie\Middleware\EncryptCookies;
-use App\Filament\Resources\InventoryItemResource;
+use App\Filament\Admin\Resources\InventoryItemResource;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
@@ -97,12 +97,12 @@ class AdminPanelProvider extends PanelProvider
                 'success' => Color::Green,
                 'warning' => Color::Yellow,
             ])
-            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
-            ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
+            ->discoverResources(in: app_path('Filament/Admin/Resources'), for: 'App\\Filament\\Admin\\Resources')
+            ->discoverPages(in: app_path('Filament/Admin/Pages'), for: 'App\\Filament\\Admin\\Pages')
             ->pages([
                 Pages\Dashboard::class,
             ])
-            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
+            ->discoverWidgets(in: app_path('Filament/Admin/Widgets'), for: 'App\\Filament\\Admin\\Widgets')
             ->widgets([
                 UserAccountWidget::class,
             ])
