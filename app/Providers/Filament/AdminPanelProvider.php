@@ -4,11 +4,13 @@ namespace App\Providers\Filament;
 
 use Filament\Pages;
 use Filament\Panel;
+use Illuminate\View\View;
 use App\Filament\Pages\Faq;
 use Filament\PanelProvider;
 use App\Filament\Pages\Dashboard;
 use Filament\Navigation\MenuItem;
 use Filament\Support\Colors\Color;
+use Filament\View\PanelsRenderHook;
 use Filament\Navigation\NavigationItem;
 use Filament\Widgets\UserAccountWidget;
 use App\Filament\Resources\UserResource;
@@ -76,6 +78,8 @@ class AdminPanelProvider extends PanelProvider
                         ]),
                 ]);
             })
+            // Needs livewire component and view
+            ->renderHook(PanelsRenderHook::GLOBAL_SEARCH_AFTER, fn (): View => view('filament.hooks.test'))
             ->userMenuItems([
                 'faq' => MenuItem::make()
                     ->label('FAQ')
