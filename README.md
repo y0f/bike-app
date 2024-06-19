@@ -1,5 +1,3 @@
-## About
-
 # Laravel Filament Bike Repair App
 
 A hobby project created to get comfortable with [Filament](https://filamentphp.com). It includes an Admin Panel for managing companies and service points, and a Mechanic Panel for handling assets and schedules.
