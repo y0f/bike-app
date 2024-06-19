@@ -38,8 +38,9 @@ class Contact extends Page implements HasForms, HasTable, HasInfolists
 
     public function getHeading(): string
     {
-        return __('Contactgegevens van ' . ($this->tenant ? $this->tenant->name : ''));
+        return __('filament.contact_information_of', ['tenant' => $this->tenant ? $this->tenant->name : '']);
     }
+
 
     public function table(Table $table): Table
     {

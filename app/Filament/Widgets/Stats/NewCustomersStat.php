@@ -28,7 +28,7 @@ class NewCustomersStat extends BaseWidget
         $percentage = $this->calculatePercentageChange();
 
         return [
-            Stat::make('Nieuwe klanten deze week', $this->newCustomersThisWeek)
+            Stat::make(__('filament.new_customers_this_week'), $this->newCustomersThisWeek)
                 ->icon('heroicon-o-light-bulb')
                 ->description($this->getPercentageDescription($percentage))
                 ->descriptionIcon($this->getPercentageIcon($percentage))
@@ -82,13 +82,17 @@ class NewCustomersStat extends BaseWidget
         return $monthlyChart;
     }
 
-    protected function getPercentageDescription(float $percentageIncrease): string
+    protected function getPercentageDescription(float $percentageChange): string
     {
-        return $percentageIncrease >= 0
-            ? "{$percentageIncrease}% stijging"
-            : "{$percentageIncrease}% daling";
+        $formattedPercentage = number_format(abs($percentageChange), 2);
+        
+        if ($percentageChange >= 0) {
+            return sprintf("%s%% %s", $formattedPercentage, __('filament.rising'));
+        } else {
+            return sprintf("%s%% %s", $formattedPercentage, __('filament.lowering'));
+        }
     }
-
+    
     protected function getPercentageIcon(float $percentageIncrease): string
     {
         return $percentageIncrease >= 0

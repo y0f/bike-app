@@ -8,13 +8,16 @@ use App\Enums\AppointmentStatus;
 
 class AppointmentsChart extends ChartWidget
 {
-    protected static ?string $heading = 'Afgeronde afspraken dit jaar';
-
     protected static ?int $sort = 1;
 
     protected function getType(): string
     {
         return 'line';
+    }
+
+    public function getHeading(): string
+    {
+        return __('filament.completed_appointments_this_year');
     }
 
     protected function getData(): array
@@ -35,7 +38,7 @@ class AppointmentsChart extends ChartWidget
         $data = [
             'datasets' => [
                 [
-                    'label' => 'Afgeronde afspraken',
+                    'label' => __('filament.completed_appointments'),
                     'data' => $this->getMonthlyCounts($monthlyCounts),
                     'fill' => 'start',
                 ],
@@ -50,7 +53,7 @@ class AppointmentsChart extends ChartWidget
     {
         $counts = [];
         for ($month = 1; $month <= 12; $month++) {
-            $counts[] = $monthlyCounts->get($month, 0); // Use integer key
+            $counts[] = $monthlyCounts->get($month, 0);
         }
         return $counts;
     }

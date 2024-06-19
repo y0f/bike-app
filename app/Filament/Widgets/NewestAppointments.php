@@ -15,8 +15,11 @@ class NewestAppointments extends BaseWidget
 
     protected static ?int $sort = 2;
 
-    protected static ?string $heading = 'Nieuwste afspraken';
-
+    public function getHeading(): string
+    {
+        return __('filament.newest_appointments_this_year');
+    }
+    
     public function table(Table $table): Table
     {
         return $table
@@ -25,42 +28,45 @@ class NewestAppointments extends BaseWidget
             ->defaultSort('created_at', 'desc')
             ->columns([
                 Tables\Columns\TextColumn::make('id')
+                ->label(__('filament.id'))
                 ->sortable()
                 ->searchable()
                 ->toggleable(isToggledHiddenByDefault: true),
             Tables\Columns\TextColumn::make('status')
+                ->label(__('filament.status'))
                 ->sortable()
                 ->searchable()
                 ->badge(),
             Tables\Columns\TextColumn::make('customerBike.identifier')
-                ->label('Voertuig')
+                ->label(__('filament.customerBike.identifier'))
                 ->numeric()
                 ->searchable()
                 ->limit(12)
                 ->sortable(),
             Tables\Columns\TextColumn::make('mechanic.name')
-                ->label('Monteur')
+                ->label(__('filament.mechanic'))
                 ->searchable()
                 ->sortable(),
             Tables\Columns\TextColumn::make('date')
-                ->label('Datum')
+               ->label(__('filament.date'))
                 ->sortable()
                 ->date('d-m-y')
                 ->searchable()
                 ->badge(),
             Tables\Columns\TextColumn::make('slot.formatted_time')
-                ->label('Tijdslot')
+                ->label(__('filament.formatted_time'))
                 ->badge(),
             Tables\Columns\TextColumn::make('loanBike.identifier')
                 ->placeholder(new HtmlString(view('heroicons.false')->render()))
-                ->label('Leenmiddel'),
+                ->label(__('filament.loan_bike')),
             Tables\Columns\TextColumn::make('created_at')
-                ->label('Aangemaakt op')
+                ->label(__('filament.created_at'))
                 ->dateTime()
                 ->sortable(),
             ])
             ->actions([
-                Tables\Actions\Action::make('open')
+                Tables\Actions\Action::make('view')
+                    ->label(__('filament.view'))
                     ->url(fn (Appointment $record): string => AppointmentResource::getUrl('edit', ['record' => $record])),
             ]);
     }

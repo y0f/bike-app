@@ -7,8 +7,6 @@ use App\Models\User;
 
 class NewPlatformUsersThisYear extends ChartWidget
 {
-    protected static ?string $heading = 'Geregistreerde accounts dit jaar';
-
     protected static ?int $sort = 1;
 
     protected function getType(): string
@@ -16,6 +14,11 @@ class NewPlatformUsersThisYear extends ChartWidget
         return 'line';
     }
 
+    public function getHeading(): string
+    {
+        return __('filament.registered_accounts_this_year');
+    }
+    
     protected function getData(): array
     {
         $currentYear = date('Y');
@@ -23,7 +26,7 @@ class NewPlatformUsersThisYear extends ChartWidget
         $newUsers = User::whereYear('created_at', $currentYear)->select('created_at')->get();
 
         $groupedNewUsers = $newUsers->groupBy(function ($user) {
-            return (int)$user->created_at->format('m'); // Convert to integer
+            return (int)$user->created_at->format('m');
         });
 
         $monthlyCounts = $groupedNewUsers->map->count();
@@ -31,16 +34,17 @@ class NewPlatformUsersThisYear extends ChartWidget
         $data = [
             'datasets' => [
                 [
-                    'label' => 'Geregistreerde accounts',
+                    'label' => __('filament.registered_accounts'), 
                     'data' => $this->getMonthlyCounts($monthlyCounts),
                     'fill' => 'start',
-                ],
+                ]
             ],
             'labels' => $this->getMonthLabels(),
         ];
 
         return $data;
     }
+
 
     private function getMonthlyCounts($monthlyCounts)
     {
