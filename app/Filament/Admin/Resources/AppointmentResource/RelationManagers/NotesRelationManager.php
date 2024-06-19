@@ -9,7 +9,6 @@ use Filament\Tables\Table;
 use Filament\Support\Colors\Color;
 use Filament\Support\Enums\FontWeight;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Contracts\Support\Htmlable;
 use Filament\Resources\RelationManagers\RelationManager;
 
 class NotesRelationManager extends RelationManager
@@ -28,7 +27,7 @@ class NotesRelationManager extends RelationManager
         return __('notes.plural_label');
     }
 
-      public static function getTitle(Model $ownerRecord, string $pageClass): string
+    public static function getTitle(Model $ownerRecord, string $pageClass): string
     {
         return __('notes.title');
     }
@@ -80,5 +79,3 @@ class NotesRelationManager extends RelationManager
             ]);
     }
 }
-
-  

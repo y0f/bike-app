@@ -36,16 +36,16 @@ class AppointmentLogService
                 return self::generateStatusMessage($originalValue, $newValue);
 
             case 'description':
-                return self::generateSimpleMessage($field, $originalValue, $newValue);
+                return self::generateSimpleMessage('description', $originalValue, $newValue);
 
             case 'loan_bike_id':
                 return self::generateLoanBikeMessage($originalValue, $newValue);
 
             case 'date':
-                return self::generateSimpleMessage($field, date('Y-m-d', strtotime($originalValue)), date('Y-m-d', strtotime($newValue)));
+                return self::generateSimpleMessage('date', date('Y-m-d', strtotime($originalValue)), date('Y-m-d', strtotime($newValue)));
 
             case 'has_loan_bike':
-                return self::generateSimpleMessage($field, $originalValue ? 'Ja' : 'Nee', $newValue ? 'Ja' : 'Nee');
+                return self::generateSimpleMessage('has_loan_bike', $originalValue ? __('filament.appointments.logs.yes') : __('filament.appointments.logs.no'), $newValue ? __('filament.appointments.logs.yes') : __('filament.appointments.logs.no'));
 
             default:
                 return '';
@@ -58,7 +58,7 @@ class AppointmentLogService
         $newStatusLabel = $newValue->getLabel();
 
         return ($originalStatusLabel !== $newStatusLabel)
-            ? "Afspraak status is gewijzigd van {$originalStatusLabel} naar {$newStatusLabel}"
+            ? __('filament.appointments.logs.status_changed', ['from' => $originalStatusLabel, 'to' => $newStatusLabel])
             : '';
     }
 
@@ -68,23 +68,22 @@ class AppointmentLogService
         $newLoanBikeIdentifier = $newValue ? LoanBike::find($newValue)->identifier : null;
 
         if ($originalValue === null && $newValue !== null) {
-            return "Afspraak heeft nu een leenfiets (Leenfiets ID: {$newLoanBikeIdentifier})";
+            return __('filament.appointments.logs.loan_bike_added', ['id' => $newLoanBikeIdentifier]);
         } elseif ($originalValue !== null && $newValue === null) {
-            return "Afspraak heeft geen leenfiets meer (Leenfiets is ontkoppeld)";
+            return __('filament.appointments.logs.loan_bike_removed');
         } elseif ($originalValue !== null && $newValue !== null && $originalLoanBikeIdentifier !== $newLoanBikeIdentifier) {
-            return "Afspraak leenfiets is gewijzigd van {$originalLoanBikeIdentifier} naar {$newLoanBikeIdentifier}";
+            return __('filament.appointments.logs.loan_bike_changed', ['from' => $originalLoanBikeIdentifier, 'to' => $newLoanBikeIdentifier]);
         }
 
         return '';
     }
 
-
     private static function generateSimpleMessage($field, $originalValue, $newValue)
     {
-        $fieldLabel = ($field === 'date') ? 'datum' : (($field === 'has_loan_bike') ? 'heeft leenfiets' : $field);
+        $fieldLabel = __('filament.appointments.logs.' . $field);
 
         return ($originalValue !== $newValue)
-            ? "Afspraak {$fieldLabel} is gewijzigd van {$originalValue} naar {$newValue}"
+            ? __('filament.appointments.logs.simple_changed', ['field' => $fieldLabel, 'from' => $originalValue, 'to' => $newValue])
             : '';
     }
 }

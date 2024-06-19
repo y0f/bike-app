@@ -18,7 +18,7 @@ class NewPlatformUsersThisYear extends ChartWidget
     {
         return __('filament.registered_accounts_this_year');
     }
-    
+
     protected function getData(): array
     {
         $currentYear = date('Y');
@@ -34,7 +34,7 @@ class NewPlatformUsersThisYear extends ChartWidget
         $data = [
             'datasets' => [
                 [
-                    'label' => __('filament.registered_accounts'), 
+                    'label' => __('filament.registered_accounts'),
                     'data' => $this->getMonthlyCounts($monthlyCounts),
                     'fill' => 'start',
                 ]

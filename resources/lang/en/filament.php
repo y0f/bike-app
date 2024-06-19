@@ -121,6 +121,15 @@ return [
         'navigation_group' => 'Management',
         'title' => 'Appointments',
         'slug' => 'appointments',
+        'logs' => [
+            'status_changed' => 'Appointment status changed from :from to :to',
+            'description_changed' => 'Appointment description changed from :from to :to',
+            'loan_bike_added' => 'Appointment now has a loan bike (Loan Bike ID: :id)',
+            'loan_bike_removed' => 'Appointment no longer has a loan bike (Loan Bike detached)',
+            'loan_bike_changed' => 'Appointment loan bike changed from :from to :to',
+            'date_changed' => 'Appointment date changed from :from to :to',
+            'has_loan_bike_changed' => 'Appointment has loan bike status changed from :from to :to',
+        ],
     ],
     'appointment_status' => [
         'created' => 'Created',

@@ -18,7 +18,7 @@ class Faq extends Page
     public function mount()
     {
         $this->tenant = Filament::getTenant();
-        
+
         $this->faqTitles = [
             __('faq.titles.faq_1'),
             __('faq.titles.faq_2'),
@@ -42,4 +42,3 @@ class Faq extends Page
         return false;
     }
 }
-

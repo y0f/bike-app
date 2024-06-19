@@ -85,14 +85,14 @@ class NewCustomersStat extends BaseWidget
     protected function getPercentageDescription(float $percentageChange): string
     {
         $formattedPercentage = number_format(abs($percentageChange), 2);
-        
+
         if ($percentageChange >= 0) {
             return sprintf("%s%% %s", $formattedPercentage, __('filament.rising'));
         } else {
             return sprintf("%s%% %s", $formattedPercentage, __('filament.lowering'));
         }
     }
-    
+
     protected function getPercentageIcon(float $percentageIncrease): string
     {
         return $percentageIncrease >= 0

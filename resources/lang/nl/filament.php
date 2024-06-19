@@ -123,6 +123,15 @@ return [
         'navigation_group' => 'Beheer',
         'title' => 'Afspraken',
         'slug' => 'afspraken',
+        'logs' => [
+            'status_changed' => 'Afspraak status is gewijzigd van :from naar :to',
+            'description_changed' => 'Afspraak beschrijving is gewijzigd van :from naar :to',
+            'loan_bike_added' => 'Afspraak heeft nu een leenfiets (Leenfiets ID: :id)',
+            'loan_bike_removed' => 'Afspraak heeft geen leenfiets meer (Leenfiets is ontkoppeld)',
+            'loan_bike_changed' => 'Afspraak leenfiets is gewijzigd van :from naar :to',
+            'date_changed' => 'Afspraak datum is gewijzigd van :from naar :to',
+            'has_loan_bike_changed' => 'Afspraak heeft leenfiets status is gewijzigd van :from naar :to',
+        ],
     ],
     'appointment_status' => [
         'created' => 'Aangemaakt',

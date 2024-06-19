@@ -19,7 +19,7 @@ class NewestAppointments extends BaseWidget
     {
         return __('filament.newest_appointments_this_year');
     }
-    
+
     public function table(Table $table): Table
     {
         return $table

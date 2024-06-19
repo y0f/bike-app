@@ -28,7 +28,6 @@ use Spatie\Activitylog\Models\Activity as ActivityModel;
 
 class ActivityResource extends Resource
 {
-
     protected static ?string $slug = 'activity-logs';
 
     protected static ?string $navigationIcon = 'heroicon-o-book-open';
