@@ -68,6 +68,7 @@ return [
     'cancel'  => 'Annuleren',
     'actions' => 'Acties',
     'service_point_id' => 'Servicepunt',
+    'service_point_name' => 'Servicepunt',
     'id' => 'id',
     'contact_information_of' => 'Contactgegevens van :tenant',
     'registered_accounts' => 'Geregistreerde accounts',

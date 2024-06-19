@@ -48,7 +48,7 @@ class Contact extends Page implements HasForms, HasTable, HasInfolists
             ->query(ServicePoint::query()->where('id', $this->tenant->id))
             ->columns([
                     TextColumn::make('name')
-                        ->label(__('filament.name'))
+                        ->label(__('filament.service_point_name'))
                         ->icon('icon-service-point')
                         ->iconColor('primary')
                         ->weight(FontWeight::Bold),
