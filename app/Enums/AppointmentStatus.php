@@ -20,11 +20,11 @@ enum AppointmentStatus: string implements HasLabel, HasColor, HasIcon
     public function getLabel(): ?string
     {
         return match ($this) {
-            self::Created    => 'Aangemaakt',
-            self::Confirmed  => 'Bevestigd',
-            self::Cancelled  => 'Geannuleerd',
-            self::InProgress => 'In Uitvoering',
-            self::Completed  => 'Voltooid',
+            self::Created    => __('filament.appointment_status.created'),
+            self::Confirmed  => __('filament.appointment_status.confirmed'),
+            self::Cancelled  => __('filament.appointment_status.cancelled'),
+            self::InProgress => __('filament.appointment_status.in_progress'),
+            self::Completed  => __('filament.appointment_status.completed'),
         };
     }
 

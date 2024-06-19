@@ -32,7 +32,9 @@ class ListAppointments extends ListRecords
             });
 
         $tabs = [
-            'Alle afspraken' => Tab::make()->badge($statusCounts->sum('count')),
+            __('filament.all_appointments') => Tab::make()
+                ->label(__('filament.all_appointments'))
+                ->badge($statusCounts->sum('count')),
         ];
 
         foreach (AppointmentStatus::cases() as $status) {
@@ -52,6 +54,6 @@ class ListAppointments extends ListRecords
 
     public function getDefaultActiveTab(): string | int | null
     {
-        return 'Alle afspraken';
+        return __('filament.all_appointments');
     }
 }

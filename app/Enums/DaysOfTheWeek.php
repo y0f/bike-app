@@ -17,13 +17,13 @@ enum DaysOfTheWeek: int implements HasLabel
     public function getLabel(): ?string
     {
         return match ($this) {
-            self::Sunday    => 'Zondag',
-            self::Monday    => 'Maandag',
-            self::Tuesday   => 'Dinsdag',
-            self::Wednesday => 'Woensdag',
-            self::Thursday  => 'Donderdag',
-            self::Friday    => 'Vrijdag',
-            self::Saturday  => 'Zaterdag',
+            self::Sunday    => __('filament.days_of_the_week.sunday'),
+            self::Monday    => __('filament.days_of_the_week.monday'),
+            self::Tuesday   => __('filament.days_of_the_week.tuesday'),
+            self::Wednesday => __('filament.days_of_the_week.wednesday'),
+            self::Thursday  => __('filament.days_of_the_week.thursday'),
+            self::Friday    => __('filament.days_of_the_week.friday'),
+            self::Saturday  => __('filament.days_of_the_week.saturday'),
         };
     }
 }

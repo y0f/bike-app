@@ -20,60 +20,59 @@ class LoanBikeImporter extends Importer
             ImportColumn::make('servicePoint')
                 ->requiredMapping()
                 ->relationship()
+                ->label(__('admin-import.servicePoint'))
                 ->rules(['required', function ($attribute, $value, $fail) use ($user) {
-                    // Check if the provided servicePoint is associated with the admin
                     if (!$user->servicePoints->contains('id', $value)) {
-                        $fail("Het geselecteerde servicepunt is niet gekoppeld aan uw account. U kunt deze koppelen via uw gebruikersinstellingen.");
+                        $fail(__('admin-import.servicePoint_error'));
                     }
                 }])
-                ->example(1), // Example servicePoint value
+                ->example(1),
 
             ImportColumn::make('identifier')
                 ->requiredMapping()
+                ->label(__('admin-import.identifier'))
                 ->rules([
                     'required',
                     'max:255',
                     function ($attribute, $value, $fail) use ($user) {
-                        // Check if the identifier already exists for the user's service points
                         $existingRecord = LoanBike::where('identifier', $value)
                             ->whereIn('service_point_id', $user->servicePoints->pluck('id')->toArray())
                             ->first();
 
                         if ($existingRecord) {
-                            $fail("Kenteken '$value' is al geregistreerd!");
+                            $fail(__('admin-import.identifier_error', ['value' => $value]));
                         }
                     },
                 ])
-                ->example('BIKE-001'), // Example identifier value
+                ->example('BIKE-001'),
 
             ImportColumn::make('brand')
                 ->requiredMapping()
+                ->label(__('admin-import.brand'))
                 ->rules(['required', 'max:255'])
-                ->example('Batavus'), // Example brand value
+                ->example('Batavus'),
 
             ImportColumn::make('model')
                 ->requiredMapping()
+                ->label(__('admin-import.model'))
                 ->rules(['required', 'max:255'])
-                ->example('Altura E-Go'), // Example model value
+                ->example('Altura E-Go'),
 
             ImportColumn::make('color')
                 ->requiredMapping()
+                ->label(__('admin-import.color'))
                 ->rules(['required', 'max:255'])
-                ->example('Geel'), // Example color value
+                ->example('Geel'),
 
             ImportColumn::make('specifications')
+                ->label(__('admin-import.specifications'))
                 ->rules(['max:65535'])
-                ->example('Aluminum frame'), // Example specifications value
+                ->example('Aluminum frame'),
         ];
     }
 
     public function resolveRecord(): ?LoanBike
     {
-        // return LoanBike::firstOrNew([
-        //     // Update existing records, matching them by `$this->data['column_name']`
-        //     'email' => $this->data['email'],
-        // ]);
-
         return new LoanBike();
     }
 
@@ -82,15 +81,13 @@ class LoanBikeImporter extends Importer
         $importedRows = $import->successful_rows;
         $failedRowsCount = $import->getFailedRowsCount();
 
-        $importedRowsText = $importedRows === 1 ? 'rij' : 'rijen';
-        $failedRowsText = $failedRowsCount === 1 ? 'rij' : 'rijen';
+        $body = __('admin-import.import_completed', [
+            'is_are' => $importedRows === 1 ? 'is' : 'are',
+            'count' => number_format($importedRows),
+        ]);
 
-        $body = "De import van uw middel(en) is voltooid. Er " . ($importedRows === 1 ? 'is' : 'zijn') . " " . number_format($importedRows) . " $importedRowsText geïmporteerd.";
-
-        if ($failedRowsCount === 1) {
-            $body .= " $failedRowsCount $failedRowsText kon niet worden geïmporteerd.";
-        } elseif ($failedRowsCount > 1) {
-            $body .= " $failedRowsCount $failedRowsText konden niet worden geïmporteerd.";
+        if ($failedRowsCount > 0) {
+            $body .= ' ' . __('admin-import.' . ($failedRowsCount === 1 ? 'failed_row_singular' : 'failed_row_plural'), ['count' => $failedRowsCount]);
         }
 
         return $body;

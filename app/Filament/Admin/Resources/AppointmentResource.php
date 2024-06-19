@@ -32,16 +32,6 @@ class AppointmentResource extends Resource
 {
     protected static ?string $model = Appointment::class;
 
-    protected static ?string $navigationLabel = 'Afspraken';
-
-    protected static ?string $title = 'afspraken';
-
-    protected static ?string $slug = 'afspraken';
-
-    protected static ?string $pluralModelLabel = 'afspraken';
-
-    protected static ?string $label = 'Afspraak';
-
     protected static ?string $navigationIcon = 'heroicon-o-calendar-days';
 
     protected static int $globalSearchResultsLimit = 20;
@@ -55,7 +45,7 @@ class AppointmentResource extends Resource
                 Forms\Components\Section::make([
                     Forms\Components\Select::make('service_point_id')
                         ->relationship('servicePoint', 'name')
-                        ->label(__('filament.service_points'))
+                        ->label(__('filament.service_points.label'))
                         ->native(false)
                         ->preload()
                         ->searchable()
@@ -273,7 +263,7 @@ class AppointmentResource extends Resource
                     ->searchable(),
 
                 Tables\Filters\SelectFilter::make('service_point_id')
-                    ->label(__('filament.service_point_id'))
+                    ->label(__('filament.service_points.label'))
                     ->multiple()
                     ->preload()
                     ->native(false)
@@ -412,5 +402,35 @@ class AppointmentResource extends Resource
             'view'   => Pages\ViewAppointment::route('/{record}'),
             'edit' => Pages\EditAppointment::route('/{record}/edit'),
         ];
+    }
+
+    public static function getLabel(): string
+    {
+        return __('filament.appointments.label');
+    }
+
+    public static function getPluralLabel(): string
+    {
+        return __('filament.appointments.plural_label');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('filament.appointments.navigation_label');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('filament.appointments.navigation_group');
+    }
+
+    public static function getTitle(): string
+    {
+        return __('filament.appointments.title');
+    }
+
+    public static function getSlug(): string
+    {
+        return __('filament.appointments.slug');
     }
 }

@@ -20,16 +20,6 @@ class UserResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
 
-    protected static ?string $navigationLabel = 'Gebruikers';
-
-    protected static ?string $title = 'gebruikers';
-
-    protected static ?string $slug = 'gebruikers';
-
-    protected static ?string $pluralModelLabel = 'gebruikers';
-
-    protected static ?string $label = 'gebruiker';
-
     protected static ?int $navigationSort = 5;
 
     public static function form(Form $form): Form
@@ -66,7 +56,7 @@ class UserResource extends Resource
                     Forms\Components\Section::make([
                         Forms\Components\Select::make('service_point_id')
                             ->relationship('servicePoints', 'name')
-                            ->label(__('filament.service_points'))
+                            ->label(__('filament.service_points.plural_label'))
                             ->native(false)
                             ->multiple()
                             ->searchable()
@@ -145,7 +135,7 @@ class UserResource extends Resource
                         return $role->getLabel() ?? $state;
                     }),
                 Tables\Columns\TextColumn::make('servicePoints.name')
-                    ->label(__('filament.service_points'))
+                    ->label(__('filament.service_points.plural_label'))
                     ->badge()
                     ->color('undefined'),
                 Tables\Columns\TextColumn::make('created_at')
@@ -201,5 +191,35 @@ class UserResource extends Resource
             'view' => Pages\ViewUser::route('/{record}'),
             'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
+    }
+
+    public static function getLabel(): string
+    {
+        return __('filament.users.label');
+    }
+
+    public static function getPluralLabel(): string
+    {
+        return __('filament.users.plural_label');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('filament.users.navigation_label');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('filament.users.navigation_group');
+    }
+
+    public static function getTitle(): string
+    {
+        return __('filament.users.title');
+    }
+
+    public static function getSlug(): string
+    {
+        return __('filament.user.slug');
     }
 }

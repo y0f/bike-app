@@ -21,16 +21,6 @@ class ScheduleResource extends Resource
 {
     protected static ?string $model = Schedule::class;
 
-    protected static ?string $navigationLabel = 'Monteur roosters';
-
-    protected static ?string $title = 'Monteur roosters';
-
-    protected static ?string $slug = 'monteur-roosters';
-
-    protected static ?string $pluralModelLabel = 'Monteur roosters';
-
-    protected static ?string $label = 'Monteur rooster';
-
     protected static ?string $navigationIcon = 'heroicon-o-clock';
 
     protected static ?int $navigationSort = 1;
@@ -48,7 +38,7 @@ class ScheduleResource extends Resource
                             ->prefixIcon('icon-service-point')
                             ->prefixIconColor('primary')
                             ->relationship('servicePoint', 'name')
-                            ->label(__('filament.service_points'))
+                            ->label(__('filament.service_points.label'))
                             ->native(false)
                             ->preload()
                             ->searchable()
@@ -167,5 +157,35 @@ class ScheduleResource extends Resource
             'create' => Pages\CreateSchedule::route('/create'),
             'edit' => Pages\EditSchedule::route('/{record}/edit'),
         ];
+    }
+
+    public static function getLabel(): string
+    {
+        return __('filament.schedules.label');
+    }
+
+    public static function getPluralLabel(): string
+    {
+        return __('filament.schedules.plural_label');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('filament.schedules.navigation_label');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('filament.schedules.navigation_group');
+    }
+
+    public static function getTitle(): string
+    {
+        return __('filament.schedules.title');
+    }
+
+    public static function getSlug(): string
+    {
+        return __('filament.schedules.slug');
     }
 }

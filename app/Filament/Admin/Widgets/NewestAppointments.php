@@ -58,7 +58,7 @@ class NewestAppointments extends BaseWidget
                 ->badge(),
             Tables\Columns\TextColumn::make('loanBike.identifier')
                 ->placeholder(new HtmlString(view('heroicons.false')->render()))
-                ->label(__('filament.loan_bike')),
+                ->label(__('filament.loanBike.identifier')),
             Tables\Columns\TextColumn::make('created_at')
                 ->label(__('filament.created_at'))
                 ->dateTime()

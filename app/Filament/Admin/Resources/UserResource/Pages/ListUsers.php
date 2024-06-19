@@ -15,13 +15,13 @@ class ListUsers extends ListRecords
     {
         return [
             Actions\CreateAction::make()
-             ->label('Nieuwe gebruiker aanmaken')
-             ->icon('heroicon-o-user'),
+                ->label(__('filament.users.create'))
+                ->icon('heroicon-o-user'),
             Actions\ImportAction::make()
-             ->label('Gebruikers importeren')
-             ->color('primary')
-             ->icon('heroicon-o-user-group')
-             ->importer(UserImporter::class),
+                ->label(__('filament.users.import'))
+                ->color('primary')
+                ->icon('heroicon-o-user-group')
+                ->importer(UserImporter::class),
         ];
     }
 }

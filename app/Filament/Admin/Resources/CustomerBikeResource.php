@@ -20,16 +20,6 @@ class CustomerBikeResource extends Resource
 
     protected static ?string $navigationIcon = 'icon-customer-bike';
 
-    protected static ?string $navigationLabel = 'Tweewielers van klanten';
-
-    protected static ?string $title = 'Tweewielers';
-
-    protected static ?string $slug = 'tweewielers-van-klanten';
-
-    protected static ?string $label = 'Tweewieler';
-
-    protected static ?string $pluralModelLabel = 'Tweewielers van klanten';
-
     protected static ?int $navigationSort = 3;
 
     protected static ?string $recordTitleAttribute = 'identifier';
@@ -83,7 +73,7 @@ class CustomerBikeResource extends Resource
                         ]),
                     Forms\Components\Select::make('service_point_id')
                         ->relationship('servicePoints', 'name')
-                        ->label(__('filament.service_points'))
+                        ->label(__('filament.service_points.plural_label'))
                         ->native(false)
                         ->multiple()
                         ->searchable()
@@ -136,7 +126,7 @@ class CustomerBikeResource extends Resource
                     ->defaultImageUrl(url('/images/logo.png'))
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('servicePoints.name')
-                    ->label(__('filament.service_point'))
+                    ->label(__('filament.service_points.plural_label'))
                     ->badge()
                     ->color('undefined'),
                 Tables\Columns\TextColumn::make('owner.name')
@@ -178,7 +168,7 @@ class CustomerBikeResource extends Resource
                     ->native(false)
                     ->searchable(),
                 Tables\Filters\SelectFilter::make('service_point_id')
-                    ->label(__('filament.service_point'))
+                    ->label(__('filament.service_points.plural_label'))
                     ->multiple()
                     ->preload()
                     ->native(false)
@@ -220,5 +210,35 @@ class CustomerBikeResource extends Resource
             'create' => Pages\CreateCustomerBike::route('/create'),
             'edit' => Pages\EditCustomerBike::route('/{record}/edit'),
         ];
+    }
+
+    public static function getLabel(): string
+    {
+        return __('filament.customer_bikes.label');
+    }
+
+    public static function getPluralLabel(): string
+    {
+        return __('filament.customer_bikes.plural_label');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('filament.customer_bikes.navigation_label');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('filament.customer_bikes.navigation_group');
+    }
+
+    public static function getTitle(): string
+    {
+        return __('filament.customer_bikes.title');
+    }
+
+    public static function getSlug(): string
+    {
+        return __('filament.customer_bikes.slug');
     }
 }

@@ -16,15 +16,19 @@ class UserImporter extends Importer
         return [
             ImportColumn::make('name')
                 ->requiredMapping()
-                ->rules(['required', 'max:255']),
+                ->rules(['required', 'max:255'])
+                ->label(__('admin-import.name')),
             ImportColumn::make('phone')
-                ->rules(['max:255']),
+                ->rules(['max:255'])
+                ->label(__('admin-import.phone')),
             ImportColumn::make('email')
                 ->requiredMapping()
-                ->rules(['required', 'email', 'max:255']),
+                ->rules(['required', 'email', 'max:255'])
+                ->label(__('admin-import.email')),
             ImportColumn::make('password')
                 ->requiredMapping()
-                ->rules(['required', 'max:255']),
+                ->rules(['required', 'max:255'])
+                ->label(__('admin-import.password')),
         ];
     }
 
@@ -49,18 +53,15 @@ class UserImporter extends Importer
         $importedRows = $import->successful_rows;
         $failedRowsCount = $import->getFailedRowsCount();
 
-        $importedRowsText = $importedRows === 1 ? 'rij' : 'rijen';
-        $failedRowsText = $failedRowsCount === 1 ? 'rij' : 'rijen';
+        $body = __('admin-import.import_completed', [
+            'is_are' => $importedRows === 1 ? 'is' : 'are',
+            'count' => number_format($importedRows),
+        ]);
 
-        $body = "De import van uw gebruiker(s) is voltooid. Er " . ($importedRows === 1 ? 'is' : 'zijn') . " " . number_format($importedRows) . " $importedRowsText geïmporteerd.";
-
-        if ($failedRowsCount === 1) {
-            $body .= " $failedRowsCount $failedRowsText kon niet worden geïmporteerd.";
-        } elseif ($failedRowsCount > 1) {
-            $body .= " $failedRowsCount $failedRowsText konden niet worden geïmporteerd.";
+        if ($failedRowsCount > 0) {
+            $body .= ' ' . __('admin-import.' . ($failedRowsCount === 1 ? 'failed_row_singular' : 'failed_row_plural'), ['count' => $failedRowsCount]);
         }
 
         return $body;
     }
-
 }

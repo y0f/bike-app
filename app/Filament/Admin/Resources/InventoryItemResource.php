@@ -16,16 +16,6 @@ class InventoryItemResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-cog-8-tooth';
 
-    protected static ?string $navigationLabel = 'Onderdelen';
-
-    protected static ?string $title = 'Onderdeel';
-
-    protected static ?string $slug = 'onderdelen';
-
-    protected static ?string $label = 'Onderdeel';
-
-    protected static ?string $pluralModelLabel = 'Inventaris';
-
     protected static ?int $navigationSort = 4;
 
     public static function form(Form $form): Form
@@ -72,7 +62,7 @@ class InventoryItemResource extends Resource
                 // TODO: Add import with csv, xlsx
                 // TODO: Add transaction model
                 Tables\Columns\TextColumn::make('servicePoint.name')
-                    ->label(__('filament.service_points'))
+                    ->label(__('filament.service_points.plural_label'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('name')
                     ->label(__('filament.name'))
@@ -123,5 +113,35 @@ class InventoryItemResource extends Resource
             'create' => Pages\CreateInventoryItem::route('/create'),
             'edit' => Pages\EditInventoryItem::route('/{record}/edit'),
         ];
+    }
+
+    public static function getLabel(): string
+    {
+        return __('filament.inventory_items.label');
+    }
+
+    public static function getPluralLabel(): string
+    {
+        return __('filament.inventory_items.plural_label');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('filament.inventory_items.navigation_label');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('filament.inventory_items.navigation_group');
+    }
+
+    public static function getTitle(): string
+    {
+        return __('filament.inventory_items.title');
+    }
+
+    public static function getSlug(): string
+    {
+        return __('filament.inventory_items.slug');
     }
 }

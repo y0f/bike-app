@@ -8,26 +8,37 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Support\Colors\Color;
 use Filament\Support\Enums\FontWeight;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Support\Htmlable;
 use Filament\Resources\RelationManagers\RelationManager;
 
 class NotesRelationManager extends RelationManager
 {
     protected static string $relationship = 'notes';
 
-    protected static ?string $label = 'notitie';
-
-    protected static ?string $pluralLabel = 'notitie';
-
-    protected static ?string $title = 'Notities';
-
     protected static ?string $icon = 'heroicon-o-computer-desktop';
+
+    public function getLabel(): ?string
+    {
+        return __('notes.label');
+    }
+
+    public function getPluralLabel(): ?string
+    {
+        return __('notes.plural_label');
+    }
+
+      public static function getTitle(Model $ownerRecord, string $pageClass): string
+    {
+        return __('notes.title');
+    }
 
     public function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\RichEditor::make('body')
-                    ->label('')
+                    ->label(__('notes.body'))
                     ->required()
                     ->maxLength(255)
                     ->columnSpanFull(),
@@ -37,16 +48,17 @@ class NotesRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
-            ->recordTitleAttribute('')
+            ->recordTitleAttribute(__('notes.body'))
             ->columns([
                 Tables\Columns\Layout\Split::make([
                     Tables\Columns\Layout\Stack::make([
                         Tables\Columns\TextColumn::make('created_at')
+                            ->label(__('notes.created_at'))
                             ->date('d-m-Y | h:i')
                             ->color(Color::Orange),
                         Tables\Columns\TextColumn::make('body')
+                            ->label(__('notes.body'))
                             ->formatStateUsing(fn ($state) => strip_tags($state))
-                            // ->bulleted()
                             ->weight(FontWeight::SemiBold),
                     ])->space(1),
                 ])
@@ -55,11 +67,11 @@ class NotesRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                 Tables\Actions\CreateAction::make(),
+                Tables\Actions\CreateAction::make()->label(__('notes.actions.create')),
             ])
             ->actions([
-                 Tables\Actions\ViewAction::make(),
-                 Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ViewAction::make()->label(__('notes.actions.view')),
+                Tables\Actions\DeleteAction::make()->label(__('notes.actions.delete')),
             ])
             ->bulkActions([
                 // Tables\Actions\BulkActionGroup::make([
@@ -68,3 +80,5 @@ class NotesRelationManager extends RelationManager
             ]);
     }
 }
+
+  

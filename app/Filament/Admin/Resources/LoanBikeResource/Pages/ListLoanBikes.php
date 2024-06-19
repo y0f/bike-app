@@ -22,26 +22,25 @@ class ListLoanBikes extends ListRecords
 
         $actions = [
             Actions\CreateAction::make()
+                ->label(__('filament.loan_bikes.create'))
                 ->color('primary')
-                ->icon('icon-bike'),
+                ->icon(__('filament.loan_bikes.create_icon')),
         ];
 
-        // Check if the user is an admin, and then add the import action
+        // Check if the user is an admin, and then add the import and export actions
         if ((string)$user->role_id === UserRoles::Admin->value) {
             $actions[] = ImportAction::make()
-                ->label('Leenmiddelen importeren')
+                ->label(__('filament.loan_bikes.import'))
                 ->color('primary')
-                ->icon('heroicon-o-arrow-down-on-square-stack')
+                ->icon(__('filament.loan_bikes.import_icon'))
                 ->importer(LoanBikeImporter::class);
 
-            $actions[] =  ExportAction::make()
-                ->label('Leenmiddelen exporteren')
+            $actions[] = ExportAction::make()
+                ->label(__('filament.loan_bikes.export'))
                 ->color('primary')
-                ->icon('heroicon-o-clipboard-document-list')
+                ->icon(__('filament.loan_bikes.export_icon'))
                 ->exporter(LoanBikeExporter::class);
         }
-
-
 
         return $actions;
     }

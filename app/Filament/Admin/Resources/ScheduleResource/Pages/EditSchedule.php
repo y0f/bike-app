@@ -16,7 +16,8 @@ class EditSchedule extends EditRecord
             Actions\DeleteAction::make()
             ->outlined()
             ->icon('heroicon-o-trash'),
-            Actions\Action::make('Resetten')
+            Actions\Action::make('Reset')
+            ->label(__('filament.reset'))
             ->outlined()
             ->icon('heroicon-o-arrow-path')
             ->action(fn () => $this->fillForm())

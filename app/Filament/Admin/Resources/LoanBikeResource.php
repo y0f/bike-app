@@ -18,16 +18,6 @@ class LoanBikeResource extends Resource
 
     protected static ?string $navigationIcon = 'icon-loan-bike';
 
-    protected static ?string $navigationLabel = 'Leenmiddelen';
-
-    protected static ?string $title = 'Leenmiddelen';
-
-    protected static ?string $slug = 'leenmiddelen';
-
-    protected static ?string $label = 'leenmiddel';
-
-    protected static ?string $pluralModelLabel = 'Leenmiddelen';
-
     protected static ?int $navigationSort = 4;
 
     public static function form(Form $form): Form
@@ -36,7 +26,7 @@ class LoanBikeResource extends Resource
             ->schema([
                 Forms\Components\Select::make('service_point_id')
                     ->relationship('servicePoint', 'name')
-                    ->label(__('filament.service_points'))
+                    ->label(__('filament.service_points.plural_label'))
                     ->required(),
                 Forms\Components\Select::make('status')
                     ->label(__('filament.status'))
@@ -82,7 +72,7 @@ class LoanBikeResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('servicePoint.name')
-                    ->label(__('filament.service_points'))
+                    ->label(__('filament.service_points.plural_label'))
                     ->sortable(),
                 Tables\Columns\TextColumn::make('status')
                     ->label(__('filament.status'))
@@ -149,5 +139,35 @@ class LoanBikeResource extends Resource
             'create' => Pages\CreateLoanBike::route('/create'),
             'edit' => Pages\EditLoanBike::route('/{record}/edit'),
         ];
+    }
+
+    public static function getLabel(): string
+    {
+        return __('filament.loan_bikes.label');
+    }
+
+    public static function getPluralLabel(): string
+    {
+        return __('filament.loan_bikes.plural_label');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('filament.loan_bikes.navigation_label');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('filament.loan_bikes.navigation_group');
+    }
+
+    public static function getTitle(): string
+    {
+        return __('filament.loan_bikes.title');
+    }
+
+    public static function getSlug(): string
+    {
+        return __('filament.loan_bikes.slug');
     }
 }

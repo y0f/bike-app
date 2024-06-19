@@ -16,12 +16,6 @@ class ServicePointResource extends Resource
 
     protected static ?string $navigationIcon = 'icon-service-point';
 
-    protected static ?string $navigationLabel = 'Servicepunten';
-
-    protected static ?string $label = 'Servicepunt';
-
-    protected static ?string $pluralModelLabel = 'Servicepunten';
-
     protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
@@ -141,5 +135,25 @@ class ServicePointResource extends Resource
             'create' => Pages\CreateServicePoint::route('/create'),
             'edit' => Pages\EditServicePoint::route('/{record}/edit'),
         ];
+    }
+
+    public static function getLabel(): string
+    {
+        return __('filament.service_points.label');
+    }
+
+    public static function getPluralLabel(): string
+    {
+        return __('filament.service_points.plural_label');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('filament.service_points.navigation_label');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('filament.service_points.navigation_group');
     }
 }
