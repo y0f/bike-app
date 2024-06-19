@@ -19,16 +19,34 @@ A hobby project built to get comfortable with [Filament](https://filamentphp.com
    ```
    
 2. Install dependencies:
-   ```bash
-   composer install
-   npm install && npm run build
-   ```
+    ```bash
+    composer install
+    npm install # or yarn or bun install
+    ```
 
-3. Setup environment:
+3. **Setup environment variables:**
+
     ```bash
     cp .env.example .env
     php artisan key:generate
     ```
+
+    Update the `.env` file with your database credentials and other necessary settings.
+
+4. **Run database migrations and seeders:**
+
+    ```bash
+    php artisan migrate --seed
+    ```
+
+5. **Start the development server:**
+
+    ```bash
+    php artisan serve
+    ```
+
+    This will start a development server at `http://localhost:8000`.
+
 
 ## Key Dependencies
 
