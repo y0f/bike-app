@@ -4,10 +4,6 @@ A hobby project built to get comfortable with [Filament](https://filamentphp.com
 
 - NOTE: ***This project is not production ready, and I use it for testing plugins and new features***
 
-![Admin Panel](https://github.com/y0f/laravel-filament-bike-repair-app/assets/70378641/31a1c661-5d8f-4d95-834d-7b7fd8bdabe8)
-
-![Mechanic Panel](https://github.com/minuut/laravel-filament-bike-repair-app/assets/70378641/dac03529-4d18-4cb3-b529-c0e7fc8492ee)
-
 ## Features
 
 - **Admin Panel:** Manage companies and service points.
