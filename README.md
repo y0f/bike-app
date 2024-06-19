@@ -3,6 +3,8 @@
 A hobby project built to get comfortable with [Filament](https://filamentphp.com). This multi-panel bike repair management app supports multi-tenancy, allowing employees to work across multiple locations. It features an Admin Panel for managing companies and service points, and a Mechanic Panel for handling assets and schedules.
 I have added translationfiles for the admin panel (EN/NL), and I might add them for the mechanic panel at a later time.
 
+- NOTE: ***This project is not production ready, and I use it for testing plugins and new features***
+
 ![Admin Panel](https://github.com/y0f/laravel-filament-bike-repair-app/assets/70378641/31a1c661-5d8f-4d95-834d-7b7fd8bdabe8)
 
 ![Mechanic Panel](https://github.com/minuut/laravel-filament-bike-repair-app/assets/70378641/dac03529-4d18-4cb3-b529-c0e7fc8492ee)
@@ -42,10 +44,6 @@ I have added translationfiles for the admin panel (EN/NL), and I might add them 
 ## License
 
 This project is licensed under the MIT License.
-
-## Disclaimer
-
-This README is a work in progress and will be updated as the project evolves.
 
 
 
