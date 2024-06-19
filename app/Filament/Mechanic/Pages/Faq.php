@@ -41,3 +41,4 @@ class Faq extends Page
         return false;
     }
 }
+

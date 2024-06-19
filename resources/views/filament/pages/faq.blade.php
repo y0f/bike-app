@@ -1,7 +1,6 @@
 <x-filament-panels::page>
-
     <div class="p-4">
-        <h2 class="text-3xl font-bold mb-8 p-4">Veelgestelde vragen</h2>
+        <h2 class="text-3xl font-bold mb-8 p-4">{{ __('faq.heading') }}</h2>
 
         @foreach ($faqTitles as $index => $title)
             <div x-data="{ openFaq: @entangle('openFaq') }">
@@ -24,6 +23,4 @@
             </div>
         @endforeach
     </div>
-
 </x-filament-panels::page>
-
