@@ -13,8 +13,8 @@ enum LoanBikeStatus: string implements HasLabel, HasColor
     public function getLabel(): ?string
     {
         return match ($this) {
-            self::Available    => 'Beschikbaar',
-            self::RentedOut    => 'Uitgeleend',
+            self::Available    => __('loan_bike_status.available'),
+            self::RentedOut    => __('loan_bike_status.rented_out'),
         };
     }
 

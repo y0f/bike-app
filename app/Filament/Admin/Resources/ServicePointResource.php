@@ -24,20 +24,20 @@ class ServicePointResource extends Resource
             ->schema([
                 Forms\Components\Section::make([
                     Forms\Components\TextInput::make('name')
-                        ->label(__('filament.name'))
+                        ->label(__('filament.service_points.name'))
                         ->prefixIcon('heroicon-o-cog-6-tooth')
                         ->prefixIconColor('primary')
                         ->hintIcon('heroicon-o-question-mark-circle')
                         ->hintColor('primary')
-                        ->hintIconTooltip(__('filament.name_hint'))
-                        ->placeholder('Repairstation Rosmalen')
+                        ->hintIconTooltip(__('filament.service_points.name_hint'))
+                        ->placeholder('Repair Station Rosmalen')
                         ->required()
                         ->unique()
                         ->maxLength(255),
                     Forms\Components\TextInput::make('phone')
                         ->prefixIcon('heroicon-o-phone')
                         ->prefixIconColor('primary')
-                        ->label(__('filament.phone'))
+                        ->label(__('filament.service_points.phone'))
                         ->placeholder('062233445566')
                         ->tel()
                         ->required()
@@ -47,8 +47,8 @@ class ServicePointResource extends Resource
                         ->prefixIconColor('primary')
                         ->hintIcon('heroicon-o-question-mark-circle')
                         ->hintColor('primary')
-                        ->hintIconTooltip(__('filament.address_hint'))
-                        ->label(__('filament.address'))
+                        ->hintIconTooltip(__('filament.service_points.address_hint'))
+                        ->label(__('filament.service_points.address'))
                         ->placeholder('Pieterburglaan 12')
                         ->unique()
                         ->required()
@@ -57,41 +57,40 @@ class ServicePointResource extends Resource
                         ->placeholder('5555AA')
                         ->prefixIcon('heroicon-o-paper-airplane')
                         ->prefixIconColor('primary')
-                        ->label(__('filament.zip'))
+                        ->label(__('filament.service_points.zip'))
                         ->required()
                         ->maxLength(255),
                 ])
                     ->icon('heroicon-o-wrench-screwdriver')
-                    ->description(__('filament.service_point_description'))
+                    ->description(__('filament.service_points.service_point_description'))
                     ->iconColor('primary')
                     ->columns(2)
             ]);
     }
-
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->label(__('filament.name'))
+                    ->label(__('filament.service_points.name'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('address')
-                    ->label(__('filament.address'))
+                    ->label(__('filament.service_points.address'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('zip')
-                    ->label(__('filament.zip'))
+                    ->label(__('filament.service_points.zip'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('phone')
-                    ->label(__('filament.phone'))
+                    ->label(__('filament.service_points.phone'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label(__('filament.created_at'))
+                    ->label(__('filament.service_points.created_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->label(__('filament.updated_at'))
+                    ->label(__('filament.service_points.updated_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -110,10 +109,10 @@ class ServicePointResource extends Resource
                     }),
             ])
             ->bulkActions([
-            Tables\Actions\BulkActionGroup::make([
+                Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
-            ]),
-        ]);
+                ]),
+            ]);
     }
 
     public static function getNavigationBadge(): ?string

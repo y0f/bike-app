@@ -31,8 +31,8 @@ class ScheduleResource extends Resource
 
         return $form
             ->schema([
-                Forms\Components\Section::make(__('filament.mechanic_schedule'))
-                    ->description(__('filament.mechanic_schedule_description'))
+                Forms\Components\Section::make(__('filament.schedules.label'))
+                    ->description(__('filament.schedules.description'))
                     ->schema([
                         Forms\Components\Select::make('service_point_id')
                             ->prefixIcon('icon-service-point')
@@ -48,7 +48,7 @@ class ScheduleResource extends Resource
                             ->prefixIcon('heroicon-o-cog')
                             ->prefixIconColor('primary')
                             ->native(false)
-                            ->label(__('filament.mechanic'))
+                            ->label(__('filament.schedules.mechanic'))
                             ->options(function (Get $get) use ($mechanic): array|Collection {
                                 return ServicePoint::find($get('service_point_id'))
                                     ?->users()
@@ -61,12 +61,12 @@ class ScheduleResource extends Resource
                         Forms\Components\Select::make('day_of_the_week')
                             ->prefixIcon('icon-day')
                             ->prefixIconColor('primary')
-                            ->label(__('filament.day_of_the_week'))
+                            ->label(__('filament.schedules.day_of_the_week'))
                             ->options(DaysOfTheWeek::class)
                             ->native(false)
                             ->required(),
                         Forms\Components\Repeater::make('slots')
-                            ->label(__('filament.time_slots'))
+                            ->label(__('filament.schedules.time_slots'))
                             ->relationship()
                             ->schema([
                                 Forms\Components\TimePicker::make('start')
@@ -97,27 +97,27 @@ class ScheduleResource extends Resource
             )
             ->columns([
                 Tables\Columns\TextColumn::make('date')
-                    ->label(__('filament.date'))
+                    ->label(__('filament.schedules.date'))
                     ->date()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('owner.name')
-                    ->label(__('filament.mechanic'))
+                    ->label(__('filament.schedules.mechanic'))
                     ->sortable(),
                 Tables\Columns\TextColumn::make('slots')
-                    ->label(__('filament.slots'))
+                    ->label(__('filament.schedules.slots'))
                     ->badge()
                     ->formatStateUsing(fn (Slot $state) => $state->start->format('H:i') . ' - ' . $state->end->format('H:i')),
                 Tables\Columns\TextColumn::make('day_of_the_week')
-                    ->label(__('filament.workday'))
+                    ->label(__('filament.schedules.workday'))
                     ->badge(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label(__('filament.created_at'))
+                    ->label(__('filament.schedules.created_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->label(__('filament.updated_at'))
+                    ->label(__('filament.schedules.updated_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -136,7 +136,6 @@ class ScheduleResource extends Resource
                 ]),
             ]);
     }
-
 
     public static function getRelations(): array
     {

@@ -29,20 +29,20 @@ class UserResource extends Resource
                 Forms\Components\Group::make([
                     Forms\Components\Section::make([
                         Forms\Components\TextInput::make('name')
-                            ->label(__('filament.name'))
+                            ->label(__('filament.users.name'))
                             ->required()
                             ->maxLength(255),
                         Forms\Components\TextInput::make('phone')
-                            ->label(__('filament.phone'))
+                            ->label(__('filament.users.phone'))
                             ->tel()
                             ->maxLength(255),
                         Forms\Components\TextInput::make('email')
-                            ->label(__('filament.email'))
+                            ->label(__('filament.users.email'))
                             ->email()
                             ->required()
                             ->maxLength(255),
                         Forms\Components\TextInput::make('password')
-                            ->label(__('filament.password'))
+                            ->label(__('filament.users.password'))
                             ->password()
                             ->dehydrateStateUsing(fn ($state) => Hash::make($state))
                             ->dehydrated(fn ($state) => filled($state))
@@ -50,7 +50,7 @@ class UserResource extends Resource
                             ->hidden(fn ($livewire) => $livewire instanceof ViewUser)
                             ->maxLength(255),
                     ])
-                        ->description(__('filament.basic_info'))
+                        ->description(__('filament.users.basic_info'))
                         ->icon('heroicon-o-users')
                         ->columns(2),
                     Forms\Components\Section::make([
@@ -65,13 +65,13 @@ class UserResource extends Resource
                             ->hintColor('primary')
                             ->hintIconTooltip(__('filament.service_points_hint')),
                     ])
-                        ->description(__('filament.branches'))
+                        ->description(__('filament.users.branches'))
                         ->icon('heroicon-o-map-pin')
                 ]),
                 Forms\Components\Group::make([
                     Forms\Components\Section::make([
                         ToggleButtons::make('role_id')
-                            ->label(__('filament.role'))
+                            ->label(__('filament.users.role'))
                             ->inline()
                             ->options(UserRoles::class)
                             ->colors([
@@ -90,17 +90,17 @@ class UserResource extends Resource
                             ->extraAttributes(['class' => 'p-2']),
                     ])
                         ->columns(1)
-                        ->description(__('filament.user_rights'))
+                        ->description(__('filament.users.user_rights'))
                         ->icon('heroicon-o-user-circle'),
                     Forms\Components\Section::make([
                         Forms\Components\FileUpload::make('avatar_url')
-                            ->label(__('filament.avatar'))
+                            ->label(__('filament.users.avatar'))
                             ->image()
                             ->imageEditor()
                             ->imageEditorMode(2),
                     ])
                         ->columns(1)
-                        ->description(__('filament.profile_photo'))
+                        ->description(__('filament.users.profile_photo'))
                         ->icon('heroicon-o-camera'),
                 ]),
             ]);
@@ -111,22 +111,22 @@ class UserResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\ImageColumn::make('avatar_url')
-                    ->label(__('filament.avatar'))
+                    ->label(__('filament.users.avatar'))
                     ->circular(),
                 Tables\Columns\TextColumn::make('name')
-                    ->label(__('filament.name'))
+                    ->label(__('filament.users.name'))
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('phone')
-                    ->label(__('filament.phone'))
+                    ->label(__('filament.users.phone'))
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('email')
-                    ->label(__('filament.email'))
+                    ->label(__('filament.users.email'))
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('role_id')
-                    ->label(__('filament.role'))
+                    ->label(__('filament.users.role'))
                     ->badge()
                     ->sortable()
                     ->formatStateUsing(function (string $state): string {
@@ -139,12 +139,12 @@ class UserResource extends Resource
                     ->badge()
                     ->color('undefined'),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label(__('filament.created_at'))
+                    ->label(__('filament.users.created_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->label(__('filament.updated_at'))
+                    ->label(__('filament.users.updated_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -220,6 +220,6 @@ class UserResource extends Resource
 
     public static function getSlug(): string
     {
-        return __('filament.user.slug');
+        return __('filament.users.slug');
     }
 }

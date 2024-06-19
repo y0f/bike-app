@@ -26,82 +26,81 @@ class LoanBikeResource extends Resource
             ->schema([
                 Forms\Components\Select::make('service_point_id')
                     ->relationship('servicePoint', 'name')
-                    ->label(__('filament.service_points.plural_label'))
+                    ->label(__('filament.service_points.label'))
                     ->required(),
                 Forms\Components\Select::make('status')
-                    ->label(__('filament.status'))
+                    ->label(__('filament.loan_bikes.status'))
                     ->required()
                     ->native(false)
                     ->options(LoanBikeStatus::class)
                     ->default('available'),
                 Forms\Components\TextInput::make('identifier')
-                    ->label(__('filament.identifier'))
+                    ->label(__('filament.loan_bikes.identifier'))
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('brand')
-                    ->label(__('filament.brand'))
+                    ->label(__('filament.loan_bikes.brand'))
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('model')
-                    ->label(__('filament.model'))
+                    ->label(__('filament.loan_bikes.model'))
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Select::make('type')
-                    ->label(__('filament.type'))
+                    ->label(__('filament.loan_bikes.type'))
                     ->native(false)
                     ->options(BikeType::class)
                     ->required()
                     ->searchable(),
                 Forms\Components\FileUpload::make('image')
-                    ->label(__('filament.image'))
+                    ->label(__('filament.loan_bikes.image'))
                     ->image(),
                 Forms\Components\TextInput::make('color')
-                    ->label(__('filament.color'))
+                    ->label(__('filament.loan_bikes.color'))
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Textarea::make('specifications')
-                    ->label(__('filament.specifications'))
+                    ->label(__('filament.loan_bikes.specifications'))
                     ->maxLength(65535)
                     ->columnSpanFull(),
             ]);
     }
-
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('servicePoint.name')
-                    ->label(__('filament.service_points.plural_label'))
+                    ->label(__('filament.service_points.label'))
                     ->sortable(),
                 Tables\Columns\TextColumn::make('status')
-                    ->label(__('filament.status'))
+                    ->label(__('filament.loan_bikes.status'))
                     ->badge()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('identifier')
-                    ->label(__('filament.identifier'))
+                    ->label(__('filament.loan_bikes.identifier'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('brand')
-                    ->label(__('filament.brand'))
+                    ->label(__('filament.loan_bikes.brand'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('model')
-                    ->label(__('filament.model'))
+                    ->label(__('filament.loan_bikes.model'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('type')
-                    ->label(__('filament.type'))
+                    ->label(__('filament.loan_bikes.type'))
                     ->badge()
                     ->color('primary')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('color')
-                    ->label(__('filament.color'))
+                    ->label(__('filament.loan_bikes.color'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label(__('filament.created_at'))
+                    ->label(__('filament.loan_bikes.created_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->label(__('filament.updated_at'))
+                    ->label(__('filament.loan_bikes.updated_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -118,7 +117,6 @@ class LoanBikeResource extends Resource
                 ]),
             ]);
     }
-
 
     public static function getRelations(): array
     {

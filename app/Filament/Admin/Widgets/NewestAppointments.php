@@ -33,18 +33,18 @@ class NewestAppointments extends BaseWidget
                 ->searchable()
                 ->toggleable(isToggledHiddenByDefault: true),
             Tables\Columns\TextColumn::make('status')
-                ->label(__('filament.status'))
+                ->label(__('filament.appointments.status'))
                 ->sortable()
                 ->searchable()
                 ->badge(),
             Tables\Columns\TextColumn::make('customerBike.identifier')
-                ->label(__('filament.customerBike.identifier'))
+                ->label(__('filament.appointments.customer_bike_identifier'))
                 ->numeric()
                 ->searchable()
                 ->limit(12)
                 ->sortable(),
             Tables\Columns\TextColumn::make('mechanic.name')
-                ->label(__('filament.mechanic'))
+                ->label(__('filament.appointments.mechanic_id'))
                 ->searchable()
                 ->sortable(),
             Tables\Columns\TextColumn::make('date')
@@ -58,7 +58,7 @@ class NewestAppointments extends BaseWidget
                 ->badge(),
             Tables\Columns\TextColumn::make('loanBike.identifier')
                 ->placeholder(new HtmlString(view('heroicons.false')->render()))
-                ->label(__('filament.loanBike.identifier')),
+                ->label(__('filament.appointments.loan_bike_identifier')),
             Tables\Columns\TextColumn::make('created_at')
                 ->label(__('filament.created_at'))
                 ->dateTime()

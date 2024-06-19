@@ -30,7 +30,7 @@ class ListInventoryItems extends ListRecords
         $servicePointIds = InventoryItem::distinct('service_point_id')->pluck('service_point_id');
 
         $tabs = [
-            'Alle onderdelen' => Tab::make()->badge(InventoryItem::query()->count()),
+            __('filament.inventory_items.all_parts') => Tab::make()->badge(InventoryItem::query()->count()),
         ];
 
         foreach ($servicePointIds as $servicePointId) {

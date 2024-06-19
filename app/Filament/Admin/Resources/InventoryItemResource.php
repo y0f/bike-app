@@ -23,32 +23,32 @@ class InventoryItemResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Select::make('service_point_id')
-                    ->label(__('filament.service_point_location'))
+                    ->label(__('filament.inventory_items.service_point_location'))
                     ->relationship('servicePoint', 'name')
                     ->required(),
                 Forms\Components\TextInput::make('name')
-                    ->label(__('filament.name'))
+                    ->label(__('filament.inventory_items.name'))
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('brand')
-                    ->label(__('filament.brand'))
+                    ->label(__('filament.inventory_items.brand'))
                     ->maxLength(255),
                 Forms\Components\TextInput::make('type')
-                    ->label(__('filament.type'))
+                    ->label(__('filament.inventory_items.type'))
                     ->maxLength(255),
                 Forms\Components\TextInput::make('stock')
-                    ->label(__('filament.stock'))
+                    ->label(__('filament.inventory_items.stock'))
                     ->required()
                     ->numeric()
                     ->default(0),
                 Forms\Components\TextInput::make('price')
-                    ->label(__('filament.price'))
+                    ->label(__('filament.inventory_items.price'))
                     ->required()
                     ->numeric()
                     ->default(0.00)
                     ->prefix('€'),
                 Forms\Components\TextInput::make('low_stock_threshold')
-                    ->label(__('filament.low_stock_threshold'))
+                    ->label(__('filament.inventory_items.low_stock_threshold'))
                     ->required()
                     ->numeric()
                     ->default(10),
@@ -62,27 +62,27 @@ class InventoryItemResource extends Resource
                 // TODO: Add import with csv, xlsx
                 // TODO: Add transaction model
                 Tables\Columns\TextColumn::make('servicePoint.name')
-                    ->label(__('filament.service_points.plural_label'))
+                    ->label(__('filament.inventory_items.service_point_location'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('name')
-                    ->label(__('filament.name'))
+                    ->label(__('filament.inventory_items.name'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('brand')
-                    ->label(__('filament.brand'))
+                    ->label(__('filament.inventory_items.brand'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('type')
-                    ->label(__('filament.type'))
+                    ->label(__('filament.inventory_items.type'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('stock')
-                    ->label(__('filament.stock'))
+                    ->label(__('filament.inventory_items.stock'))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('price')
-                    ->label(__('filament.price_per_unit'))
+                    ->label(__('filament.inventory_items.price_per_unit'))
                     ->money('EUR')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('low_stock_threshold')
-                    ->label(__('filament.low_stock_threshold'))
+                    ->label(__('filament.inventory_items.low_stock_threshold'))
                     ->numeric()
                     ->sortable(),
             ])
