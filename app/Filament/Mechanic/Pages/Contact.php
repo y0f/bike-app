@@ -47,7 +47,7 @@ class Contact extends Page implements HasForms, HasTable, HasInfolists
             ->query(ServicePoint::query()->where('id', $this->tenant->id))
             ->columns([
                     TextColumn::make('name')
-                        ->label('Naam')
+                        ->label(__('filament.name'))
                         ->icon('icon-service-point')
                         ->iconColor('primary')
                         ->weight(FontWeight::Bold),
@@ -64,7 +64,7 @@ class Contact extends Page implements HasForms, HasTable, HasInfolists
                         })
                         ->weight(FontWeight::Bold),
                     TextColumn::make('phone')
-                        ->label('Telefoonnummer')
+                        ->label(__('filament.phone'))
                         ->icon('heroicon-o-phone')
                         ->iconColor('primary')
                         ->weight(FontWeight::Bold),
