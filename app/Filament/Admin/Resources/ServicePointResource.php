@@ -7,7 +7,11 @@ use Filament\Tables;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use App\Models\ServicePoint;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
+use Filament\Infolists\Components\Section;
+use Filament\Resources\Pages\CreateRecord;
+use Filament\Infolists\Components\TextEntry;
 use App\Filament\Admin\Resources\ServicePointResource\Pages;
 use App\Filament\Admin\Resources\ServicePointResource\RelationManagers\LoanBikesRelationManager;
 use App\Filament\Admin\Resources\ServicePointResource\RelationManagers\MechanicsRelationManager;
@@ -65,7 +69,7 @@ class ServicePointResource extends Resource
                         ->maxLength(255),
                 ])
                     ->icon('heroicon-o-wrench-screwdriver')
-                    ->description(__('filament.service_points.service_point_description'))
+                    ->description(fn($livewire) => $livewire instanceof \App\Filament\Admin\Resources\ServicePointResource\Pages\CreateServicePoint ? __('filament.service_points.service_point_description') : '' )
                     ->iconColor('primary')
                     ->columns(2)
             ]);
@@ -118,6 +122,40 @@ class ServicePointResource extends Resource
                 ]),
             ]);
     }
+
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                Section::make([
+                    TextEntry::make('name')
+                        ->label(__('filament.service_points.name'))
+                        ->icon('heroicon-o-cog-6-tooth')
+                        ->iconColor('primary')
+                        ->placeholder('Repair Station Rosmalen'),
+                    TextEntry::make('phone')
+                        ->label(__('filament.service_points.phone'))
+                        ->icon('heroicon-o-phone')
+                        ->iconColor('primary')
+                        ->placeholder('062233445566'),
+                    TextEntry::make('address')
+                        ->label(__('filament.service_points.address'))
+                        ->icon('heroicon-o-map-pin')
+                        ->iconColor('primary')
+                        ->placeholder('Pieterburglaan 12'),
+                    TextEntry::make('zip')
+                        ->label(__('filament.service_points.zip'))
+                        ->icon('heroicon-o-paper-airplane')
+                        ->iconColor('primary')
+                        ->placeholder('5555AA'),
+                ])
+                    ->icon('heroicon-o-wrench-screwdriver')
+                    ->description(__('filament.service_points.service_point_description'))
+                    ->iconColor('primary')
+                    ->columns(2),
+            ]);
+    }
+
 
     public static function getNavigationBadge(): ?string
     {

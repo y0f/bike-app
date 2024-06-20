@@ -4,6 +4,7 @@ namespace App\Filament\Admin\Resources\ServicePointResource\RelationManagers;
 
 use Filament\Forms;
 use Filament\Tables;
+use App\Enums\UserRoles;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Facades\Filament;
@@ -41,7 +42,7 @@ class MechanicsRelationManager extends RelationManager
             ->recordTitleAttribute('name')
             // Modify base query, we only want to see mechanics here
             ->modifyQueryUsing(function (Builder $query) { 
-                return $query->where('role_id', '2'); 
+                return $query->where('role_id', UserRoles::Mechanic); 
             }) 
             ->columns([
                 Tables\Columns\TextColumn::make('name')
