@@ -48,7 +48,6 @@ A hobby project built to get comfortable with [Filament](https://filamentphp.com
 >This will start a development server at **`http://localhost:8000`**.<br/>
 > Visit **`http://localhost:8000/administratie_portaal/login`** to log into the admin panel.<br/>
 > Visit **`http://localhost:8000/mechanic/login`** to log into the mechanic panel.<br/>
-> You can change the url in the panel providers. **`app/Providers/Filament/AdminPanelProvider.php`**.<br/>
 > Dummy user credentials for each panel can be found in **`Database/Seeders/UserSeeder.php`**.<br/>
 
 
