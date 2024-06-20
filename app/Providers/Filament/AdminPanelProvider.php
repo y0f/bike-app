@@ -59,19 +59,19 @@ class AdminPanelProvider extends PanelProvider
                                ->isActiveWhen(fn (): bool => request()->routeIs('filament.admin.pages.dashboard'))
                                 ->url(fn (): string => Dashboard::getUrl()),
                         ]),
-                    NavigationGroup::make('Planning')
+                    NavigationGroup::make(__('admin-panel.schedule-resource-group'))
                         ->items([
                             ...AppointmentResource::getNavigationItems(),
                             ...ScheduleResource::getNavigationItems(),
                         ]),
-                    NavigationGroup::make('Servicebeheer')
+                    NavigationGroup::make(__('admin-panel.service-resource-group'))
                         ->items([
                             ...ServicePointResource::getNavigationItems(),
                             ...InventoryItemResource::getNavigationItems(),
                             ...CustomerBikeResource::getNavigationItems(),
                             ...LoanBikeResource::getNavigationItems(),
                         ]),
-                    NavigationGroup::make('Gebruikersbeheer')
+                    NavigationGroup::make(__('admin-panel.user-resource-group'))
                         ->items([
                             ...UserResource::getNavigationItems(),
                             ...ActivityResource::getNavigationItems(),

@@ -11,6 +11,7 @@ use Filament\Tables\Table;
 use App\Enums\LoanBikeStatus;
 use Filament\Resources\Resource;
 use App\Filament\Admin\Resources\LoanBikeResource\Pages;
+use App\Filament\Admin\Resources\ServicePointResource\RelationManagers\LoanBikesRelationManager;
 
 class LoanBikeResource extends Resource
 {
@@ -27,7 +28,9 @@ class LoanBikeResource extends Resource
                 Forms\Components\Select::make('service_point_id')
                     ->relationship('servicePoint', 'name')
                     ->label(__('filament.service_points.label'))
-                    ->required(),
+                    ->required()
+                    ->hiddenOn(LoanBikesRelationManager::class)
+                    ->disabledOn(LoanBikesRelationManager::class),
                 Forms\Components\Select::make('status')
                     ->label(__('filament.loan_bikes.status'))
                     ->required()
@@ -72,7 +75,8 @@ class LoanBikeResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('servicePoint.name')
                     ->label(__('filament.service_points.label'))
-                    ->sortable(),
+                    ->sortable()
+                    ->hiddenOn(LoanBikesRelationManager::class),
                 Tables\Columns\TextColumn::make('status')
                     ->label(__('filament.loan_bikes.status'))
                     ->badge()

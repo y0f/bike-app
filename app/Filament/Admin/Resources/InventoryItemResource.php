@@ -2,13 +2,14 @@
 
 namespace App\Filament\Admin\Resources;
 
-use App\Filament\Admin\Resources\InventoryItemResource\Pages;
-use App\Models\InventoryItem;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use App\Models\InventoryItem;
+use Filament\Resources\Resource;
+use App\Filament\Admin\Resources\InventoryItemResource\Pages;
+use App\Filament\Admin\Resources\ServicePointResource\RelationManagers\InventoryItemsRelationManager;
 
 class InventoryItemResource extends Resource
 {
@@ -25,7 +26,9 @@ class InventoryItemResource extends Resource
                 Forms\Components\Select::make('service_point_id')
                     ->label(__('filament.inventory_items.service_point_location'))
                     ->relationship('servicePoint', 'name')
-                    ->required(),
+                    ->required()
+                    ->hiddenOn(InventoryItemsRelationManager::class)
+                    ->disabledOn(InventoryItemsRelationManager::class),
                 Forms\Components\TextInput::make('name')
                     ->label(__('filament.inventory_items.name'))
                     ->required()
@@ -59,11 +62,11 @@ class InventoryItemResource extends Resource
     {
         return $table
             ->columns([
-                // TODO: Add import with csv, xlsx
                 // TODO: Add transaction model
                 Tables\Columns\TextColumn::make('servicePoint.name')
                     ->label(__('filament.inventory_items.service_point_location'))
-                    ->searchable(),
+                    ->searchable()
+                    ->hiddenOn(InventoryItemsRelationManager::class),
                 Tables\Columns\TextColumn::make('name')
                     ->label(__('filament.inventory_items.name'))
                     ->searchable(),

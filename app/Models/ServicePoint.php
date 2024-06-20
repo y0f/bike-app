@@ -48,6 +48,6 @@ class ServicePoint extends Model
 
     public function inventoryItems(): HasMany
     {
-        return $this->hasMany(LoanBike::class);
+        return $this->hasMany(InventoryItem::class);
     }
 }

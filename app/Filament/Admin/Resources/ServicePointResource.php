@@ -9,6 +9,9 @@ use Filament\Tables\Table;
 use App\Models\ServicePoint;
 use Filament\Resources\Resource;
 use App\Filament\Admin\Resources\ServicePointResource\Pages;
+use App\Filament\Admin\Resources\ServicePointResource\RelationManagers\LoanBikesRelationManager;
+use App\Filament\Admin\Resources\ServicePointResource\RelationManagers\MechanicsRelationManager;
+use App\Filament\Admin\Resources\ServicePointResource\RelationManagers\InventoryItemsRelationManager;
 
 class ServicePointResource extends Resource
 {
@@ -99,6 +102,7 @@ class ServicePointResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make()
                     ->before(function (ServicePoint $record) {
@@ -123,7 +127,9 @@ class ServicePointResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            InventoryItemsRelationManager::class,
+            LoanBikesRelationManager::class,
+            MechanicsRelationManager::class,
         ];
     }
 
@@ -133,6 +139,7 @@ class ServicePointResource extends Resource
             'index' => Pages\ListServicePoints::route('/'),
             'create' => Pages\CreateServicePoint::route('/create'),
             'edit' => Pages\EditServicePoint::route('/{record}/edit'),
+            'view' => Pages\ViewServicePoint::route('/{record}')
         ];
     }
 
