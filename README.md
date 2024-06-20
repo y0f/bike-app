@@ -6,8 +6,7 @@ A hobby project built to get comfortable with [Filament](https://filamentphp.com
 
 Admin panel:
 
-![image](https://github.com/y0f/laravel-filament-bike-repair-app/assets/70378641/f0c871fb-aeef-489d-8b12-2da6c512aa7a)
-
+![image](https://github.com/y0f/laravel-filament-bike-repair-app/assets/70378641/1088fcfd-7a7d-4a07-b3bd-e22449f70c96)
 
 ## Features
 
