@@ -5,31 +5,33 @@ namespace App\Providers\Filament;
 use Filament\Pages;
 use Filament\Panel;
 use Illuminate\View\View;
-use App\Filament\Admin\Pages\Faq;
 use Filament\PanelProvider;
-use App\Filament\Admin\Pages\Dashboard;
+use App\Filament\Admin\Pages\Faq;
 use Filament\Navigation\MenuItem;
 use Filament\Support\Colors\Color;
+use Hasnayeen\Themes\ThemesPlugin;
 use Filament\View\PanelsRenderHook;
+use App\Filament\Admin\Pages\Dashboard;
 use Filament\Navigation\NavigationItem;
-use Filament\Admin\Widgets\UserAccountWidget;
-use App\Filament\Admin\Resources\UserResource;
 use Filament\Navigation\NavigationGroup;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Navigation\NavigationBuilder;
+use Filament\Admin\Widgets\UserAccountWidget;
+use Filament\SpatieLaravelTranslatablePlugin;
+use JibayMcs\FilamentTour\FilamentTourPlugin;
+use App\Filament\Admin\Resources\UserResource;
+use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Cookie\Middleware\EncryptCookies;
 use App\Filament\Admin\Resources\ActivityResource;
 use App\Filament\Admin\Resources\LoanBikeResource;
 use App\Filament\Admin\Resources\ScheduleResource;
-use Filament\SpatieLaravelTranslatablePlugin;
 use App\Filament\Admin\Resources\AppointmentResource;
-use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Routing\Middleware\SubstituteBindings;
 use App\Filament\Admin\Resources\CustomerBikeResource;
 use App\Filament\Admin\Resources\ServicePointResource;
-use Illuminate\Cookie\Middleware\EncryptCookies;
-use App\Filament\Admin\Resources\InventoryItemResource;
-use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use App\Filament\Admin\Resources\InventoryItemResource;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -124,7 +126,8 @@ class AdminPanelProvider extends PanelProvider
             ->plugins([
                 SpatieLaravelTranslatablePlugin::make()
                     ->defaultLocales(['en', 'nl']),
-                \Hasnayeen\Themes\ThemesPlugin::make(),
+                ThemesPlugin::make(),
+                FilamentTourPlugin::make(),
             ]);
     }
 }
