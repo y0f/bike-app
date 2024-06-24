@@ -127,7 +127,7 @@ class AdminPanelProvider extends PanelProvider
                 SpatieLaravelTranslatablePlugin::make()
                     ->defaultLocales(['en', 'nl']),
                 ThemesPlugin::make(),
-                FilamentTourPlugin::make(),
+                FilamentTourPlugin::make()->enableCssSelector(),
             ]);
     }
 }
