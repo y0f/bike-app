@@ -2,7 +2,7 @@
 
 A small hobby project built to get comfortable with [Filament](https://filamentphp.com). This multi-panel bike repair management app supports multi-tenancy, allowing employees to work across multiple locations. It features an Admin Panel for managing companies and service points, and a Mechanic Panel for handling assets and schedules.
 
-- NOTE: ***This project is not production ready, and I use it for testing plugins and new features***
+- NOTE: ***This project is not production ready.***
 
 Admin panel:
 
