@@ -1,22 +1,24 @@
 # Laravel Filament Bike Repair App
 
-A small hobby project built to get comfortable with [Filament](https://filamentphp.com). This multi-panel bike repair management app supports multi-tenancy, allowing employees to work across multiple locations. It features an Admin Panel for managing companies and service points, and a Mechanic Panel for handling assets and schedules.
+This is a hobby project designed to help familiarize with [Filament](https://filamentphp.com). The application is a multi-panel bike repair management system that supports multi-tenancy, enabling employees to work across different locations. It includes an Admin Panel for managing companies and service points, and a Mechanic Panel for managing assets and schedules.
 
-- NOTE: ***This project is not production ready.***
+> **Note:** This project was created for learning purposes and is not production-ready. I initially started it to explore Filament, but after building a SaaS at work using Filament, I lost interest in continuing this personal project.
 
-Admin panel:
+Admin panel preview:
 
-![image](https://github.com/y0f/laravel-filament-bike-repair-app/assets/70378641/1088fcfd-7a7d-4a07-b3bd-e22449f70c96)
+![Admin Panel](https://github.com/y0f/laravel-filament-bike-repair-app/assets/70378641/1088fcfd-7a7d-4a07-b3bd-e22449f70c96)
 
 ## Features
 
-- **Admin Panel:** Manage companies and service points.
+- **Admin Panel:** Manage companies and service points efficiently.
 - **Mechanic Panel:** Manage personal appointments, schedules, and assets.
-- **Multi-Service Point Management:** Supports employees working across multiple locations.
+- **Multi-Service Point Management:** Allows employees to work across multiple service locations.
 
-## Installation
+## Installation Guide
 
-1. Clone the repository:
+To set up the project locally, follow these steps:
+
+1. **Clone the repository:**
    ```bash
    git clone https://github.com/y0f/laravel-filament-bike-repair-app.git
    cd laravel-filament-bike-repair-app
@@ -49,11 +51,12 @@ Admin panel:
     php artisan serve
     ```
 
->This will start a development server at **`http://localhost:8000`**.<br/>
-> Visit **`http://localhost:8000/administratie_portaal/login`** to log into the admin panel.<br/>
-> Visit **`http://localhost:8000/mechanic/login`** to log into the mechanic panel.<br/>
-> Dummy user credentials for each panel can be found in **`Database/Seeders/UserSeeder.php`**.<br/>
+The development server will start at **`http://localhost:8000`**.
 
+- **Admin Panel:** Accessible at **`http://localhost:8000/administratie_portaal/login`**.
+- **Mechanic Panel:** Accessible at **`http://localhost:8000/mechanic/login`**.
+
+Dummy user credentials for logging in to these panels are available in the **`Database/Seeders/UserSeeder.php`** file.
 
 ## Key Dependencies
 
