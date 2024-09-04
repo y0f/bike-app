@@ -2,7 +2,7 @@
 
 This is a hobby project designed to help familiarize with [Filament](https://filamentphp.com). The application is a multi-panel bike repair management system that supports multi-tenancy, enabling employees to work across different locations. It includes an Admin Panel for managing companies and service points, and a Mechanic Panel for managing assets and schedules.
 
-> **Note:** This project was created for learning purposes and is not production-ready. I initially started it to explore Filament, but after building a SaaS at work using Filament, I lost interest in continuing this personal project.
+> **Note:** This project was created for learning purposes and is not production-ready. I initially started it to explore Filament, but while building a SaaS at my job using Filament, I lost interest in continuing this personal project.
 
 Admin panel preview:
 
