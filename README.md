@@ -13,7 +13,7 @@ Admin panel preview:
 - **Admin Panel:** Manage companies and service points efficiently.
 - **Mechanic Panel:** Manage personal appointments, schedules, and assets.
 - **Multi-Service Point Management:** Allows employees to work across multiple service locations.
-- **Interactive Tour:** With the help of the [Filament Tour Manager](https://github.com/jibaymcs/filament-tour) package, interactive tours are provided to guide users through the Admin and Mechanic Panels.
+- **Interactive Tour:** With the help of the [Filament Tour Manager](https://github.com/jibaymcs/filament-tour) package, an interactive tour is provided to guide users through the Admin Panel.
 - **Custom Themes:** The app incorporates the [Hasnayeen Laravel Themes](https://github.com/hasnayeen/laravel-themes) package for dynamic theme customization.
 
 
