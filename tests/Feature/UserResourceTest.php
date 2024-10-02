@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\User;
-
 use Illuminate\Support\Facades\Storage;
 use App\Filament\Resources\UserResource;
 
