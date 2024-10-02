@@ -7,9 +7,7 @@ use Filament\Tables;
 use App\Enums\UserRoles;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
-use Filament\Facades\Filament;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Resources\RelationManagers\RelationManager;
 
 class MechanicsRelationManager extends RelationManager
@@ -41,9 +39,9 @@ class MechanicsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('name')
             // Modify base query, we only want to see mechanics here
-            ->modifyQueryUsing(function (Builder $query) { 
-                return $query->where('role_id', UserRoles::Mechanic); 
-            }) 
+            ->modifyQueryUsing(function (Builder $query) {
+                return $query->where('role_id', UserRoles::Mechanic);
+            })
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                 ->label(__('filament.users.name')),

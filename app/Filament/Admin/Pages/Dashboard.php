@@ -16,85 +16,67 @@ class Dashboard extends BasePage
         return [
             Tour::make('dashboard')
                 ->steps(
-
                     Step::make()
                         ->title("Welcome to your Dashboard!")
                         ->description(view('tutorial.dashboard.introduction')),
-
-                    Step::make('button.fi-btn.relative.grid-flow-col.items-center.justify-center.font-semibold.outline-none.transition.duration-75.focus-visible\:ring-2.rounded-lg.fi-btn-color-gray.fi-color-gray.fi-size-md.fi-btn-size-md.gap-1\.5.px-3.py-2.text-sm.hidden.sm\:inline-grid.shadow-sm.bg-white.text-gray-950.hover\:bg-gray-50.dark\:bg-white\/5.dark\:text-white.dark\:hover\:bg-white\/10.ring-1.ring-gray-950\/10.dark\:ring-white\/20 > span.fi-btn-label')
-                        ->title('CSSS SELECTOR GOT THIS')
-                        ->description('TEST')
-                        ->icon('heroicon-o-calendar')
-                        ->iconColor('primary'),
-
                     Step::make('.fi-avatar')
-                        ->title('Woaw! Here is your avatar!')
-                        ->description('You look nice!')
+                        ->title('Profile Settings')
+                        ->description('Here is your avatar. You can manage your account settings here.')
                         ->icon('heroicon-o-user-circle')
                         ->iconColor('primary'),
-
                     Step::make('.fi-wi-stats-overview-stat')
-                        ->title('A TODO Stat, test!')
-                        ->description('Test!')
-                        ->icon('heroicon-o-user-circle')
+                        ->title('View Current Statistics')
+                        ->description('Check out your completed appointments, new customers, and registered accounts for this year.')
+                        ->icon('heroicon-o-chart-bar')
                         ->iconColor('primary'),
-
                     Step::make('.fi-sidebar-nav')
-                        ->title('Here is the entire navigation!')
-                        ->description('Test!')
-                        ->icon('heroicon-o-user-circle')
+                        ->title('Navigation Menu')
+                        ->description('Use this menu to access all features of the admin dashboard.')
+                        ->icon('heroicon-o-bars-3')
                         ->iconColor('primary'),
 
                     // Specific targeting within groups
                     Step::make('.fi-sidebar-group:nth-of-type(2) li.fi-sidebar-item:nth-of-type(1) a')
                         ->title('Appointments')
-                        ->description('Manage appointments here')
+                        ->description('Manage and view all customer appointments here.')
                         ->icon('heroicon-o-calendar')
                         ->iconColor('primary'),
-
                     Step::make('.fi-sidebar-group:nth-of-type(2) li.fi-sidebar-item:nth-of-type(2) a')
                         ->title('Mechanic Schedules')
-                        ->description('Manage mechanic schedules here')
+                        ->description('View and manage mechanic schedules for efficient task distribution.')
                         ->icon('heroicon-o-clipboard')
                         ->iconColor('primary'),
-
                     Step::make('.fi-sidebar-group:nth-of-type(3) li.fi-sidebar-item:nth-of-type(1) a')
                         ->title('Service Points')
-                        ->description('Manage service points here')
-                        ->icon('heroicon-o-user-circle')
+                        ->description('Manage all service points, including various bike repair locations.')
+                        ->icon('heroicon-o-map-pin')
                         ->iconColor('primary'),
-
                     Step::make('.fi-sidebar-group:nth-of-type(3) li.fi-sidebar-item:nth-of-type(2) a')
                         ->title('Inventory Items')
-                        ->description('Manage inventory items here')
-                        ->icon('heroicon-o-user-circle')
+                        ->description('Track and manage items in your inventory, such as bike parts and accessories.')
+                        ->icon('heroicon-o-cube')
                         ->iconColor('primary'),
-
                     Step::make('.fi-sidebar-group:nth-of-type(3) li.fi-sidebar-item:nth-of-type(3) a')
                         ->title('Customer Bikes')
-                        ->description('View customer bikes here')
-                        ->icon('heroicon-o-user-circle')
+                        ->description('View and manage bikes registered by customers for repair or service.')
+                        ->icon('heroicon-o-clipboard')
                         ->iconColor('primary'),
-
                     Step::make('.fi-sidebar-group:nth-of-type(3) li.fi-sidebar-item:nth-of-type(4) a')
                         ->title('Loan Bikes')
-                        ->description('Manage loan bikes here')
-                        ->icon('heroicon-o-user-circle')
+                        ->description('Manage bikes that are available for loan while repairs are underway.')
+                        ->icon('heroicon-o-briefcase')
                         ->iconColor('primary'),
-
                     Step::make('.fi-sidebar-group:nth-of-type(4) li.fi-sidebar-item:nth-of-type(1) a')
                         ->title('Users')
-                        ->description('Manage users here')
-                        ->icon('heroicon-o-user-circle')
+                        ->description('Manage users, including admin and mechanics, on the platform.')
+                        ->icon('heroicon-o-user-group')
                         ->iconColor('primary'),
-
                     Step::make('.fi-sidebar-group:nth-of-type(4) li.fi-sidebar-item:nth-of-type(2) a')
                         ->title('Activity Log')
-                        ->description('View activity log here')
-                        ->icon('heroicon-o-user-circle')
+                        ->description('View the activity log for all actions taken in the system.')
+                        ->icon('heroicon-o-document-text')
                         ->iconColor('primary')
                 ),
         ];
     }
 }
-

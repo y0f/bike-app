@@ -10,7 +10,6 @@ use App\Models\ServicePoint;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Infolists\Components\Section;
-use Filament\Resources\Pages\CreateRecord;
 use Filament\Infolists\Components\TextEntry;
 use App\Filament\Admin\Resources\ServicePointResource\Pages;
 use App\Filament\Admin\Resources\ServicePointResource\RelationManagers\LoanBikesRelationManager;
@@ -69,7 +68,7 @@ class ServicePointResource extends Resource
                         ->maxLength(255),
                 ])
                     ->icon('heroicon-o-wrench-screwdriver')
-                    ->description(fn($livewire) => $livewire instanceof \App\Filament\Admin\Resources\ServicePointResource\Pages\CreateServicePoint ? __('filament.service_points.service_point_description') : '' )
+                    ->description(fn ($livewire) => $livewire instanceof \App\Filament\Admin\Resources\ServicePointResource\Pages\CreateServicePoint ? __('filament.service_points.service_point_description') : '')
                     ->iconColor('primary')
                     ->columns(2)
             ]);

@@ -2,12 +2,8 @@
 
 namespace App\Filament\Admin\Resources\ServicePointResource\RelationManagers;
 
-use Filament\Forms;
-use Filament\Tables;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Admin\Resources\InventoryItemResource;
 use Filament\Resources\RelationManagers\RelationManager;
 
