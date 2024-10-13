@@ -23,8 +23,8 @@ To set up the project locally, follow these steps:
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/y0f/laravel-filament-bike-repair-app.git
-   cd laravel-filament-bike-repair-app
+   git clone https://github.com/y0f/bike-app.git
+   cd bike-app
    ```
    
 2. Install dependencies:
