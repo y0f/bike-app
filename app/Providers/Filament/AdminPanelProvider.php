@@ -16,7 +16,7 @@ use Filament\Navigation\NavigationItem;
 use Filament\Navigation\NavigationGroup;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Navigation\NavigationBuilder;
-use Filament\Admin\Widgets\UserAccountWidget;
+use App\Filament\Admin\Widgets\UsersAccountWidget;
 use Filament\SpatieLaravelTranslatablePlugin;
 use JibayMcs\FilamentTour\FilamentTourPlugin;
 use App\Filament\Admin\Resources\UserResource;
@@ -106,7 +106,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Admin/Widgets'), for: 'App\\Filament\\Admin\\Widgets')
             ->widgets([
-                UserAccountWidget::class,
+                UsersAccountWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,

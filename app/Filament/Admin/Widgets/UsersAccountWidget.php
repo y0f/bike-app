@@ -1,10 +1,10 @@
 <?php
 
-namespace Filament\Admin\Widgets;
+namespace App\Filament\Admin\Widgets;
 
 use Filament\Widgets\AccountWidget;
 
-class UserAccountWidget extends AccountWidget
+class UsersAccountWidget extends AccountWidget
 {
     protected static ?int $sort = -3;
 
