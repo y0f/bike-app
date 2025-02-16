@@ -315,7 +315,8 @@ class AppointmentResource extends Resource
         try {
             $record->loadMissing(['mechanic', 'servicePoint']);
 
-            $date = $record->date?->toDateString('D-M-Y') ?? 'N/A';
+            $date = $record->date ? $record->date->format('D-M-Y') : 'N/A';
+
             $statusLabel = $record->status instanceof AppointmentStatus
                 ? $record->status->getLabel()
                 : 'N/A';
