@@ -69,7 +69,7 @@ class AdminPanelProvider extends PanelProvider
                     NavigationGroup::make(__('admin-panel.service-resource-group'))
                         ->items([
                             ...ServicePointResource::getNavigationItems(),
-                            ...InventoryItemResource::getNavigationItems(),
+                            // Has no usage currently...InventoryItemResource::getNavigationItems(),
                             ...CustomerBikeResource::getNavigationItems(),
                             ...LoanBikeResource::getNavigationItems(),
                         ]),

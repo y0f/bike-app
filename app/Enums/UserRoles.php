@@ -9,7 +9,7 @@ use Filament\Support\Contracts\HasIcon;
 enum UserRoles: string implements HasLabel, HasColor, HasIcon
 {
     case Admin     = '1';
-    case Staff     = '4';
+    case Staff     = '4'; // Not implemented in app yet, this role would only see their own tenant data, apply global scope in models for this or resolve through policies.
     case Mechanic  = '2';
     case Customer  = '3';
 

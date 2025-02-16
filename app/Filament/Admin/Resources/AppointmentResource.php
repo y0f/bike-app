@@ -26,6 +26,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Admin\Resources\AppointmentResource\Pages;
 use App\Filament\Admin\Resources\AppointmentResource\Pages\CreateAppointment;
+use App\Filament\Admin\Resources\AppointmentResource\Actions\CancelAppointmentAction;
+use App\Filament\Admin\Resources\AppointmentResource\Actions\CompleteAppointmentAction;
 use App\Filament\Admin\Resources\AppointmentResource\RelationManagers\NotesRelationManager;
 
 class AppointmentResource extends Resource
@@ -280,45 +282,8 @@ class AppointmentResource extends Resource
             ->actions([
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\ViewAction::make(),
-
-                    Tables\Actions\Action::make(__('filament.appointments.complete'))
-                        ->action(function (Appointment $record) {
-                            $record->status = AppointmentStatus::Completed;
-                            $record->has_loan_bike = false;
-                            $record->loan_bike_id = null;
-                            $record->save();
-
-                            // Update LoanBike status to available
-                            if ($record->loanBike) {
-                                $record->loanBike->status = LoanBikeStatus::Available;
-                                $record->loanBike->save();
-                            }
-                        })
-                        ->visible(fn (Appointment $record)
-                        => $record->status !== AppointmentStatus::Completed
-                            && $record->status !== AppointmentStatus::Cancelled)
-                        ->color('success')
-                        ->icon('heroicon-o-check'),
-
-                    Tables\Actions\Action::make(__('filament.appointments.cancel'))
-                        ->action(function (Appointment $record) {
-                            $record->status = AppointmentStatus::Cancelled;
-                            $record->has_loan_bike = false;
-                            $record->loan_bike_id = null;
-                            $record->save();
-
-                            // Update LoanBike status to available
-                            if ($record->loanBike) {
-                                $record->loanBike->status = LoanBikeStatus::Available;
-                                $record->loanBike->save();
-                            }
-                        })
-                        ->visible(fn (Appointment $record)
-                        => $record->status !== AppointmentStatus::Cancelled
-                            && $record->status !== AppointmentStatus::Completed)
-                        ->color('danger')
-                        ->icon('heroicon-o-x-mark'),
-
+                    CompleteAppointmentAction::make(__('filament.complete')),
+                    CancelAppointmentAction::make(__('filament.cancel')),
                     Tables\Actions\EditAction::make()->color('warning'),
                 ])
                 ->button()
@@ -336,35 +301,34 @@ class AppointmentResource extends Resource
 
     public static function getGlobalSearchEloquentQuery(): Builder
     {
-        // Eager loading 'mechanic' and 'servicePoint' relationships
         return parent::getGlobalSearchEloquentQuery()->with(['mechanic', 'servicePoint']);
     }
 
     public static function getGlobalSearchResultDetails(Model $record): array
     {
+        if (!$record instanceof Appointment) {
+            return [
+                'error' => 'Invalid record type.',
+            ];
+        }
+
         try {
-            // Ensuring the relationships are loaded
-            $record->load('mechanic', 'servicePoint');
+            $record->loadMissing(['mechanic', 'servicePoint']);
 
-            $date = $record->date ?? 'N/A';
-            $dateString = $date->toDateString('D-M-Y');
-            $status = $record->status ?? 'N/A';
-            $statusLabel = $status->getLabel();
-
-            /** @var string $mechanicName*/
-            $mechanicName = $record->mechanic->name ?? 'N/A';
-            /** @var string $servicePointName*/
-            $servicePointName = $record->servicePoint->name ?? 'N/A';
+            $date = $record->date?->toDateString('D-M-Y') ?? 'N/A';
+            $statusLabel = $record->status instanceof AppointmentStatus
+                ? $record->status->getLabel()
+                : 'N/A';
 
             return [
-                'Mechanic'      => $mechanicName,
-                'Date'        => $dateString,
-                'Status'       => $statusLabel,
-                'Service Point'  => $servicePointName,
+                'Mechanic'       => $record->mechanic->name ?? 'N/A',
+                'Date'           => $date,
+                'Status'         => $statusLabel,
+                'Service Point'  => $record->servicePoint->name ?? 'N/A',
             ];
         } catch (\Exception $exception) {
             return [
-                'error' => "An error occurred. :(",
+                'error' => 'An error occurred while fetching details.',
             ];
         }
     }
